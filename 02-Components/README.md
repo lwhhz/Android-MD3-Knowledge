@@ -32,7 +32,7 @@
 | `swipe-to-dismiss.md` | `SwipeToDismissBox` | ⚠️ 官方无 Specs 页 |
 | `carousel.md` | `HorizontalPager` 轮播模式 | ✅ 官方原值 |
 | `side-sheet.md` | Side sheet（Modal / Docked） | ✅ 官方原值 |
-| `split-button.md` | Split button（Expressive） | ⚠️ 尺寸配对待确认 |
+| `split-button.md` | Split button（Expressive） | ✅ 五档原值 |
 | `fab-menu.md` | FAB menu（Expressive） | ⚠️ 部分尺寸待核验 |
 | `loading-indicator.md` | Loading indicator（Expressive） | ✅ 官方原值 |
 | `expressive-components.md` | `WavyProgressIndicator` / `LoadingIndicator` / `ButtonGroup` 等 | ⚠️ 状态待逐项核验 |
