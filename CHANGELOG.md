@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-11-15 — v1.11 补完剩余 5 个组件，组件层收口
+
+**新增 5 篇（官方原值）**
+- `carousel.md`：左右 16dp / 上下 8dp / 元素间 8dp / **项圆角 28dp**（extraLarge）/ Small 项宽 40-56dp；Contained 与 Uncontained 两种布局。
+- `side-sheet.md`：**最大宽度 400dp**、左右内边距 24dp、顶部元素间距 12dp、**底部操作区 72dp（上 16 / 下 24dp 给手势条留位）**；Modal 与 Docked 两形态。
+- `split-button.md`：确认 **M3 无此组件、Expressive 新增**；官方 Anatomy 硬规则「后段必须是菜单图标」；XS 档高度 32dp。完整 token 表的值↔属性配对在扁平化文本里有歧义，明确标注需目视复核。
+- `fab-menu.md`：**只有一个变体**、三套颜色组（Primary/Secondary/Tertiary）、**关闭按钮始终 56dp**。
+- `loading-indicator.md`：与 Progress indicator 的区别（无进度概念）、Default / Contained 两配置、**形状容器 38dp / 占位 48dp**（差值就是必要边距）。
+
+**一个组件消失了**
+- **Banner 已不在当前 M3 组件目录**：`/components/banners` 与 `/components/banner` 均 404，组件索引页也无此项。已从「尚未覆盖」清单移除并注明不要再引用历史文档里的 banner。
+
+**收口**
+- `02-Components/` 现为 29 篇内容页，M3 主要组件 + Expressive 三个新增组件均有独立页面。
+- 索引页把「尚未覆盖」改为说明性小节。
+
 ## 2026-11-15 — v1.10 补 5 篇组件 + 官方示例索引 + workflow 改造
 
 **新增 5 篇**
