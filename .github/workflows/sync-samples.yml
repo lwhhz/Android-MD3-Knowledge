@@ -1,0 +1,34 @@
+name: Sync Google Compose Samples
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout knowledge base
+        uses: actions/checkout@v4
+
+      - name: Clone official sample repository
+        run: |
+          git clone --depth 1 https://github.com/android/compose-samples.git /tmp/compose-samples
+
+      - name: Replace local sample snapshot
+        run: |
+          rm -rf 04-Official-Samples/compose-samples
+          mkdir -p 04-Official-Samples
+          cp -a /tmp/compose-samples 04-Official-Samples/compose-samples
+          git -C /tmp/compose-samples rev-parse HEAD > 04-Official-Samples/compose-samples-commit.txt
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 04-Official-Samples/
+          git diff --cached --quiet || (git commit -m "Sync official Compose samples" && git push)

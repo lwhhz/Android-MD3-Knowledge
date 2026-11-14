@@ -1,0 +1,37 @@
+{
+  "_note": "Baseline 15 档数值为 M3 通行值，本次通过 headless 浏览器渲染官网仍未取到数值表（官网把令牌放在图片与折叠模块中），用于生产前请对照 token 模块或 Material Theme Builder 导出值确认。",
+  "source": "https://m3.material.io/styles/typography/type-scale-tokens",
+  "checked_on": "2026-11-14",
+  "verified": "structure_only",
+  "unit": "sp",
+  "scale_structure": {
+    "baseline_styles": 15,
+    "emphasized_styles": 15,
+    "total": 30,
+    "note": "Emphasized 用于已有字重的文字上表达层级或状态；可与 weight 同时使用；baseline 与 emphasized 可用不同字体。官方明确警告：不要为强调改字号，会影响组件渲染与重排。"
+  },
+  "language_height": {
+    "note": "行高按语言类别伸缩；官网明确要求按语言切换行高上下文。固定高度组件不会自动适配，语言行高变大时会出现文字重叠。",
+    "small": { "factor": 1.0, "languages": "西里尔、希腊、希伯来、拉丁系（越南语除外）" },
+    "medium": { "factor": 1.07, "languages": "中文、日文、韩文、阿拉伯、印地、泰、孟加拉、泰米尔、越南语等大多数语言" },
+    "large": { "factor": 1.3, "languages": "缅甸语、泰卢固语" },
+    "extraLarge": { "factor": 2.0, "languages": "Nastaliq" }
+  },
+  "styles": {
+    "displayLarge": { "fontSize": 57, "lineHeight": 64, "fontWeight": 400, "letterSpacing": -0.25 },
+    "displayMedium": { "fontSize": 45, "lineHeight": 52, "fontWeight": 400, "letterSpacing": 0 },
+    "displaySmall": { "fontSize": 36, "lineHeight": 44, "fontWeight": 400, "letterSpacing": 0 },
+    "headlineLarge": { "fontSize": 32, "lineHeight": 40, "fontWeight": 400, "letterSpacing": 0 },
+    "headlineMedium": { "fontSize": 28, "lineHeight": 36, "fontWeight": 400, "letterSpacing": 0 },
+    "headlineSmall": { "fontSize": 24, "lineHeight": 32, "fontWeight": 400, "letterSpacing": 0 },
+    "titleLarge": { "fontSize": 22, "lineHeight": 28, "fontWeight": 400, "letterSpacing": 0 },
+    "titleMedium": { "fontSize": 16, "lineHeight": 24, "fontWeight": 500, "letterSpacing": 0.15 },
+    "titleSmall": { "fontSize": 14, "lineHeight": 20, "fontWeight": 500, "letterSpacing": 0.1 },
+    "bodyLarge": { "fontSize": 16, "lineHeight": 24, "fontWeight": 400, "letterSpacing": 0.5 },
+    "bodyMedium": { "fontSize": 14, "lineHeight": 20, "fontWeight": 400, "letterSpacing": 0.25 },
+    "bodySmall": { "fontSize": 12, "lineHeight": 16, "fontWeight": 400, "letterSpacing": 0.4 },
+    "labelLarge": { "fontSize": 14, "lineHeight": 20, "fontWeight": 500, "letterSpacing": 0.1 },
+    "labelMedium": { "fontSize": 12, "lineHeight": 16, "fontWeight": 500, "letterSpacing": 0.5 },
+    "labelSmall": { "fontSize": 11, "lineHeight": 16, "fontWeight": 500, "letterSpacing": 0.5 }
+  }
+}

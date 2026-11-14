@@ -1,0 +1,96 @@
+knowledge_base:
+  name: Android MD3 Knowledge
+  language: zh-CN
+  platform: Android
+  design_system: Google Material Design 3
+  implementation: Jetpack Compose
+  scope: official
+  note: "个人整理知识库，不是 Google 官方发布。"
+
+sources:
+  - id: material_design
+    name: Material Design
+    url: https://m3.material.io/
+    type: design_guidelines
+    authority: primary
+    check_frequency: monthly
+    note: "站点正文为动态渲染；WebFetch 与 curl 只能拿到标题，需用 headless 浏览器 --dump-dom 渲染后提取，方法见 version-tracking.md。"
+  - id: material_blog
+    name: Material Design Blog
+    url: https://m3.material.io/blog
+    type: official_blog
+    authority: primary
+    check_frequency: monthly
+    note: "战略级变更（如 Compose-first、Expressive 转正）通常先在此发布。"
+  - id: android_design
+    name: Android Design
+    url: https://developer.android.com/design
+    type: platform_guidelines
+    authority: primary
+    check_frequency: monthly
+  - id: compose_material3
+    name: Material 3 in Compose
+    url: https://developer.android.com/develop/ui/compose/designsystems/material3
+    type: implementation_guide
+    authority: primary
+    check_frequency: weekly
+  - id: material3_api
+    name: androidx.compose.material3 API reference
+    url: https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
+    type: api_reference
+    authority: primary
+    check_frequency: weekly
+    note: "核对组件类名、参数与 experimental 注解的首选入口。"
+  - id: material3_release
+    name: Compose Material 3 release notes
+    url: https://developer.android.com/jetpack/androidx/releases/compose-material3
+    type: release_notes
+    authority: primary
+    check_frequency: weekly
+  - id: compose_bom_mapping
+    name: Compose BOM to library version mapping
+    url: https://developer.android.com/develop/ui/compose/bom/bom-mapping
+    type: version_mapping
+    authority: primary
+    check_frequency: weekly
+    note: "确定某个 BOM 对应哪个 material3 版本的唯一权威入口。"
+  - id: compose_samples
+    name: Android Compose Samples
+    url: https://github.com/android/compose-samples
+    type: sample_code
+    authority: google_maintained
+    check_frequency: weekly
+  - id: now_in_android
+    name: Now in Android
+    url: https://github.com/android/nowinandroid
+    type: sample_application
+    authority: google_maintained
+    check_frequency: weekly
+  - id: androidx_material3_source
+    name: AndroidX Material 3 source
+    url: https://github.com/androidx/androidx/tree/androidx-main/compose/material3
+    type: source_code
+    authority: androidx
+    check_frequency: weekly
+  - id: figma_kit
+    name: Official Material Figma resources
+    url: https://m3.material.io/
+    type: design_assets_entry
+    authority: primary
+    note: "从官网进入当前 Figma Kit，勿将第三方副本标为官方。"
+    check_frequency: monthly
+
+secondary_sources:
+  note: "仅用于快速定位变更情报，不作为定论依据；任何结论都必须回到 primary 来源确认。"
+  - id: jetc_dev
+    name: jetc.dev Jetpack Compose Newsletter
+    url: https://jetc.dev/
+    type: community_newsletter
+    authority: secondary_aggregator
+    check_frequency: weekly
+    use: "当官网正文无法抓取时，用于定位某周的版本号与变更点，再回官方 release notes 复核。"
+
+tracking:
+  checked_on: "2026-11-14"
+  rule: "只记录官方明确提供的版本号和状态，不猜测。次级来源必须标注为 secondary。"
+  version_snapshot: "见 00-Metadata/version-tracking.md"

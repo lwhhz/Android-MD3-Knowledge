@@ -1,0 +1,65 @@
+{
+  "_note": "不存死色值。Dynamic color 开启后同一角色在不同设备上是不同颜色，固化十六进制值会与官方主题错位。请用 Material Theme Builder 或项目 ColorScheme 导出后填入，并记录来源与导出日期。角色分组按官网 2026-11-14 原文（26 个标准角色 / 六组）核对。",
+  "source": "https://m3.material.io/styles/color/roles",
+  "checked_on": "2026-11-14",
+  "verified": "taxonomy_only",
+  "generation": {
+    "tool": "Material Theme Builder（官方）",
+    "entry": "https://m3.material.io/theme-builder",
+    "entry_note": "如入口调整，从 m3.material.io 导航进入，不要使用第三方复刻版",
+    "outputs": [
+      "Compose ColorScheme",
+      "Figma tokens",
+      "CSS variables"
+    ],
+    "steps": [
+      "1. 输入品牌种子色，选择对比度等级",
+      "2. 导出 Compose ColorScheme（含浅色与深色）",
+      "3. 粘贴到 ui/theme/Color.kt，并保留导出日期注释",
+      "4. 在此文件的 light / dark 中登记角色与值，source 填导出方式"
+    ]
+  },
+  "total_standard_roles": 26,
+  "groups": {
+    "primary": ["primary", "onPrimary", "primaryContainer", "onPrimaryContainer"],
+    "secondary": ["secondary", "onSecondary", "secondaryContainer", "onSecondaryContainer"],
+    "tertiary": ["tertiary", "onTertiary", "tertiaryContainer", "onTertiaryContainer"],
+    "error": ["error", "onError", "errorContainer", "onErrorContainer"],
+    "surface": [
+      "surface",
+      "onSurface",
+      "onSurfaceVariant",
+      "surfaceContainerLowest",
+      "surfaceContainerLow",
+      "surfaceContainer",
+      "surfaceContainerHigh",
+      "surfaceContainerHighest"
+    ],
+    "outline": ["outline", "outlineVariant"]
+  },
+  "add_on_roles": {
+    "_note": "官网明确：大多数产品不需要 add-on 角色。不确定要不要用，就是不需要。",
+    "fixed_accents": [
+      "primaryFixed", "primaryFixedDim", "onPrimaryFixed", "onPrimaryFixedVariant",
+      "secondaryFixed", "secondaryFixedDim", "onSecondaryFixed", "onSecondaryFixedVariant",
+      "tertiaryFixed", "tertiaryFixedDim", "onTertiaryFixed", "onTertiaryFixedVariant"
+    ],
+    "surface": ["surfaceDim", "surfaceBright"],
+    "inverse": ["inverseSurface", "inverseOnSurface", "inversePrimary"]
+  },
+  "functional_colors": {
+    "_note": "Compose 中有，但不属于 26 个标准角色或 add-on 分组。",
+    "items": ["scrim", "shadow"]
+  },
+  "rules": [
+    "Container 是前景元素的填充色，不能用于文字或图标",
+    "只能在官方给定的配对与层级里用色，否则用户调整对比度档位时会不可读",
+    "error 是静态色：不随 dynamic color 变化，但仍随浅色/深色主题适配",
+    "分割线与多元素组件边框用 outlineVariant，可点击目标边界用 outline",
+    "跨断点 surface 映射保持一致：正文 surface、导航 surfaceContainer",
+    "Fixed 色不随主题翻转，容易造成对比度问题，需要对比度时仍用 primary/secondary/tertiary"
+  ],
+  "deprecated_roles": ["background", "onBackground"],
+  "light": {},
+  "dark": {}
+}
