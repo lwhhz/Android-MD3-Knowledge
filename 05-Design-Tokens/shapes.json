@@ -1,0 +1,43 @@
+{
+  "_note": "M3 十档形状（官网 2026-11-15 原文：ten styles）。Compose 的 Shapes 只有五档，缺 none / 20 / 32 / 48 / full，需就地写 RoundedCornerShape。full 不是固定数值，按容器短边的一半计算。",
+  "source": "https://m3.material.io/styles/shape/corner-radius-scale",
+  "checked_on": "2026-11-15",
+  "verified": true,
+  "unit": "dp",
+  "scale_note": "M2 是 3 档（按容器尺寸）；M3 是 10 档（按圆角圆润程度）。对称与非对称形状共用同一套十档。",
+  "shapes": {
+    "none": 0,
+    "extraSmall": 4,
+    "small": 8,
+    "medium": 12,
+    "large": 16,
+    "largeIncreased": 20,
+    "extraLarge": 28,
+    "extraLargeIncreased": 32,
+    "extraExtraLarge": 48,
+    "full": "shortest-side / 2"
+  },
+  "asymmetric_variants": [
+    "extraSmallTop",
+    "largeTop",
+    "extraLargeTop",
+    "largeStart",
+    "largeEnd"
+  ],
+  "compose_mapping": {
+    "note": "Shapes 只有五个槽位，其余档位就地使用 RoundedCornerShape",
+    "available": ["extraSmall", "small", "medium", "large", "extraLarge"],
+    "missing": ["none", "largeIncreased", "extraLargeIncreased", "extraExtraLarge", "full"],
+    "rectangle": "RectangleShape",
+    "pill": "CircleShape 或 RoundedCornerShape(percent = 50)",
+    "morph_library": "MaterialShapes 是用于 shape morph 的命名形状库，与主题 Shapes 不是一回事"
+  },
+  "verified_component_defaults": {
+    "button_round": "full（全档）",
+    "button_square_expressive": { "xs": 12, "s": 12, "m": 16, "l": 28, "xl": 28 },
+    "button_pressed": { "xs": 8, "s": 8, "m": 12, "l": 16, "xl": 16 },
+    "chip": 8,
+    "dialog": 28,
+    "card": "12（通行值，未从 Specs 页确认）"
+  }
+}

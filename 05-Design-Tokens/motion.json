@@ -1,0 +1,131 @@
+{
+  "_note": "已按官网令牌表核验。当前方向是弹簧物理（motion physics）；easing + duration 系统仍用于平台转场，但官网明确「no longer maintained」。新代码优先用 spring。",
+  "source": "https://m3.material.io/styles/motion/easing-and-duration/tokens-specs",
+  "checked_on": "2026-11-14",
+  "verified": true,
+  "status": {
+    "spring": "current — M3 Expressive 引入的 motion physics 系统，正在取代 easing+duration",
+    "easing_duration": "legacy — 仍用于 transitions，且不再维护"
+  },
+  "spring": {
+    "_note": "scheme（expressive / standard）在产品层指定，不写进令牌名；同一令牌在手表/手机/平板上实际数值不同，但相对速度关系不变。Compose 与 MDC-Android 均以 spring token 提供，Compatible with Compose springs。",
+    "token_pattern": "md.sys.motion.spring.{speed}.{type}",
+    "schemes": ["expressive", "standard"],
+    "speeds": {
+      "fast": "小组件：开关、按钮",
+      "default": "大多数动效；部分覆盖屏幕的场景如底部弹层、展开的导航栏",
+      "slow": "全屏动画、全屏内容刷新"
+    },
+    "types": {
+      "spatial": "屏幕上的移动：位置 x/y、旋转、尺寸、圆角。会过冲并弹到位",
+      "effects": "颜色、透明度。不允许过冲"
+    },
+    "compose_mapping": {
+      "status": "verified",
+      "source": "AndroidX 源码 MotionScheme.kt + StandardMotionTokens.kt + ExpressiveMotionTokens.kt",
+      "note": "内置组件在 MaterialTheme / MaterialExpressiveTheme 下自动应用；仅自定义动画时需手写这些值。",
+      "values": {
+        "standard": {
+          "fastSpatial": { "dampingRatio": 0.9, "stiffness": 1400 },
+          "defaultSpatial": { "dampingRatio": 0.9, "stiffness": 700 },
+          "slowSpatial": { "dampingRatio": 0.9, "stiffness": 300 },
+          "fastEffects": { "dampingRatio": 1.0, "stiffness": 3800 },
+          "defaultEffects": { "dampingRatio": 1.0, "stiffness": 1600 },
+          "slowEffects": { "dampingRatio": 1.0, "stiffness": 800 }
+        },
+        "expressive": {
+          "fastSpatial": { "dampingRatio": 0.6, "stiffness": 800 },
+          "defaultSpatial": { "dampingRatio": 0.8, "stiffness": 380 },
+          "slowSpatial": { "dampingRatio": 0.8, "stiffness": 200 },
+          "fastEffects": { "dampingRatio": 1.0, "stiffness": 3800 },
+          "defaultEffects": { "dampingRatio": 1.0, "stiffness": 1600 },
+          "slowEffects": { "dampingRatio": 1.0, "stiffness": 800 }
+        }
+      },
+      "observations": [
+        "effects 的 dampingRatio 恒为 1.0（临界阻尼），数学上不可能过冲",
+        "spatial 的 dampingRatio 在 0.6-0.9（欠阻尼，会回弹）；Expressive fast = 0.6 最弹",
+        "两个 scheme 的 effects 数值完全相同，差异只在 spatial"
+      ]
+    },
+    "web_curves": {
+      "_note": "官方 Web 转换表：cubic-bezier + duration。spatial 的 y 值 >1 即过冲；effects 全部 <=1。",
+      "expressiveFastSpatial": { "curve": [0.42, 1.67, 0.21, 0.9], "durationMs": 350 },
+      "expressiveDefaultSpatial": { "curve": [0.38, 1.21, 0.22, 1.0], "durationMs": 500 },
+      "expressiveSlowSpatial": { "curve": [0.39, 1.29, 0.35, 0.98], "durationMs": 650 },
+      "expressiveFastEffects": { "curve": [0.31, 0.94, 0.34, 1.0], "durationMs": 150 },
+      "expressiveDefaultEffects": { "curve": [0.34, 0.8, 0.34, 1.0], "durationMs": 200 },
+      "expressiveSlowEffects": { "curve": [0.34, 0.88, 0.34, 1.0], "durationMs": 300 },
+      "standardFastSpatial": { "curve": [0.27, 1.06, 0.18, 1.0], "durationMs": 350 },
+      "standardDefaultSpatial": { "curve": [0.27, 1.06, 0.18, 1.0], "durationMs": 500 },
+      "standardSlowSpatial": { "curve": [0.27, 1.06, 0.18, 1.0], "durationMs": 750 },
+      "standardFastEffects": { "curve": [0.31, 0.94, 0.34, 1.0], "durationMs": 150 },
+      "standardDefaultEffects": { "curve": [0.34, 0.8, 0.34, 1.0], "durationMs": 200 },
+      "standardSlowEffects": { "curve": [0.34, 0.88, 0.34, 1.0], "durationMs": 300 }
+    },
+    "platform_support": {
+      "compose": "available — 内置组件 + spring tokens",
+      "mdc_android": "available — 未加入组件内部",
+      "web": "compatible — 优先用 spring，否则用曲线模拟"
+    }
+  },
+  "easing": {
+    "_note": "Android 列来自官网令牌表原文。emphasized 在 CSS 上无对应值，Web 需用 standard 兜底。",
+    "emphasized": {
+      "android": "pathInterpolator(M 0,0 C 0.05,0, 0.133333,0.06, 0.166666,0.4 C 0.208333,0.82, 0.25,1, 1,1)",
+      "css": null
+    },
+    "emphasizedDecelerate": {
+      "android": "PathInterpolator(0.05f, 0.7f, 0.1f, 1f)",
+      "css": "cubic-bezier(0.05, 0.7, 0.1, 1.0)"
+    },
+    "emphasizedAccelerate": {
+      "android": "PathInterpolator(0.3f, 0f, 0.8f, 0.15f)",
+      "css": "cubic-bezier(0.3, 0.0, 0.8, 0.15)"
+    },
+    "standard": {
+      "android": "PathInterpolator(0.2f, 0f, 0f, 1f)",
+      "css": "cubic-bezier(0.2, 0.0, 0, 1.0)"
+    },
+    "standardDecelerate": {
+      "android": "PathInterpolator(0f, 0f, 0f, 1f)",
+      "css": "cubic-bezier(0, 0, 0, 1)"
+    },
+    "standardAccelerate": {
+      "android": "PathInterpolator(0.3f, 0f, 1f, 1f)",
+      "css": "cubic-bezier(0.3, 0, 1, 1)"
+    }
+  },
+  "duration": {
+    "unit": "ms",
+    "short1": 50,
+    "short2": 100,
+    "short3": 150,
+    "short4": 200,
+    "medium1": 250,
+    "medium2": 300,
+    "medium3": 350,
+    "medium4": 400,
+    "long1": 450,
+    "long2": 500,
+    "long3": 550,
+    "long4": 600,
+    "extraLong1": 700,
+    "extraLong2": 800,
+    "extraLong3": 900,
+    "extraLong4": 1000
+  },
+  "usage_examples": {
+    "short4": "选择类控件（开关），配 Standard easing",
+    "medium4": "FAB 展开为 Sheet，配 Emphasized easing",
+    "long2": "Card 展开为全屏，配 Emphasized easing",
+    "extraLong4": "环境型转场（无用户输入），如轮播自动切换"
+  },
+  "rules": [
+    "退出动画快于进入动画，约为其 60%-70%",
+    "同一屏内并列动画时长差不超过 3 倍",
+    "超过 400ms 的等待必须有中间状态",
+    "颜色与透明度只能用 effects 类弹簧，不允许过冲",
+    "新代码不要从 easing 数值表抄，那套已不再维护"
+  ]
+}

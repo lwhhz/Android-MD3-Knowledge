@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+.gradle/
+build/
+*.iml
+local.properties
+.env
+.workbuddy/

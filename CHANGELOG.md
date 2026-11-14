@@ -1,0 +1,168 @@
+# Changelog
+
+## 2026-11-15 — v1.9 补 Slider / Progress / Badge，并首次提交 Git
+
+**新增三页（数值均为官方 Measurements 原值）**
+- `slider.md`：五档尺寸全部记录 —— 轨道高 16/24/40/56/96dp、handle 高 44/44/52/68/108dp、**handle 宽仅 4dp**（Expressive 是细竖条而非圆点）、轨道圆角 8/8/12/16/28dp、数值标签容器 44×48dp。
+- `progress-indicator.md`：四个维度分开（行为 / 形状 / 厚度 / 样式）、代际差异（**可调厚度与 wavy 仅 Expressive**）、默认 4dp 厚度且**距屏幕边缘内缩 4dp**、环形与线性的 token 已统一（旧的分套配置不再推荐）。
+- `badge.md`：small 6dp/3dp 圆角、large 单位数字 16dp、最大 16×34dp、偏移 small 6×6 / large 14×12、与文字容器间距 4dp；颜色为 `error`/`onError`（静态色，不随品牌色变化）。
+
+**仓库**
+- 完成 `git init` 与首次提交，纳入版本管理。
+
+## 2026-11-15 — v1.8 攻下两个老问题：十档形状 + 弹簧原始值
+
+**方法上的两个突破**
+1. **`innerText` → `textContent`**：官网把档位值放在折叠面板里，`innerText` 只返回可见文本，`textContent` 连隐藏节点一起返回。换成 textContent 后形状十档当场就出来了。
+2. **GitHub Contents API 取源码**：`raw.githubusercontent.com` 与 `android.googlesource.com` 在本机都不通，但 `api.github.com` 可达，用 `Accept: application/vnd.github.raw` 可直接拿到 `androidx/androidx` 的原始文件。
+
+**形状：七档 → 十档（重大修正）**
+- 官网原文「ten styles」，M2 是 3 档（按容器尺寸），M3 是 10 档（按圆角圆润程度）。
+- 完整档位：None 0 · XS 4 · S 8 · M 12 · L 16 · **Large increased 20** · XL 28 · **Extra large increased 32** · **Extra extra large 48** · Full。
+- 新增非对称说明：对称与非对称共用同一套十档，官方命名有 `extraSmallTop` / `largeTop` / `extraLargeTop` / `largeStart` / `largeEnd`。
+- 记录 `Shapes`（五槽位）与 `MaterialShapes`（morph 形状库）不是一回事。
+- `shapes.json` 重写为十档 + 非对称 + 已验证的组件默认值（按钮方角 12/16/28、按下 8/12/16、Chip 8、Dialog 28）。
+
+**弹簧：12 组 damping / stiffness 全部到位**
+- Standard：spatial 0.9 / (1400 · 700 · 300)，effects 1.0 / (3800 · 1600 · 800)
+- Expressive：spatial 0.6·0.8·0.8 / (800 · 380 · 200)，effects 同 Standard
+- 三条从数值直接读出的结论：effects 阻尼恒为 1.0（数学上不可能过冲）；spatial 欠阻尼 0.6-0.9；两个 scheme 的 effects 完全相同，Expressive 的「活力」全部来自 spatial。
+- `motion.md` 与 `motion.json` 同步，`version-tracking.md` 勾掉两项待核验。
+
+## 2026-11-15 — v1.7 再补 3 篇：Bottom Sheet / Search Bar / Selection Controls
+
+**`bottom-sheet.md`**
+- 官方测量：宽度撑满但**最大 640dp**；窗口 > 640dp 时改为上、左右各 56dp 边距（手机上贴边、平板上变悬浮面板）；默认上边距 72dp；拖拽手柄居中、上下内边距 22dp；高度可变。
+- 区分 Modal / Standard 两种形态，`sheetState.hide()` 再改状态的关闭写法，`skipPartiallyExpanded` 的取舍。
+
+**`search-bar.md`**
+- 官方已定论：Expressive 下 **divided 样式「Not recommended. Use contained.」**，新项目只做 contained。
+- 官方测量：容器 56dp 高、**最小 360dp / 最大 720dp**；左右内边距**未聚焦 24dp → 聚焦 12dp**（Expressive 聚焦展开）；图标与文字间距 4dp；Avatar 30dp。
+- 标出 Compose 侧 search API 近期有拆分（SearchBar / DockedSearchBar / Expanded*），用前需确认版本。
+
+**`selection-controls.md`（Switch + Checkbox + Radio 合一）**
+- 三者的选择判断：Switch 立即生效、Checkbox 先勾后提交、Radio 少量互斥。
+- 官方测量：Switch 52×32dp、描边 2dp、handle **未选中 16 → 选中 24 → 按下 28dp**、状态层 40dp；Checkbox 容器 18dp + 2dp 圆角 + 三态；Radio 图标 **20dp**（与 Checkbox 的 18dp **不对称是官方的**）；三者触控目标均 48dp。
+- 记录命名变更：官方称 **Handle**，旧文档的 thumb 是同一个东西。
+- 给出 `toggleable(role=...)` / `selectableGroup()` 的正确写法，避免重复触发与读屏读不出组关系。
+
+## 2026-11-15 — v1.6 补 4 个组件页 + 弹簧曲线补齐
+
+**新增组件页**
+- `snackbar.md`：结构与颜色角色（`inverseSurface` / `inverseOnSurface` / `inversePrimary`）、五种配置形态、`showSnackbar` 挂起语义与 `SnackbarResult` 撤销模式、不参与 elevation 分级的说明。
+- `fab.md`：三变体与代际差异（**Medium 仅 Expressive**；**Small 官方标注不再推荐**）、Expressive 的颜色命名变更（原 primary 实为 `primaryContainer`）、状态层 8%/10% 与 hover 时 elevation 3→4、状态层颜色须与图标色一致。
+- `chips.md`：四种 Chip 的分工与**尺寸全为官方原值**（32dp 高 / 8dp 圆角 / 18dp 图标 / 16dp 或 8dp 内边距 / 元素间 8dp；Input Chip 头像 24dp、12dp 圆角、关闭图标目标 ≥48dp）、各变体颜色角色、`Dragged` 状态。
+- `tabs.md`：Primary/Secondary 两变体、**指示器四条参数**（3dp 高 / 左右各缩进 2dp / 全圆角 / 最短 24dp）、容器 48dp（纯文字）与 64dp（图标+文字）、固定 vs 可滚动阈值、与底部导航和 Filter Chip 的边界。
+
+**动效补齐**
+- `motion.md` 增加官方 Web 转换表：12 条弹簧的等效 cubic-bezier 与时长（Expressive fast/default/slow spatial = 350/500/650ms 等），并点出「spatial 曲线 y 值 >1 即过冲」「Standard 三档曲线相同只改时长」。
+- 补平台支持差异：Compose 可用、MDC-Android **未进组件**、Web 用曲线模拟。
+- 说明复合令牌 = damping + stiffness 两个原始令牌组合；原始数值未在 DOM 中，仍列待核验。
+- `05-Design-Tokens/motion.json` 增加 `web_curves` 与 `platform_support`。
+
+## 2026-11-14 — v1.5 层级分级按官方 Tokens 页修正
+
+**修正 `01-Foundations/elevation.md`**
+- 补上官方原文前提：**「Surface tint color is deprecated. Use elevation level tokens (0–5) instead.」** 以及 **「Elevation has no shadow or value of its own by default.」**
+- 重新界定职责：elevation 只管 **z 轴堆叠关系**，视觉层级靠 surface container 色阶，两者不要混用。
+- 按官方组件分级表重写 Level 0-3 的组件清单，并标注 **Level 4 / 5「not assigned as resting level」**，只在 hover / focus 时临时抬升。
+- 纠正此前错误：**模态 Dialog 是 Level 3（6dp），不是 5**；**Menu 是 Level 2（3dp），不是 3**；Navigation drawer（模态）是 Level 1；Snackbar 不在分级表里（用 inverse surface）。
+- 同步修正 `02-Components/dialogs.md` 与 `menus.md` 中的层级引用。
+
+**形状**
+- 核对 `styles/shape/shape-scale-tokens` 当前指向的是 Shape morph 页，**七个档位的 dp 值仍未在 DOM 中以文字呈现**，`shape-system.md` 的 4/8/12/16/28 继续标为通行值。
+
+## 2026-11-14 — v1.4 动效范式与按钮规格按 Specs 页核验
+
+**核验方式**：Chrome 157 headless + CDP，直接读 `Runtime.evaluate('document.body.innerText')`，比 42MB 原始 DOM 干净得多。
+
+**动效：范式已变更（这是本轮最重要的发现）**
+- 官网原文：M3 Expressive 引入 **motion physics（弹簧）系统，正在取代 easing + duration**；旧的 easing/duration **「is no longer maintained」**，仅保留给平台转场。
+- `01-Foundations/motion.md` 重写：以弹簧为主，讲清两条轴（spatial 会过冲 / effects 不过冲）× 三档速度（fast/default/slow）、令牌命名 `md.sys.motion.spring.{speed}.{type}`、scheme 在产品层指定、跨设备数值不同但相对关系不变、与 Compose springs 兼容。
+- 补齐 easing 六个令牌的 Android/CSS 原文值（含 emphasized 在 CSS 上无对应、需用 standard 兜底的坑）。
+- 补齐 16 个 duration 令牌（short1-4 / medium1-4 / long1-4 / extra-long1-4 = 50→1000ms）及官方示例配对。
+- `05-Design-Tokens/motion.json` 由空壳变为完整令牌表，并标注 `spring: current` / `easing_duration: legacy`。
+
+**按钮：规格页给出的信息比之前多得多**
+- 新增「两代能力」对照：**Toggle 按钮、XS/M/L/XL 尺寸、Square 方角形状都只在 M3 Expressive 存在**，M3 只有 default + Small + Round。
+- 新增圆角表：圆角按钮全档 Full；方角按钮 12/12/16/28/28dp；**按下态 8/8/12/16/16dp**（形状 morph），并写明圆形与方角按钮的按下形状必须一致、Toggle 静止态在圆/方之间切换。
+- 新增五种样式的容器色/内容色对照表（此前只有模糊描述），以及 Toggle 未选中/选中两套颜色。
+- 补充官方规则：容器与文字 ≥ 3:1 时允许换别的颜色角色；Elevated 默认 elevation 1、禁用 0；XS/S 图标按钮触控目标必须 ≥ 48dp。
+- 标注：Small 的 40dp 高度仍属通行值（官方以图片呈现，未取到文字）。
+
+## 2026-11-14 — v1.3 色彩角色清单按官网原文修正
+
+**核验方式**：web-access skill 的 CDP 通道（Chrome 157）。该页 headless Edge 会 `ERR_TIMED_OUT`，用 Chrome CDP 正常。
+
+**修正**
+- `01-Foundations/color-system.md` 重写角色清单，按官网原文：**26 个标准角色分六组**（primary 4 / secondary 4 / tertiary 4 / error 4 / surface 8 / outline 2）。
+- 把原先混在「角色」里的一堆项拆出去，归为 **add-on 角色**（Fixed 12 个 + surfaceDim/Bright 2 个 + inverse 3 个），并写上官网态度：大多数产品不需要，不确定就是不需要。
+- 新增官网明确、此前遗漏的规则：
+  - **Container 是填充色，不能用于文字或图标**。
+  - **error 是静态色**，不随 dynamic color 变化，但仍随浅色/深色适配。
+  - **Outline 四条禁令**：分隔线用 `outlineVariant`；卡片等多元素组件边框用 `outlineVariant`；可点击边界必须用 `outline`（3:1）；Chip/Button 边框用 `outlineVariant` 的前提是内部内容已达 4.5:1。
+  - **跨断点 surface 映射不变**：正文 `surface`、导航 `surfaceContainer`。
+  - `surfaceDim` / `surfaceBright` **保持相对明度**，反转方式与 surface 不同。
+- `05-Design-Tokens/colors.json` 结构重做：`groups`（26 个）+ `add_on_roles` + `functional_colors`（scrim/shadow）+ `rules`，`verified` 标为 `taxonomy_only`。
+
+**工具侧结论**
+- web-access skill 的 CDP 通道可用，但其 `cdp-proxy` 在「手动调试端口」兜底模式下有缺陷（拼出的 WS URL 缺 browser id），且本机全局 `http_proxy` 会拦截 localhost 请求。绕过方式见 `00-Metadata/version-tracking.md`。
+
+## 2026-11-14 — v1.2 浏览器核验修正
+
+**核验方法突破**
+- 确认 `m3.material.io` 与 `developer.android.com` 可以用 **headless 浏览器 `--dump-dom`** 渲染出正文（WebFetch 与 curl 都只拿到标题 / 报 fetch failed）。
+- 方法与实测结果写入 `00-Metadata/version-tracking.md`，含命令模板、超时页面的处理、以及哪些源仍然不可用。
+
+**据此修正的内容**
+- `01-Foundations/typography.md` 重写：
+  - 纠正「15 档字阶」为 **30 档 = 15 baseline + 15 emphasized**（官网已确认）。
+  - 新增 Emphasized 使用规则：用于已有字重的文字；可与 weight 同用；baseline 与 emphasized 可用不同字体。
+  - 新增**语言高度（Language height）**一节：中文属 Medium 类，行高约 +7%；固定高度组件不会自动适配，会出现文字重叠。
+  - 补官网明确警告：不要为强调改字号，会影响组件渲染与重排。
+- `05-Design-Tokens/typography.json`：新增 `scale_structure` 与 `language_height`，`verified` 标记为 `structure_only`（结构已核，数值未取到）。
+- `00-Metadata/version-tracking.md` 版本快照改为以官方版本表为准：**material3 稳定版 1.4.0，最新 alpha 1.5.0-alpha29（表内日期 2026-09-23），RC 列为空**。
+- 记录一处冲突：社区周报称 1.5.0-rc01 已发布，但官方版本表 RC 列为空，`1.5.0-rc01` 仅出现在文档代码示例中——标注为待确认，不写成结论。
+- 待核验清单勾掉一项、新增两项（30 档数值、语言行高的 Compose API）。
+
+## 2026-11-14 — v1.1 内容填充
+
+**基础层 `01-Foundations/`（7 篇全部完成）**
+- 设计原则：M3 三条原则、从任务到组件的推导顺序、一致性边界、Expressive 三问。
+- 色彩系统：完整角色表（含 Fixed 组）、配对硬规则、dynamic color 与 fallback、对比度阈值。
+- 字体系统：15 档字阶表、按用途选样式、文本缩放约束。
+- 形状系统：七档形状、Compose `Shapes` 只有五档这一限制、Expressive 形状变化。
+- 层级：Level 0-5、M3「用色表达层级」与表面色阶映射、深色主题限制。
+- 动效：四类目的判断、时长区间、缓动选择、Transition 用法、减少动态效果。
+- 无障碍：四条硬指标、语义写法、焦点顺序、颜色非唯一载体。
+
+**规则层 `07-Development-Rules/`（3 篇）**
+- `android-ui-rules.md`：A-G 七组决策规则，末附冲突优先级（可用性 > 无障碍 > 一致性 > 表现力）。
+- `compose-coding-rules.md`：依赖版本、分层结构、状态归属、性能、API 稳定性、测试六类约束。
+- `ui-review-checklist.md`：区分为阻断项 / 应修项 / 建议项，每项附验证方法。
+
+**组件层 `02-Components/`（9 篇）**
+- 完成 buttons、cards、dialogs、text-fields、navigation、lists、menus、toolbars、expressive-components。
+- `buttons.md` 定为完整体例。
+- `toolbars.md` 纠正一个常见误解：M3 没有 "Toolbar" 组件。
+
+**实现层 `03-Android-Compose/`（8 篇）**
+- material-theme、color-scheme、typography、components-api、navigation、animations、window-insets、adaptive-layout。
+- `components-api.md` 提供设计稿名称 → Compose 类名对照表与参数通用约定。
+
+**元数据与令牌**
+- `sources.yaml`：新增官方博客、API reference、BOM mapping；新增 `secondary_sources` 分区并明确「只用于定位，不作结论」。
+- `version-tracking.md`：记录 2026-11-14 版本快照、核验方法局限（官网正文抓不到）、待核验清单。
+- `glossary.md`：扩充为设计系统 / Android 平台 / Compose 编码 / 状态四类。
+- `05-Design-Tokens/`：确立「颜色不存值，结构存值」；字阶与形状填值；动效只登记令牌族。
+- `README.md`：新增内容状态表与阅读路径。
+
+**记录的重要事实变更**
+- Material Android 已转为 **Compose-first**，Material Views（MDC-Android）1.14.0 为最后一个稳定版本。
+- material3 已到 1.5.0-rc01，M3 Expressive API 在 1.5.0 线逐步转正；稳定线 BOM 仍为 2026.08.00。
+- Compose 1.12 要求 compileSdk 37 / AGP 9.2.0+。
+
+## 2026-10-30 — v1.0 initial structure
+- 建立官方来源索引、AI 指令、基础规范和组件主题模板。
+- 加入 Compose 示例同步工作流。
+- 所有主题细节均需按官方来源持续核验；模板不是 Google 官方原文。
