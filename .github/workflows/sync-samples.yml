@@ -1,4 +1,7 @@
-name: Sync Google Compose Samples
+name: Sync compose-samples index
+
+# 只同步元数据（commit / 文件统计 / 主题路径），不拉源码。
+# 原因见 04-Official-Samples/README.md：上游约 100MB，镜像会让知识库仓库膨胀且必然过期。
 
 on:
   schedule:
@@ -15,20 +18,14 @@ jobs:
       - name: Checkout knowledge base
         uses: actions/checkout@v4
 
-      - name: Clone official sample repository
-        run: |
-          git clone --depth 1 https://github.com/android/compose-samples.git /tmp/compose-samples
-
-      - name: Replace local sample snapshot
-        run: |
-          rm -rf 04-Official-Samples/compose-samples
-          mkdir -p 04-Official-Samples
-          cp -a /tmp/compose-samples 04-Official-Samples/compose-samples
-          git -C /tmp/compose-samples rev-parse HEAD > 04-Official-Samples/compose-samples-commit.txt
+      - name: Update index from upstream
+        env:
+          UPSTREAM: android/compose-samples
+        run: python3 .github/scripts/sync_samples.py
 
       - name: Commit changes if any
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add 04-Official-Samples/
-          git diff --cached --quiet || (git commit -m "Sync official Compose samples" && git push)
+          git diff --cached --quiet || (git commit -m "chore: sync compose-samples index" && git push)

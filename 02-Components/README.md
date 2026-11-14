@@ -25,6 +25,11 @@
 | `slider.md` | `Slider` / `RangeSlider` | ✅ 官方原值 |
 | `progress-indicator.md` | `LinearProgressIndicator` / `CircularProgressIndicator` | ✅ |
 | `badge.md` | `Badge` / `BadgedBox` | ✅ 官方原值 |
+| `tooltip.md` | `PlainTooltip` / `RichTooltip` | ✅ 官方原值 |
+| `date-time-picker.md` | `DatePicker` / `DateRangePicker` / `TimePicker` / `TimeInput` | ✅ 时间选择器原值 |
+| `segmented-button.md` | `SegmentedButton` 单选 / 多选 | ✅ 官方原值 |
+| `button-group.md` | Standard / Connected（Expressive） | ⚠️ 尺寸待核验 |
+| `swipe-to-dismiss.md` | `SwipeToDismissBox` | ⚠️ 官方无 Specs 页 |
 | `expressive-components.md` | `WavyProgressIndicator` / `LoadingIndicator` / `ButtonGroup` 等 | ⚠️ 状态待逐项核验 |
 | `component-template.md` | 写新组件页时的模板 | — |
 
@@ -46,7 +51,7 @@
 
 以下官方组件暂未单独建页，需要时按 `component-template.md` 补写：
 
-`Tooltip`、`DatePicker` / `TimePicker`、`SegmentedButton`、`SwipeToDismissBox`、`ButtonGroup`（Expressive）
+`Carousel`、`Banner`、`Side sheet`、`Split button`（Expressive）、`FAB menu`（Expressive）、`Loading indicator`（Expressive）
 
 ## 写新组件页时的要求
 

@@ -1,0 +1,78 @@
+{
+  "_note": "官方示例仓库索引，不镜像源码。由 .github/workflows/sync-samples.yml 每周更新 commit 与统计。",
+  "repository": "android/compose-samples",
+  "url": "https://github.com/android/compose-samples",
+  "checked_on": "2026-10-23",
+  "commit": {
+    "sha": "25631e8f544a9a1e3f01e296eaf1b4c28428196c",
+    "date": "2026-10-23T07:30:43Z",
+    "message": "Hide markdown markers in the Jetchat message input (#1736)"
+  },
+  "totals": {
+    "files": 1017,
+    "kotlin_files": 364,
+    "approx_bytes": 111451780
+  },
+  "samples": [
+    {
+      "name": "Jetcaster",
+      "files": 341,
+      "kotlin_files": 155,
+      "approx_kb": 7873,
+      "focus": "多模块架构，designsystem 独立模块",
+      "theme_path": "Jetcaster/core/designsystem/src/main/java/com/example/jetcaster/designsystem/theme/"
+    },
+    {
+      "name": "Jetchat",
+      "files": 166,
+      "kotlin_files": 43,
+      "approx_kb": 23723,
+      "focus": "聊天界面、列表滚动、输入框交互",
+      "theme_path": "Jetchat/app/src/main/java/com/example/compose/jetchat/theme/"
+    },
+    {
+      "name": "Jetsnack",
+      "files": 149,
+      "kotlin_files": 52,
+      "approx_kb": 32623,
+      "focus": "品牌化主题与转场动效",
+      "theme_path": "Jetsnack/app/src/main/java/com/example/jetsnack/ui/theme/"
+    },
+    {
+      "name": "JetNews",
+      "files": 133,
+      "kotlin_files": 60,
+      "approx_kb": 9472,
+      "focus": "含 Glance 小组件",
+      "theme_path": "JetNews/app/src/main/java/com/example/jetnews/ui/theme/"
+    },
+    {
+      "name": "Reply",
+      "files": 106,
+      "kotlin_files": 27,
+      "approx_kb": 22053,
+      "focus": "自适应布局（列表-详情）",
+      "theme_path": "Reply/app/src/main/java/com/example/reply/ui/theme/"
+    },
+    {
+      "name": "JetLagged",
+      "files": 74,
+      "kotlin_files": 27,
+      "approx_kb": 910,
+      "focus": "图表与数据可视化，结构最轻",
+      "theme_path": "JetLagged/app/src/main/java/com/example/jetlagged/ui/theme/"
+    }
+  ],
+  "other_references": [
+    {
+      "name": "Now in Android",
+      "url": "https://github.com/android/nowinandroid",
+      "use": "完整架构实践"
+    },
+    {
+      "name": "AndroidX Material3 源码",
+      "url": "https://github.com/androidx/androidx/tree/androidx-main/compose/material3",
+      "use": "查默认值与真实实现"
+    }
+  ]
+}
