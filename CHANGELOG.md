@@ -5,7 +5,7 @@
 **新增 5 篇（官方原值）**
 - `carousel.md`：左右 16dp / 上下 8dp / 元素间 8dp / **项圆角 28dp**（extraLarge）/ Small 项宽 40-56dp；Contained 与 Uncontained 两种布局。
 - `side-sheet.md`：**最大宽度 400dp**、左右内边距 24dp、顶部元素间距 12dp、**底部操作区 72dp（上 16 / 下 24dp 给手势条留位）**；Modal 与 Docked 两形态。
-- `split-button.md`：确认 **M3 无此组件、Expressive 新增**；官方 Anatomy 硬规则「后段必须是菜单图标」；XS 档高度 32dp。完整 token 表的值↔属性配对在扁平化文本里有歧义，明确标注需目视复核。
+- `split-button.md`：确认 **M3 无此组件、Expressive 新增**；官方 Anatomy 硬规则「后段必须是菜单图标」；**五档尺寸全部取得**（XS/S/M/L/XL 容器高度 32/40/56/96/136dp，含各段内外边距、图标尺寸与三种状态下的内圆角）。修正了初版基于扁平化文本的错位推断，并写明正确读法（按 `token-value-swatch` 节点取值，不要整页复制文本）。
 - `fab-menu.md`：**只有一个变体**、三套颜色组（Primary/Secondary/Tertiary）、**关闭按钮始终 56dp**。
 - `loading-indicator.md`：与 Progress indicator 的区别（无进度概念）、Default / Contained 两配置、**形状容器 38dp / 占位 48dp**（差值就是必要边距）。
 
