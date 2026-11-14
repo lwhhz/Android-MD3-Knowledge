@@ -20,7 +20,7 @@
 |---|---|---|
 | `00-Metadata/` | ✅ 可用 | 来源索引、版本快照、术语表 |
 | `01-Foundations/` | ✅ 可用 | 7 篇基础系统，含规则与检查项 |
-| `02-Components/` | ✅ 可用 | 24 篇；覆盖按钮、卡片、对话框、输入框、导航、列表、菜单、工具栏、Snackbar、FAB、Chip、Tabs、Bottom Sheet、Search、选择控件、Slider、进度、Badge、Tooltip、日期时间、分段按钮、按钮组、滑动删除 |
+| `02-Components/` | ✅ 可用 | 29 篇；覆盖 M3 主要组件 + Expressive 新增（Split Button / FAB Menu / Loading Indicator） |
 | `03-Android-Compose/` | ✅ 可用 | 8 篇实现指南，代码为主 |
 | `04-Official-Samples/` | ✅ 索引 | 官方示例的 pinned commit + 结构索引（不镜像源码，上游约 106MB） |
 | `05-Design-Tokens/` | ✅ 可用 | 字阶、形状有值；颜色只存角色 |

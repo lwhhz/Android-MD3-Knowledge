@@ -30,6 +30,11 @@
 | `segmented-button.md` | `SegmentedButton` 单选 / 多选 | ✅ 官方原值 |
 | `button-group.md` | Standard / Connected（Expressive） | ⚠️ 尺寸待核验 |
 | `swipe-to-dismiss.md` | `SwipeToDismissBox` | ⚠️ 官方无 Specs 页 |
+| `carousel.md` | `HorizontalPager` 轮播模式 | ✅ 官方原值 |
+| `side-sheet.md` | Side sheet（Modal / Docked） | ✅ 官方原值 |
+| `split-button.md` | Split button（Expressive） | ⚠️ 尺寸配对待确认 |
+| `fab-menu.md` | FAB menu（Expressive） | ⚠️ 部分尺寸待核验 |
+| `loading-indicator.md` | Loading indicator（Expressive） | ✅ 官方原值 |
 | `expressive-components.md` | `WavyProgressIndicator` / `LoadingIndicator` / `ButtonGroup` 等 | ⚠️ 状态待逐项核验 |
 | `component-template.md` | 写新组件页时的模板 | — |
 
@@ -47,11 +52,12 @@
 
 `buttons.md` 是完整体例，新增页面请对齐它的结构。
 
-## 尚未覆盖的组件
+## 尚未覆盖
 
-以下官方组件暂未单独建页，需要时按 `component-template.md` 补写：
+官方组件目录里的主要组件已覆盖。两点说明：
 
-`Carousel`、`Banner`、`Side sheet`、`Split button`（Expressive）、`FAB menu`（Expressive）、`Loading indicator`（Expressive）
+- **Banner 已不在当前 M3 组件目录**：`/components/banners` 与 `/components/banner` 均返回 404，组件索引页里也没有它。历史文档里提到的 banner 不要再引用。
+- Expressive 新增组件中尚未单独建页的：`WavyProgressIndicator`（在 `expressive-components.md` 有状态说明）、其余随 1.5.0 转正的组件。
 
 ## 写新组件页时的要求
 
