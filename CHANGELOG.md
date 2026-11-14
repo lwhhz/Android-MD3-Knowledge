@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-11-15 — v1.10 补 5 篇组件 + 官方示例索引 + workflow 改造
+
+**新增 5 篇**
+- `tooltip.md`：Plain（24dp 高 / 8dp 内边距，`inverseSurface` 系）与 Rich（上 12 / 下 8 / 左右 16dp，最多 2 个按钮）；重点写了「tooltip 里的信息不能是必需的」这条无障碍硬约束。
+- `date-time-picker.md`：日期三变体（Docked / Modal / Modal input）+ 范围；时间两变体（Dial / Input）。时间选择器尺寸为官方原值：容器内边距 24dp、时间选区 96×80dp（24 小时制 114×80dp）、上下午选区竖排 52×80 / 横排 216×38dp。
+- `segmented-button.md`：40dp 高 / 1dp 描边 / 最小 12dp 内边距 / 8dp 间距 / 48dp 触控目标；**密度每档减 4dp 且只作用于高度**。
+- `button-group.md`：两个变体来路不同 —— **Standard 是 Expressive 全新组件，Connected 就是 segmented button 的进化版**；说明 Standard 用 shape morph 表达交互。
+- `swipe-to-dismiss.md`：**官方组件目录里没有该组件的 Specs 页**（实测请求无内容），因此以 Compose API + M3 通则整理，重点写「滑动是快捷方式而非唯一入口」「必须可撤销且撤销窗口内软删除」。
+
+**04-Official-Samples 改为索引而非镜像**
+- 实测上游 `android/compose-samples` 当前为 **1017 文件 / 约 106MB**（Jetsnack 32MB、Jetchat 23MB、Reply 21.5MB 均为图片资源），整体镜像会让知识库仓库膨胀且必然过期。
+- 改为记录 pinned commit（`25631e8`）+ 六个示例的文件数 / Kotlin 数 / 体积 / 主题入口路径，附「怎么按路径取单个文件」的命令。
+- 新增 `compose-samples.manifest.json`（机器可读）与 `.github/scripts/sync_samples.py`。
+
+**workflow 改造**
+- `sync-samples.yml` 从「clone 整个仓库再提交」改为「调 API 只更新元数据」，两条 `git` 之外的破坏性风险（大体积提交、浅克隆残留）一并消除。
+- README 的两张表用 `<!-- BEGIN GENERATED -->` 标记，由脚本自动重写；`focus` 字段人工维护不被覆盖。
+- 脚本本地验证通过：6 个示例、1017 文件、主题路径优选规则（designsystem > 非 tv/wear 的 ui/theme > 其它）。
+
 ## 2026-11-15 — v1.9 补 Slider / Progress / Badge，并首次提交 Git
 
 **新增三页（数值均为官方 Measurements 原值）**
