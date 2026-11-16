@@ -1,5 +1,45 @@
 # Changelog
 
+## 2026-11-16 — v2.0 全站抓取（375 页）后全面重构
+
+**抓取**
+- 用 headless Chrome + CDP 渲染 sitemap 全部 **375 个 URL**，取 `innerText` 后落盘（219 万字符，0 失败）。6 个页面实际 404（`whats-new-at-io26`、`material-is-compose-first`、`building-with-m3-expressive`、`m3-expressive-motion-theming`、`blog/get-started`、`blog/search.html`），已单列。
+- 生成 `00-Metadata/site-map.md`：375 个页面逐条映射到知识库文件，含每页正文字符数与失效标记。
+
+**01-Foundations 由 7 篇扩到 15 篇**（新增 8 篇）
+- `spacing.md`：8dp 基线、18 个 system token 全表（`space0`→`space900`）、组件属性命名从 `-space` 迁到 `padding/margin/gap`、RTL 与 200% 字号不缩间距。
+- `icons.md`：四轴（weight / fill / grade / optical size）、四档尺寸、24dp 网格里 20dp 活区 + 2dp padding、keyline 四形、48dp 触控目标。
+- `layout.md`：**五档断点 600 / 840 / 1200 / 1600dp**（左闭右开）、compact 边距 16dp 其余 24dp、固定窗格 360dp（expanded）与 412dp（large/xl）、三种 canonical layout、RTL 镜像规则。
+- `interaction-states.md`：state layer **hover 8% / focus 10% / press 10% / drag 16%**，图层视觉 40dp 而热区 48dp，每屏最多一个 hover/focus/pressed。
+- `content-design.md`：UX 写作、通知文案长度上限、alt text、译文膨胀 1.5 倍、文本缩放下限 200%。
+- `design-tokens.md`：`md.ref.*` → `md.sys.*` → `md.comp.*` 三层与使用边界。
+- `watches.md` / `xr.md`：Wear（屏宽 192dp 起、纯黑背景、Tiles 不滚动）与 XR（面板 1024×720dp、深度 0.75–5m、目标 56dp）。
+
+**既有页面修正（按官网原文）**
+- `color-system.md`：补 HCT 机制、三档对比度、动态取色两源、advanced 三动作。**推翻「配对色保证 3:1」**——只有 `on*` 与父色有保证。
+- `typography.md`：补字体家族与 editorial treatments。
+- `shape-system.md`：补 shape morph——内置会 morph 的只有 standard button group 与 loading indicator，归 expressive motion，Web 暂不可用。
+- `elevation.md`：补「surface container 色阶与 elevation **不绑定**，但重叠容器必须用不同 color role」、scrim 固定 32%。
+- `motion.md`：补 how-it-works、**六种转场模式**（container transform / forward-backward / lateral / top level / enter-exit / skeleton）、reduced motion 时连 shape morph 都要禁用。
+- `design-principles.md`：删除无法溯源的「三原则 + 优先级」表述，改用可用性五维度与定制化边界。
+- `accessibility.md`：补辅助技术与包容性设计；对比度 tone 差 40 保 3:1、差 50 保 4.5:1。
+
+**02-Components 由 29 篇扩到 34 篇**（补 `app-bars` / `icon-buttons` / `extended-fab` / `divider` / `navigation-bar` / `navigation-rail` / `navigation-drawer`，官方 36 组件全覆盖）。这一轮最重要的几处纠错：
+- **Navigation 三件套已不再推荐**：baseline nav bar / nav rail / navigation drawer 被 flexible nav bar、collapsed/expanded rail 取代；目的地下限是 **3**（2 个必须用 tabs），80dp 高度等旧数字无官方出处。
+- **Segmented button 官方已标不再推荐**，改用 connected button group；button group 组间距 XS 18 / S 12 / M-L-XL 8dp，connected 全档 2dp。
+- **Tabs**：indicators 3dp 只属 Primary，**Secondary 是 2dp**；「>4 即拥挤」而非 5–7。
+- **Toolbars 不是 TopAppBar**：官方有独立的 docked/floating toolbar，TopAppBar 四变体已迁到 `app-bars.md`。
+- **Carousel 现为六种布局**（新增 uncontained multi-aspect ratio），不是两种。
+- **Menus 左右内边距 12dp**；菜单项**可以**有 supporting text。
+- **Text fields 容器高 56dp**（target size），「4dp 圆角」并无官方出处。
+- **Snackbar 有动作时不能自动消失**（`SnackbarDuration.Indefinite`），不是「停留更久」。
+- **Slider 颜色角色**里没有 `surfaceContainerHighest`，官方是 `inverseSurface / inverseOnSurface / primary / onPrimary / secondaryContainer / onSecondaryContainer`。
+- **Dialog 宽度 280–560dp**；full-screen dialog 是唯一允许叠加的对话框。
+
+**其它**
+- `03-Android-Compose/platforms.md`：四平台维护状态（Compose 积极开发 / MDC-Android 维护模式且 1.14 为终版 / Flutter 无 Expressive / Web 维护模式）+ 能力差异表。
+- `00-Metadata/blog-index.md`：110 篇博客全量索引 + 20 条「仍然有效」结论 + 明确的过期清单（M2 时代教程禁止引用）。
+
 ## 2026-11-15 — v1.11 补完剩余 5 个组件，组件层收口
 
 **新增 5 篇（官方原值）**

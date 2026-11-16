@@ -28,13 +28,14 @@
 
 > ⚠️ **关于 1.5.0-rc01 的冲突**：社区周报说已发 rc，但官方版本表仍是「1.4.0 stable + 1.5.0-alpha29」，RC 列为空。两种可能：版本表滞后，或 rc 仅用于部分 artifact。**以版本表为准写成 1.4.0 stable 更安全**，用之前请目视确认一次。
 
-## 核验方法（实测结果，2026-11-14）
+## 核验方法（实测结果，2026-11-16 更新）
 
 | 方式 | m3.material.io | developer.android.com | 结论 |
 |---|---|---|---|
 | WebFetch 工具 | ❌ 只返回标题 | ❌ fetch failed | 不可用 |
 | `curl` 取 HTML | ❌ 只有「This website requires JavaScript」 | — | 不可用 |
-| **headless Edge `--dump-dom`** | ✅ 42MB DOM，正文完整 | ✅ 885KB，版本表可读 | **可用** |
+| **headless Chrome + CDP 批量抓取** | ✅ sitemap 375 页全部取到，219 万字符，0 失败 | ✅ | **当前首选**，见下方「全站抓取」 |
+| headless Edge `--dump-dom` | ✅ 但重型页会 ERR_TIMED_OUT | ✅ 885KB，版本表可读 | 备用 |
 | **Chrome CDP（web-access skill）** | ✅ innerText 更干净，超时页也能拿到 | ✅ | **可用，且能处理 Edge 超时的页** |
 | **CDP + `textContent`** | ✅ 能拿到折叠面板里的隐藏值 | ✅ | **关键技巧**：innerText 只给可见文本，token 表要点开才渲染 |
 | **GitHub Contents API** | — | `androidx/androidx` 源码可读 | ✅ `api.github.com` + `Accept: application/vnd.github.raw` |
@@ -43,19 +44,26 @@
 | `dl.google.com` Maven 索引 | — | — | ❌ fetch failed |
 | jetc.dev 周报 | ✅ | ✅ | 仅用于定位，不作结论 |
 
-headless 命令模板（本机 Edge 路径）：
+headless 命令模板（本机 Chrome 路径，2026-11-16 实测）：
 
 ```bash
-"/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" \
+"/c/Program Files/Google/Chrome/Application/chrome.exe" \
   --headless=new --disable-gpu --no-first-run \
-  --user-data-dir=/tmp/edgeprof --virtual-time-budget=12000 \
-  --dump-dom "URL" > out.html
+  --remote-debugging-port=9222 \
+  --user-data-dir="C:/Users/Administrator/AppData/Local/Temp/m3prof"
 ```
 
+### 全站抓取流程（2026-11-16 实测，可复用）
+
+1. 取站点地图：`curl https://m3.material.io/sitemap.xml` → 抽出 375 个 `<loc>`（`robots.txt` 里声明了该 sitemap）。
+2. 启动 headless Chrome（上一条命令），只读 `/json/version` 的 `webSocketDebuggerUrl` 走原生 WebSocket，**不经过 cdp-proxy**。
+3. 每页：`Target.createTarget` → `attachToTarget(flatten)` → `Page.navigate` → 轮询 `Runtime.evaluate('document.body.innerText')` 直到「readyState complete 且长度连续两次不变」→ 取文本 → `closeTarget`。
+4. 并发 4 路，375 页约 10 分钟，成功率 100%。**不要**用固定 `sleep` 等页面：后台标签会被节流，固定等待会拿回空内容。
+
 注意事项：
-- `--virtual-time-budget` 给 10000-15000ms；m3 的 typography 页需要 10s 才渲染完。
-- 部分页面会 `ERR_TIMED_OUT`（实测 `styles/color/roles`、`designsystems/material3` 失败）；`color/roles` 改用 Chrome CDP 可正常拿到。
-- 输出可能极大（typography 页 42MB），先 `grep` 命中再定点提取，别整文件读。
+- 正文开头 20-30 行是导航噪音（`Skip to main content` / `On this page` …），写文档时要剥掉。
+- sitemap 不是真相：375 条里有 6 条实际返回 404，见 `site-map.md` 末节。
+- Edge 的 `--dump-dom` 在 `styles/color/roles` 等重型页会 ERR_TIMED_OUT，CDP 通道无此问题。
 
 ### Chrome CDP 通道的两个本机坑
 
@@ -79,9 +87,12 @@ headless 命令模板（本机 Edge 路径）：
 - [x] 动效范式是否已变更 —— **已确认**：M3 Expressive 引入弹簧物理系统，easing/duration 仅保留给平台转场且「no longer maintained」
 - [x] Spring token 的 dampingRatio / stiffness 具体数值 —— **已从 AndroidX 源码取得 12 组**（`MotionScheme.kt` + `StandardMotionTokens.kt` + `ExpressiveMotionTokens.kt`）
 - [x] 形状档位的 dp 值 —— **已确认是十档**（0/4/8/12/16/20/28/32/48 + full），见 `01-Foundations/shape-system.md`
-- [ ] 按钮各尺寸档（XS/M/L/XL）的容器高度文字值（官方以图片呈现）
-- [ ] 语言高度（language height）在 Compose 中的 API 名称与生效方式
+- [ ] 按钮各尺寸档（XS/M/L/XL）的容器高度文字值 —— **已部分解决**：icon-buttons 官方给了 32/40/56/96/136dp 阶梯，buttons 页本体仍只有图
+- [x] 语言高度（language height）在 Compose 中的 API 名称与生效方式 —— 已写入 `01-Foundations/typography.md`
 - [ ] Compose 1.13 稳定后 Grid / Flexbox / 新 BasicTextField 的迁移方式
+- [ ] 官方 Specs 页中「只有标注图、没有文字数值」的测量值 —— 需从 Figma Design Kit 取，清单见各组件页的 ⚠️ 标记
+- [ ] XR / Watch 的组件级尺寸 —— 官网两套文档只有示意，缺可实现的 dp 值，需查 Jetpack XR SDK 与 Wear Compose
+- [ ] `spatial dialog` 等 XR 能力在 Compose 中的落地时间（官方 Note 明说尚未提供）
 
 ## 更新规则
 

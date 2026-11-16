@@ -1,61 +1,99 @@
 # Selection Controls / 选择控件（Switch · Checkbox · Radio）
 
 - 官方指南：https://m3.material.io/components/switch ｜ https://m3.material.io/components/checkbox ｜ https://m3.material.io/components/radio-button
-- Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
-- 核验日期：2026-11-15 ｜ 核验方式：Chrome CDP 读三个官方 Specs 页
-- 状态：**尺寸测量全部为官方原值**
+- Compose API：`Switch` / `Checkbox` / `TriStateCheckbox` / `RadioButton`（均稳定）
+- 核验日期：2026-11-16 ｜ 核验方式：三组件各 4 个官方页面（overview/specs/guidelines/accessibility）全文 dump
+- 状态：**尺寸全部为官方原值**
 
 ## 先选对控件
 
-这三个控件最容易互相误用。判断顺序：
+官方对三者的分工（三个 guidelines 页共用同一节「Alternate selection controls」）：
 
 | 问题 | 控件 |
 |---|---|
-| 这个开关是**立刻生效**的吗？（如飞行模式） | **Switch** |
-| 要**多选**，且最后统一提交？ | **Checkbox** |
-| 从**少量互斥**选项里选一个？ | **Radio** |
-| 从**较多**选项里选一个（>5 个）？ | 下拉菜单 / 列表页，不是 Radio |
+| 单个设置项**立即开/关**（如飞行模式） | **Switch** |
+| **多选**相关选项、可成组、占空间更小 | **Checkbox** |
+| **少量互斥**选项里单选（≤5 个，全部暴露） | **Radio** |
+| 两个**对立**选项（如列表/地图视图） | 连接按钮组（Connected button group），不是 Switch |
+| >5 个互斥选项 | 下拉菜单（点击与认知成本更高） |
 
-**核心区别**：Switch 是「立即改变状态」，Checkbox 是「先勾选，之后提交」。用 Switch 做需要点"保存"才生效的设置，用户会以为已经生效了。
+> The effects of a switch should start immediately, without needing to save.
 
-反过来，用 Checkbox 做立即生效的开关，用户会以为还要提交。
+**Switch = 立即生效；需要点"保存"的多选用 Checkbox；单选列表用 Radio。**Switch 控制的是二元（on/off）而非对立选项，也不能替代按钮（call to action 必须是按钮）。
 
-## 尺寸（官方 Measurements 原值）
+## Switch / 开关
 
-### Switch
+### 规格（官方 Measurements 原值）
 
-| 属性 | 值 |
-|---|---|
-| 高度 | **32dp** |
-| 宽度 | **52dp** |
-| 描边宽度 | **2dp** |
-| 形状 | `md.sys.shape.corner.full`（胶囊） |
-| Handle 高度（未选中） | **16dp** |
-| Handle 高度（选中） | **24dp** |
-| Handle 高度（带图标） | **24dp** |
-| Handle 高度（**按下**） | **28dp** |
-| Handle 宽度（未选中/选中） | 16dp / 24dp |
-| Handle 宽度（**按下**） | **28dp** |
-| 状态层尺寸 | **40dp** |
+| 元素 | 属性 | 值 |
+|---|---|---|
+| Track | 高 × 宽 | **32 × 52dp** |
+| Track | 描边宽度 | **2dp** |
+| Track / Handle / 状态层 | 形状 | `md.sys.shape.corner.full`（胶囊） |
+| Handle | 高（未选中 / 选中 / 带图标） | **16 / 24 / 24dp** |
+| Handle | 高（**按下**） | **28dp** |
+| Handle | 宽 | 与高同值（16 / 24 / 24 / 28dp） |
+| 状态层 | 尺寸 | **40dp** |
+| 触控目标 | 尺寸 | **48dp** |
+| 图标 | 尺寸（选中/未选中） | **16dp** |
 
-注意 handle 的三个尺寸：**未选中 16 → 选中 24 → 按下 28**。这就是 M3 里开关"按住会变大"的手感来源，不是随意的缩放。
+配置三档：无图标 / 仅选中态带图标 / 两态都带图标。**命名**：官方现叫 Handle（旧名 thumb）。
+handle 动画是官方手感：未选中 16 → 选中 24 → 按下 28，按压增长提供交互反馈。
 
-**命名变更**：官方现在叫 **Handle**，以前叫 **thumb**。看到旧文档写 thumb 指的是同一个东西。
+### 颜色角色（官方原值）
 
-### Checkbox
+官方列出的角色：`surface container highest` · `outline` · `primary` · `on primary` · `on primary container`。
+⚠️ 推断，页面未明示映射：未选中轨道 = `surfaceContainerHighest` + `outline` 描边；选中轨道 = `primary`；handle = `onPrimary`；handle 图标 = `onPrimaryContainer`。
+
+> Use the color role on surface for adjacent text labels. This remains the same even if interacting with the label or component.
+
+相邻标签固定 `onSurface`，辅助说明 `onSurfaceVariant`。
+
+### 使用规则
+
+1. 只做**二元**开关（on/off、true/false）；立即生效，无需保存。
+2. handle 里的图标必须清楚表达开/关，官方举例 **X 和 checkmark**；避免模糊图标（月亮、编辑铅笔）。
+3. **永远配内联标签**，标签写清「打开时做什么」，保持短而直接；**禁止把文字放进开关本体**（字号小到不可访问，用图标代替）。
+4. 设置页等堆叠布局是典型场景。
+
+### 无障碍
+
+- AT 用户应能：导航到开关、切换状态、按输入类型获得反馈。
+- **键盘**：Tab 焦点直接落 handle；**Space 或 Enter** 切换。
+- **密度**：不要默认压缩密度，会把触控目标压到 48×48 CSS 像素以下；改密度须用户可选且可撤销。
+- 读屏读到「相邻 UI 文字 + 角色」；**可见文字含糊时无障碍标签要更具体**（官方例：可见标签 "Photo album" → 无障碍标签 "Photo album access"）。
+
+## Checkbox / 复选框
+
+### 规格（官方 Measurements 原值）
 
 | 属性 | 值 |
 |---|---|
 | 容器尺寸 | **18dp** |
 | 容器圆角 | **2dp** |
-| 图标尺寸 | **18dp** |
-| 图标对齐 | 居中 |
-| 触控目标 | **48dp** |
+| 图标尺寸 | **18dp**（居中对齐） |
 | 状态层尺寸 | **40dp** |
+| 触控目标 | **48dp** |
 
-支持三态：未选中 / 已选中 / **indeterminate（部分选中）**。`TriStateCheckbox` 用于"全选"父项——子项有的选有的没选时显示横线。
+状态含未选 / 选中 / **indeterminate**，且 M3 新增三种状态的 **error 态**（overview 页）。Specs 页颜色区只列了 Container/State-layer/Icon 部件名**无角色文字**（仅图），勿引用具体角色。
 
-### Radio
+### 使用规则
+
+1. 用于：多选列表、含子选择的列表、桌面端单项开关、视觉分组。
+2. **列表多选优先 Checkbox 而非 Switch**（暗示相关、更省空间）。
+3. **父子联动**：父选中→全部子选中；父取消→全部子取消；部分子选中→父为 indeterminate；勾选 indeterminate 父项会全选子项。
+4. 用于开/关某项时动作立即执行。
+
+### 无障碍
+
+- **文字标签和框体都能点击选中**；三态：selected / unselected / indeterminate；组内各框互不影响。
+- 密度警告同 Switch（48×48 CSS 像素）。
+- ⚠️ 官方 Accessibility 页的「Keyboard navigation」表格内容是 **Chip** 的键位（Tab/Arrows/Backspace 描述 chip group），疑为页面误植，**不采信**——Checkbox 键盘行为以通用 Space/Enter 激活为准，页面未给出专属键位表。
+- 读屏读到「UI 文字 + 角色」；无障碍标签与相邻文字标签一致。
+
+## Radio Button / 单选按钮
+
+### 规格（官方 Measurements 原值）
 
 | 属性 | 值 |
 |---|---|
@@ -63,113 +101,84 @@
 | 状态层尺寸 | **40dp** |
 | 触控目标 | **48dp** |
 
-**Checkbox 18dp、Radio 20dp**——这个不对称是官方的，不要为了"统一"把两者改成一样大。
+**Checkbox 18dp、Radio 20dp** 的不对称是官方设定，不要"统一"。结构：选中图标 / 未选中图标 / 相邻标签。
 
-三者触控目标都是 48dp，状态层都是 40dp。
+### 颜色角色（官方原值）
 
-## 颜色角色（Switch，官网原文）
+`primary` · `on surface variant`。⚠️ 推断，页面未明示映射：选中态 `primary`，未选中图标 `onSurfaceVariant`。相邻标签固定 `onSurface`。
 
-`surfaceContainerHighest` · `outline` · `primary` · `onPrimary` · `onPrimaryContainer`
+### 使用规则
 
-- 未选中轨道：`surfaceContainerHighest` 填充 + `outline` 描边
-- 选中轨道：`primary`
-- handle：`onPrimary`（选中态）
-- handle 上的图标：`onPrimaryContainer`
+1. **单选、全部暴露选项**；同时只能选一个；**禁止嵌套** radio。
+2. **≤5 个选项用 radio**；空间紧张改下拉（更多点击与认知成本）。
+3. **每个选项必须有相邻标签**（每个选择各自有标签）。
+4. **垂直堆叠，并始终预选一项**；避免水平排列。
+5. 立即生效，除非在需要保存的对话框/页面中。
+6. **选中后组内不可反选**——要允许退出选择需提供 "Not applicable"/"No" 选项或单独的「清除选择」入口。
 
-**标签颜色**：相邻文字标签统一用 `onSurface`，无论是否与控件交互；辅助说明用 `onSurfaceVariant`。
+### 无障碍
 
-## Compose 实现
+- **键盘**（官方表）：
 
-### Switch（整行可点）
+| 键 | 行为 |
+|---|---|
+| Tab | 焦点进入组内：到已选项；无选中则到第一项 |
+| Shift + Tab | 到已选项；无选中则到最后一项 |
+| 方向键 | 移动焦点**并选中**上/下一项，首尾循环（wrap） |
+| Space | 选中聚焦项；已选中则无操作 |
+
+- **组语义**：组的无障碍标签 = 分类标题，角色 **Radio group**；单选项标签 = 相邻文字。
+- 初始焦点规则同上表；密度警告同前（48×48 CSS 像素）。
+
+## Compose 实现（三件套通用）
 
 ```kotlin
+// Switch / Checkbox：整行可点，控件本身 onCheckedChange = null
 Row(
     modifier = Modifier
         .fillMaxWidth()
-        .toggleable(
-            value = checked,
-            role = Role.Switch,
-            onValueChange = onCheckedChange
-        )
+        .toggleable(value = checked, role = Role.Switch, onValueChange = ::onChecked)
         .padding(horizontal = 16.dp, vertical = 12.dp),
     verticalAlignment = Alignment.CenterVertically
 ) {
-    Column(Modifier.weight(1f)) {
-        Text("自动同步", style = MaterialTheme.typography.bodyLarge)
-        Text(
-            "仅在 Wi-Fi 下同步",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
-    Switch(checked = checked, onCheckedChange = null)  // ← null：由整行处理
+    Column(Modifier.weight(1f)) { /* 标签 + onSurfaceVariant 辅助说明 */ }
+    Switch(checked = checked, onCheckedChange = null)  // 由外层 toggleable 接管
 }
-```
 
-关键点：`onCheckedChange = null` 让 Switch 自己不处理点击，由外层 `toggleable` 接管。这样**点文字也能切换**，且读屏只读一次。
-
-### Checkbox（多选列表）
-
-```kotlin
-Row(
-    modifier = Modifier
-        .fillMaxWidth()
-        .toggleable(value = checked, role = Role.Checkbox, onValueChange = onCheckedChange)
-        .padding(16.dp)
-) {
-    Checkbox(checked = checked, onCheckedChange = null)
-    Spacer(Modifier.width(8.dp))
-    Text("同意服务条款")
-}
-```
-
-### Radio（必须成组）
-
-```kotlin
-Column(Modifier.selectableGroup()) {   // ← 别忘了，否则读屏不知道这是一组
+// Radio：必须成组
+Column(Modifier.selectableGroup()) {          // 读屏才知道这是单选组
     options.forEach { option ->
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .selectable(
-                    selected = option == selected,
-                    role = Role.RadioButton,
-                    onClick = { onSelect(option) }
-                )
-                .padding(16.dp)
-        ) {
+        Row(Modifier.selectable(
+            selected = option == selected,
+            role = Role.RadioButton,
+            onClick = { onSelect(option) }
+        )) {
             RadioButton(selected = option == selected, onClick = null)
-            Spacer(Modifier.width(8.dp))
             Text(option.label)
         }
     }
 }
 ```
 
-## 无障碍
-
-- **整行可点**，不要只让 18dp 的小方块可点。
-- 用 `toggleable(role = Role.Switch/Checkbox)` 或 `selectable(role = Role.RadioButton)`，让读屏正确报出控件类型和状态。
-- Radio 组必须包 `Modifier.selectableGroup()`，读屏才知道"3 个选项中的第 1 个"。
-- 标签在右侧时，读屏顺序为「标签 → 状态」，符合预期。
-- 状态变化不要只靠颜色：Switch 有位置变化、Checkbox 有对勾、Radio 有实心圆点。
-- 三态 Checkbox 的 indeterminate 要有文字说明（如"部分已选"）。
+- `toggleable` / `selectable` 挂在外层让**文字也可点**且读屏只报一次；避免 Switch 自己处理 + 外层再包 toggleable 的双触发。
+- 三态父项用 `TriStateCheckbox`，indeterminate 配文字说明。
+- Compose `RadioButton` 单击即选中且组内互斥；「不可反选」由组语义自然成立。
 
 ## 常见错误
 
-1. 用 Switch 做需要点"保存"才生效的设置（用户以为已生效）。
-2. 用 Checkbox 做立即生效的开关。
-3. 用 Radio 呈现 10 个选项（应该用下拉或列表页）。
-4. Radio 没包 `selectableGroup()`，读屏读不出组关系。
-5. 只有小方块可点，文字不可点。
-6. Switch 自己处理点击，外层又包了一层 `toggleable`，点击触发两次。
-7. 把 Checkbox 和 Radio 的尺寸"统一"成一样（官方是 18 / 20dp）。
-8. 用 `Switch` 表达"选择"而不是"开关"——它没有"未选择"这个中间态。
-9. indeterminate 状态没有说明文字，用户不知道横线是什么意思。
+1. 用 Switch 做要保存才生效的设置；用 Checkbox 做立即开关。
+2. Switch 表达对立选项（应按钮组）或替代按钮。
+3. handle 图标用月亮/铅笔这类模糊语义。
+4. Radio 未包 `selectableGroup()`，读屏读不出组关系；或未预选一项。
+5. 没给 radio「取消选择」的出口（官方要求 Not applicable 选项或清除入口）。
+6. 把 18/20dp 的框体本身当触控目标（应为整行 ≥48dp）。
+7. 把 Checkbox 和 Radio 尺寸强行统一。
+8. indeterminate 无文字说明；radio 水平排列。
+9. 默认压缩密度，触控目标 < 48×48。
 
 ## 来源
 
-- https://m3.material.io/components/switch/specs
-- https://m3.material.io/components/checkbox/specs
-- https://m3.material.io/components/radio-button/specs
-- `01-Foundations/accessibility.md`（触控目标与语义）
+- https://m3.material.io/components/switch/overview | /specs | /guidelines | /accessibility
+- https://m3.material.io/components/checkbox/overview | /specs | /guidelines | /accessibility
+- https://m3.material.io/components/radio-button/overview | /specs | /guidelines | /accessibility
+- 核验日期：2026-11-16

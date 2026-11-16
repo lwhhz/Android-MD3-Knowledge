@@ -2,67 +2,157 @@
 
 - 官方指南：https://m3.material.io/components/carousel ｜ 规格页：https://m3.material.io/components/carousel/specs
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
-- 核验日期：2026-11-15 ｜ 核验方式：Chrome CDP 读官方 Measurements 表
-- 状态：**尺寸为官方原值**
+- 核验日期：2026-11-16
+- 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页）
+- 状态：**六种布局，28dp 项圆角为官方明示值**
 
 ## 用途
 
-Carousel 展示**一组可横向浏览的同类项目**，让用户一次看到"还有更多"，并能快速扫过。
+Carousel 展示**一组可横向浏览的视觉条目**，让用户看到「还有更多」，并能在滑动中掠过。
 
-| 场景 | 适合 |
+> "Carousels show a collection of items that can be scrolled on and off the screen"
+
+| 适合 | 不适合 |
 |---|---|
-| 图片集、商品推荐、卡片流 | ✅ |
-| 步骤引导、首次使用教学 | ✅（但要能跳过） |
-| 关键信息 / 需要完整阅读的内容 | ❌ 用户会滑走 |
-| 只有一张图 | ❌ 不该用轮播 |
+| 图片、视频、封面等视觉内容 | 必须完整读完的正文 |
+| 商品推荐、相册、活动流 | 只有一项内容 |
+| 需要「露出下一项」提示更多 | 条目需要大量文字说明 |
+| 沉浸式全屏内容流 | 需要精确对比多个条目 |
 
-**最重要的一条**：轮播里的内容用户**大概率只会看到第一屏**。所以不要把它当"信息归档"，它只能做"吸引注意 + 点击进入"。
+条目以视觉为主，文字是**可选且简短**的：
 
-## 两种布局
+> "Carousel items emphasize visuals, but can also contain brief text that adapts to the item size."
 
-| 布局 | 行为 |
+## 六种布局
+
+| 布局 | 可见项 | 适合 | 推荐滚动 |
+|---|---|---|---|
+| **Multi-browse** | ≥1 大 + 1 中 + 若干小 | 一次浏览大量视觉条目（照片、活动流） | Snap |
+| **Uncontained** | 同尺寸项，滚到容器边缘外 | 高度定制、文字较多、图文堆叠 | Default 或 Snap |
+| **Uncontained multi-aspect ratio** | 多种宽高比（16:9 / 9:16 / 1:1 / 3:4） | 条目本身宽度不一 | Default 或 Snap |
+| **Hero** | ≥1 大 + 1 小 | 突出重点内容（电影、应用） | Snap |
+| **Center-aligned hero** | 1 大居中 + 两侧各 1 小 | 居中突出大图 | Snap |
+| **Full-screen** | 1 项，边到边 | 竖向视频/图片流、沉浸体验 | Snap（强制） |
+
+> ⚠️ 旧版文档只列「contained / uncontained 两种布局」，已过期。官方现为六种，centered 是配置而非独立布局族。
+
+布局选择要点：
+
+1. multi-browse 不适合文字多或图像复杂的条目。
+2. uncontained 条目尺寸不变，因此可在条目上下放更多文字或 UI，不会被裁切。
+3. uncontained multi-aspect ratio **只在条目宽度确实不同时使用**；宽度范围从 9:16 到 16:9。
+4. hero 突出「一张大图 + 下一张的预览」；大屏上可见更多大项。
+5. center-aligned hero 在 leading 侧多一个预览项，使大项居中。
+6. full-screen 只适合**竖向**内容；compact / medium 断点仅竖屏可用，**横屏不要用**。
+
+## 规格
+
+### 各布局测量（specs 明示值）
+
+| 属性 | Multi-browse | Uncontained | Uncontained multi-aspect | Hero | Center-aligned hero | Full-screen |
+|---|---|---|---|---|---|---|
+| 垂直对齐 | 居中 | 居中 | 居中 | 居中 | 居中 | 居中 |
+| Leading 内边距 | 16dp | 16dp | 16dp | 16dp | 16dp | 0dp |
+| Trailing 内边距 | 16dp | —（出血） | —（出血） | 16dp | 16dp | 0dp |
+| 上/下内边距 | 8dp | 8dp | 8dp | 8dp | 8dp | 0dp |
+| 项间距 | 8dp | 8dp | 8dp | 8dp | 8dp | **16dp** |
+| 大项宽度 | 动态或用户设定 | 动态 | 动态 | 动态 | 动态 | 填满窗口 |
+| 中项宽度 | 动态 | — | — | — | — | — |
+| 小项宽度 | 40–56dp，动态 | — | — | 40–56dp | 40–56dp | — |
+| 项圆角 | **28dp** | 28dp | 28dp | 28dp | 28dp | 未标注（全屏边到边） |
+
+关键点：
+
+- **28dp 是全部非全屏布局的统一项圆角**，比卡片（12dp）大得多，是「独立成形」的视觉特征。
+- 小项 40–56dp 是「露出相邻项边缘」的提示尺寸，不承载可读内容。
+- 大项有可调的最大宽度；调窄后同屏可见更多项，但**必须仍足够大、可辨认**。
+- specs 表**没有给条目高度**，高度由宽高比与容器决定。
+
+> "Large items have a customizable maximum width that's used to optimally fit carousel items into the available space."
+> "Small carousel items have a minimum width of 40dp and a maximum width of 56dp."
+
+## 颜色角色
+
+| 部位 | 颜色角色 |
 |---|---|
-| **Contained** | 项目在容器内滚动，左右留出边距 |
-| **Uncontained** | 项目一直滚动到容器边缘（贴边） |
+| 容器 | `surface` |
+| 条目内容色 | 官方未在 specs 列出；条目通常由图片或卡片自身颜色决定（⚠️ 推断，页面未明示） |
 
-Uncontained 视觉更沉浸，但会牺牲左右留白的一致性——同屏不要混用两种。
+状态：**Enabled / Hovered / Focused / Pressed / Disabled**（token 数值未在 dump 文本展开）。
 
-## 尺寸（官方 Measurements 原值）
+## 使用规则
 
-| 属性 | 值 |
-|---|---|
-| 垂直对齐 | 居中 |
-| 左右内边距 | **16dp** |
-| 上下内边距 | **8dp** |
-| 元素间距 | **8dp** |
-| Large 项宽度 | 动态（或用户设定） |
-| Medium 项宽度 | 动态 |
-| **Small 项宽度** | **40–56dp**，动态 |
-| **项圆角** | **28dp** |
+### 布局与滚动
 
-注意圆角是 **28dp（extraLarge 档）**，比卡片（12dp）大得多——这是让轮播项看起来"独立成形"的关键视觉特征。改成 12dp 会立刻显得像列表。
+1. 条目必须**完整可见**（uncontained 除外）；滚动后自动改变尺寸并吸附回布局。
+2. 默认滚动不吸附，可停在任意位置——**只用于 uncontained**。
+3. snap 滚动在松手后对齐栅格——用于 multi-browse、hero、full-screen。
+4. full-screen **必须** snap 到容器边缘，不允许自由滚动或停在半途。
+5. compact 断点最多舒适展示 3 项；超过 3 项时，图片与内容必须一眼可辨。
+6. 大屏随容器变大增加可见项数并放大尺寸；full-screen 始终只显示 1 项。
 
-Small 项 40-56dp 是"露出相邻项边缘"的尺寸，起提示作用，不是可读内容。
+> "The default scrolling behavior doesn't snap items to a layout grid. They can stop anywhere in the container. Only use this for the uncontained layout."
 
-## 交互规则
+### 文字
 
-- **横向滑动**切换，不要自动轮播（自动播会让用户读不完就被带走；确需自动播放时提供暂停）。
-- 滑动要**带吸附（snap）**，停在完整项上，不要停在半张。
-- 显示当前位置的指示（点或"3/8"），但**不要超过 8 个点**——再多改用文字计数。
-- 键盘 / 遥控要能用方向键切换。
-- 首项与末项不要循环到另一头（除非明确是无限流），用户会失去位置感。
+- 条目文字可选、简短；compact 断点**默认不超过 2 行**，除非背景是纯色等简单背景。
+- 文字必须在每种尺寸下都可理解；小项可用缩写或省略标题。
+- 文字需求大 → 改用 uncontained，或改用一组卡片。
 
-## Compose 实现
+### 尺寸与可读性
+
+- ✅ 设定足够大的大项宽度，保证图片与文字可读可辨。
+- ❌ 不要把条目缩到图片无法辨认。
+
+### 无障碍兜底入口（强制）
+
+- 在**竖向滚动页面**里，carousel 必须提供不依赖横向滑动的访问方式（full-screen 除外）。
+- 推荐做法：carousel 下方加 **"Show all" 按钮**，打开一个竖向滚动的全量页面。
+- 若 carousel 有标题，可在标题同行放**箭头图标按钮**替代。
+- "Show all" 按钮内边距 **4dp**；箭头图标 **48dp**，标题与箭头同排、标题起始边对齐。
+- ❌ 不要把按钮放进 carousel 容器内或紧贴其旁；也不要让按钮遮住 carousel。
+
+### 动效与降级
+
+- 条目滚动时有 **parallax**（内容与容器不同速）；条目在移动中改变尺寸。
+- 开启「减少动态效果」后：**移除 parallax、条目不再放大，所有条目同尺寸**；carousel 应贴到窗口边缘避免裁切。
+- hero 在减少动态效果时，小项只部分露出。
+
+### RTL
+
+官方未在 carousel 页面单列 RTL 规则；按镜像滚动方向与图标处理（⚠️ 推断，页面未明示）。
+
+## 无障碍
+
+- 读屏用户应能：导航到 carousel 容器；在条目间移动；激活条目；**跳过整个 carousel**。
+- **初始焦点落在第一个 carousel item，而不是容器**；`Tab` 或方向键在条目间移动。
+- 上下方向键用于**离开 carousel**，移到页面下一个元素（如 Show all 按钮）。
+- `Space` / `Enter` 激活当前条目。
+- 语义：容器为 **container role**，标签要合适；由于每个 carousel 条目数不同，标签需读出**当前项与总数**（如「第 2 项，共 8 项」）。
+- 触控：点击条目时轻微变形 + 涟漪；hover 有状态提示；click 有涟漪。
+- 减速动效是**无障碍要求**，不是可选装饰。
+- 不要用「只能横向滑动」作为唯一入口——这是官方对滚动页面的硬性要求。
+
+## Compose 对应 API
+
+| 需求 | API | 状态 |
+|---|---|---|
+| 官方 carousel 布局 | `androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel` / `HorizontalUncontainedCarousel` | `@ExperimentalMaterial3Api`，类名与参数需按当前 material3 版本核验 |
+| 通用分页 | `HorizontalPager`（foundation） | 稳定 |
+| 减少动效 | 读取系统 animator duration scale / `LocalMotionDurationScale` | —（⚠️ 具体 API 需核验） |
 
 ```kotlin
 val pagerState = rememberPagerState(pageCount = { items.size })
 
 HorizontalPager(
     state = pagerState,
-    contentPadding = PaddingValues(horizontal = 16.dp),
-    pageSpacing = 8.dp
+    contentPadding = PaddingValues(horizontal = 16.dp), // specs: leading/trailing 16dp
+    pageSpacing = 8.dp                                  // specs: 项间距 8dp
 ) { page ->
-    Card(shape = RoundedCornerShape(28.dp)) {          // 28dp 是官方项圆角
+    Surface(
+        shape = RoundedCornerShape(28.dp),              // specs: 项圆角 28dp
+        color = MaterialTheme.colorScheme.surface
+    ) {
         AsyncImage(
             model = items[page].image,
             contentDescription = items[page].title,
@@ -73,29 +163,30 @@ HorizontalPager(
 }
 ```
 
-`contentPadding` + `pageSpacing` 就是官方那 16dp / 8dp 的来源。
+实现要点：
 
-## 无障碍
-
-- **每一项都要有语义描述**（图片用 `contentDescription`，卡片用文字标题）。轮播图常常只给图片不给描述，读屏用户完全拿不到内容。
-- 指示器要能被读出当前页（"第 2 张，共 5 张"），纯圆点对读屏无意义。
-- 不要依赖自动播放传达信息。
-- 滑动区域要避开内部可点击元素——否则滑一下变成点进去。
-- 提供非滑动入口（"查看全部"按钮），因为部分用户无法完成滑动手势。
+- `HorizontalPager` 默认**不吸附**；需要 snap 时用 `rememberPagerState` + `snapPosition`，或直接用官方 carousel 组件。
+- 官方 carousel 的布局尺寸（大/中/小项动态宽度）由组件计算，不要手写 `width` 覆盖。
+- full-screen 时 `contentPadding = 0.dp`、`pageSpacing = 16.dp`，并强制 snap。
+- 若使用 `HorizontalPager` 自己拼，需自行实现 parallax、动态宽度与 28dp 圆角，工作量不小。
 
 ## 常见错误
 
-1. 项圆角用 12dp（卡片值），失去轮播的独立感。
-2. 自动轮播且不能暂停。
-3. 滑动不吸附，停在半张卡片上。
-4. 只给图片不给 `contentDescription`。
-5. 指示器 10 个圆点，用户数不清。
-6. 轮播里放必须读完的正文。
-7. 第一屏放"无关紧要"的内容——那是唯一保证被看到的位置。
-8. 在轮播项内部又放了横向滚动的控件，手势打架。
+1. 只写「contained / uncontained 两种布局」——官方现为六种，选型会漏掉 hero / multi-browse / full-screen。
+2. 项圆角用 12dp（卡片值），失去轮播的独立感。
+3. 任意布局都用自由滚动，松手停在半张图上（应 snap）。
+4. full-screen 允许自由滚动或横向使用。
+5. 竖屏页面只提供横向滑动，没有 Show all / 箭头入口。
+6. 把按钮塞进 carousel 容器或盖在条目上。
+7. compact 断点一次塞 6 个带文字的条目，谁也读不清。
+8. 忽略「减少动态效果」，parallax 与放大照常播放。
+9. 只给图片不给 `contentDescription`。
 
 ## 来源
 
+- https://m3.material.io/components/carousel/overview
 - https://m3.material.io/components/carousel/specs
-- `01-Foundations/shape-system.md`（28dp = extraLarge）
-- `01-Foundations/accessibility.md`
+- https://m3.material.io/components/carousel/guidelines
+- https://m3.material.io/components/carousel/accessibility
+- 核验日期：2026-11-16
+- 关联：`02-Components/cards.md`（卡片横排）、`01-Foundations/shape-system.md`（28dp 档位）

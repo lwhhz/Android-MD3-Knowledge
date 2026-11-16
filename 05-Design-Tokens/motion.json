@@ -3,9 +3,19 @@
   "source": "https://m3.material.io/styles/motion/easing-and-duration/tokens-specs",
   "checked_on": "2026-11-14",
   "verified": true,
+  "updated_on": "2026-11-16",
+  "sources": [
+    "https://m3.material.io/styles/motion/overview/how-it-works",
+    "https://m3.material.io/styles/motion/overview/specs",
+    "https://m3.material.io/styles/motion/transitions/transition-patterns",
+    "https://m3.material.io/styles/motion/transitions/applying-transitions",
+    "https://m3.material.io/styles/motion/easing-and-duration/tokens-specs",
+    "https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration"
+  ],
   "status": {
     "spring": "current — M3 Expressive 引入的 motion physics 系统，正在取代 easing+duration",
-    "easing_duration": "legacy — 仍用于 transitions，且不再维护"
+    "easing_duration": "legacy — 仍用于 transitions，且不再维护",
+    "transitions": "legacy — 官方注：「M3 transitions use the legacy easing and duration system. They'll eventually be updated to use the motion physics system.」"
   },
   "spring": {
     "_note": "scheme（expressive / standard）在产品层指定，不写进令牌名；同一令牌在手表/手机/平板上实际数值不同，但相对速度关系不变。Compose 与 MDC-Android 均以 spring token 提供，Compatible with Compose springs。",
@@ -70,34 +80,48 @@
     }
   },
   "easing": {
-    "_note": "Android 列来自官网令牌表原文。emphasized 在 CSS 上无对应值，Web 需用 standard 兜底。",
+    "_note": "Android / CSS / Flutter / iOS 列均来自官网令牌表原文。emphasized 在 CSS 与 iOS 上无对应值，需用 standard 兜底。easing 整体属 legacy 系统。",
     "emphasized": {
       "android": "pathInterpolator(M 0,0 C 0.05,0, 0.133333,0.06, 0.166666,0.4 C 0.208333,0.82, 0.25,1, 1,1)",
-      "css": null
+      "css": null,
+      "flutter": "easeInOutCubicEmphasized",
+      "ios": null
     },
     "emphasizedDecelerate": {
       "android": "PathInterpolator(0.05f, 0.7f, 0.1f, 1f)",
-      "css": "cubic-bezier(0.05, 0.7, 0.1, 1.0)"
+      "css": "cubic-bezier(0.05, 0.7, 0.1, 1.0)",
+      "flutter": "Cubic(0.05, 0.7, 0.1, 1.0)",
+      "ios": "ControlPoints 0.05:0.7:0.1:1.0"
     },
     "emphasizedAccelerate": {
       "android": "PathInterpolator(0.3f, 0f, 0.8f, 0.15f)",
-      "css": "cubic-bezier(0.3, 0.0, 0.8, 0.15)"
+      "css": "cubic-bezier(0.3, 0.0, 0.8, 0.15)",
+      "flutter": "Cubic(0.3, 0.0, 0.8, 0.15)",
+      "ios": "ControlPoints 0.3:0.0:0.8:0.15"
     },
     "standard": {
       "android": "PathInterpolator(0.2f, 0f, 0f, 1f)",
-      "css": "cubic-bezier(0.2, 0.0, 0, 1.0)"
+      "css": "cubic-bezier(0.2, 0.0, 0, 1.0)",
+      "flutter": "Cubic(0.2, 0.0, 0, 1.0)",
+      "ios": "ControlPoints 0.2:0.0:0.0:1.0"
     },
     "standardDecelerate": {
       "android": "PathInterpolator(0f, 0f, 0f, 1f)",
-      "css": "cubic-bezier(0, 0, 0, 1)"
+      "css": "cubic-bezier(0, 0, 0, 1)",
+      "flutter": "Cubic(0, 0, 0, 1)",
+      "ios": "ControlPoints 0.0:0.0:0.0:1.0"
     },
     "standardAccelerate": {
       "android": "PathInterpolator(0.3f, 0f, 1f, 1f)",
-      "css": "cubic-bezier(0.3, 0, 1, 1)"
-    }
+      "css": "cubic-bezier(0.3, 0, 1, 1)",
+      "flutter": "Cubic(0.3, 0, 1, 1)",
+      "ios": "ControlPoints 0.3:0.0:1.0:1.0"
+    },
+    "_after_effects": "所有 easing 在 After Effects 中使用官方 Easing Panel（下载），官网未给数值"
   },
   "duration": {
     "unit": "ms",
+    "_token_pattern": "md.sys.motion.duration.{short1..extraLong4}，四档短/中/长/超长，每档 4 个",
     "short1": 50,
     "short2": 100,
     "short3": 150,
@@ -120,6 +144,88 @@
     "medium4": "FAB 展开为 Sheet，配 Emphasized easing",
     "long2": "Card 展开为全屏，配 Emphasized easing",
     "extraLong4": "环境型转场（无用户输入），如轮播自动切换"
+  },
+  "suggested_easing_duration_pairs": {
+    "_note": "官方 Applying easing and duration 页原文：「As a simple starting point, these are sensible defaults that will work for most transitions.」属 legacy 系统，供存量转场使用。",
+    "emphasized": { "durationMs": 500, "transition_type": "Begin and end on screen（屏上起止）" },
+    "emphasizedDecelerate": { "durationMs": 400, "transition_type": "Enter the screen（进入屏幕）" },
+    "emphasizedAccelerate": { "durationMs": 200, "transition_type": "Exit the screen（退出屏幕）" },
+    "standard": { "durationMs": 300, "transition_type": "Begin and end on screen" },
+    "standardDecelerate": { "durationMs": 250, "transition_type": "Enter the screen" },
+    "standardAccelerate": { "durationMs": 200, "transition_type": "Exit the screen" },
+    "_selection_rules": [
+      "屏上起止 → Emphasized；进入 → decelerate；永久退出 → accelerate（峰值速度结束，暗示不可找回）；临时退出 → Emphasized（停在屏外，暗示可找回）",
+      "duration 按转场覆盖面积缩放：小区域短（官方示例 200ms）、大区域长（官方示例 500ms）",
+      "进入长于退出：官方示例 进入 500ms / 退出 200ms"
+    ]
+  },
+  "transition_patterns": {
+    "_note": "来自 Transition patterns 与 Applying transitions 两页。转场整体仍用 legacy easing/duration 系统（官方注：eventually 会迁移到 motion physics）。官网原文：「They should be the top priority for a strong motion implementation.」",
+    "containerTransform": {
+      "purpose": "元素无缝变形以展示更多细节（如 Card 展开为详情页）；用 persistent element（container 或 hero image）连接起止状态",
+      "common_components": ["cards", "lists", "image galleries", "search boxes", "sheets", "FABs", "chips"],
+      "notes": [
+        "官方评价：所有转场模式中元素关联最强、观感最 expressive",
+        "适用：hero 时刻、浅层级应用、需要无缝连接时",
+        "不适用：深层级应用（motion 过度）、高频使用（过度且需自定义实现）"
+      ]
+    },
+    "forwardBackward": {
+      "purpose": "相邻层级屏幕间导航（如收件箱 → 邮件会话）",
+      "common_components": ["lists", "cards", "buttons", "links"],
+      "notes": [
+        "Android 默认：滑动 + fade（减少运动量，不必滑满屏宽）",
+        "iOS 默认：parallax（背景比前景慢）",
+        "官方建议直接用平台默认：易实现、随平台更新、风格适合高频转场"
+      ]
+    },
+    "lateral": {
+      "purpose": "同层级同级内容间浏览（如内容库 tab 间滑动）",
+      "common_components": ["tabs", "carousels", "image galleries"],
+      "notes": [
+        "不用 fade / parallax：元素成组整体滑动（slide in unison），暗示可手势滑动",
+        "不要用于层级间导航：全屏宽滑动过重，且暗示不存在的平级关系",
+        "滑动时加 fade 会削弱同级关系与滑动手势暗示"
+      ]
+    },
+    "topLevel": {
+      "purpose": "顶级目的地间切换",
+      "common_components": ["navigation bar", "navigation rail", "navigation drawer"],
+      "notes": [
+        "退出屏快速淡出、进入屏淡入；刻意不用分组 / persistent element 建立屏幕间关系",
+        "不要用 lateral：与 carousel、可滑动列表项的手势冲突"
+      ]
+    },
+    "enterExit": {
+      "purpose": "屏幕上引入 / 移除组件；屏内（dialog 等）或跨屏边界（sheet、drawer 等）",
+      "common_components_within_bounds": ["FABs", "dialogs", "menus", "snackbars", "time pickers", "tooltips"],
+      "common_components_beyond_bounds": ["app bars", "banners", "navigation bar", "navigation rail", "navigation drawer", "sheets"],
+      "notes": [
+        "Android 屏内：沿 x/y 轴 expand/collapse；刻意避免 scale 与 z 轴动作（会暗示 elevation 变化，与 M3 精简的层级模型不符）",
+        "Android 跨边界：滑入滑出的同时 expand/collapse（强调形状）；iOS 滑动不变形",
+        "进场方向从最近的设备边缘向外展开：顶部菜单向下、底部 snackbar 向上；共同建立空间模型（通知从顶、drawer 从左、sheet/键盘从底）",
+        "可随滚动手势进出（app bar / navigation bar）；coplanar sheet 与主内容同层级进出",
+        "不要用于层级间导航：全屏高滑动过重且屏幕关系不明"
+      ]
+    },
+    "skeletonLoaders": {
+      "purpose": "临时加载态到加载完成的过渡；与其他转场组合使用，降低感知延迟、稳定布局",
+      "common_components": [],
+      "notes": [
+        "微弱脉动动画表示不确定进度，从屏幕左上向右下推进",
+        "内容加载完成后快速淡入并覆盖在 skeleton 之上"
+      ]
+    },
+    "_quality_rules": [
+      "遵循无障碍设置：reduced motion 时用 subtle fades 替代滑动/缩放，禁用 parallax 与 shape morphing 等装饰效果",
+      "同类转场全 app 一致（consistent / predictable）",
+      "用 skeleton loader 稳定布局，避免内容位移或 pop in",
+      "jump cut 不作为默认（仅纯效率优先场景可选）",
+      "建立连贯空间模型（不要横竖布局间切换）",
+      "统一方向：元素成组沿主轴运动，仅 hero 级元素 persistent",
+      "干净淡入淡出：先完全淡出再淡入；必须 cross fade 时要快并藏在最快段；不要给 bottom sheet 加淡入淡出",
+      "简单风格：常用转场不要 bouncy springs 等风格化效果（针对转场，不限组件内弹簧动效）"
+    ]
   },
   "rules": [
     "退出动画快于进入动画，约为其 60%-70%",

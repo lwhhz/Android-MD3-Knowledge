@@ -1,116 +1,106 @@
-# Loading Indicator / 加载指示（Expressive）
+# Loading Indicator / 加载指示（M3 Expressive）
 
 - 官方指南：https://m3.material.io/components/loading-indicator ｜ 规格页：https://m3.material.io/components/loading-indicator/specs
-- Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
-- 核验日期：2026-11-15 ｜ 核验方式：Chrome CDP 读官方 Specs 页
-- 状态：**M3 无此组件，Expressive 新增**；尺寸为官方原值
+- 核验日期：2026-11-16 ｜ 核验方式：官方 Overview / Specs / Guidelines / Accessibility 页全文 dump
+- 状态：**M3（基础版）无此组件，M3 Expressive 新增**；尺寸为官方原值
 
-## 代际归属
+## 用途与代际
 
-| 变体 | M3 | M3 Expressive |
-|---|---|---|
-| Loading indicator | ❌ | ✅ |
+> The loading indicator is designed to show progress that loads in under five seconds. It should replace most uses of the indeterminate circular progress indicator.
 
-注意它和 **Progress Indicator 不是同一个东西**：
+它表示「**正在处理、进度不可知**」，是一组形状持续 morph 的动画；与 Progress indicator（有进度概念）不是同一组件。官方定位三条硬规则：
 
-| | Progress indicator | Loading indicator |
-|---|---|---|
-| 表达 | 有多少进度（可确定 / 不可确定） | **只是"在处理"，没有进度概念** |
-| 形态 | 线性 / 环形 + 轨道 | 一组形状持续 morph |
-| 何时用 | 有进度或至少能显示"在转" | 短暂等待、局部处理中 |
+- **等待时间选控件**（与 Progress 共用同一张官方对照表）：
 
-所以：**能量化用 progress，纯粹"稍等"用 loading。**
+| 预期等待 | 官方推荐 |
+|---|---|
+| 即时（< 200ms） | 不显示任何指示器 |
+| 短（200ms ~ 5s） | **Loading indicator** |
+| 长（> 5s） | **Progress indicator** |
+
+- **不得从 loading indicator 过渡成 determinate progress indicator**；若过程可能从"不可知进度"变"可知进度"，应在 progress indicator 内部从 indeterminate 切到 determinate。
+- 用于 **pull-to-refresh**（Jetpack Compose 专属行为）；「Always reflect an ongoing process and are never simply decorative」——永远表示真实进行中的过程，不做纯装饰。
+
+实现可用性：Figma ✅；Jetpack Compose（Expressive）✅；Android Views（MDC-Android）Expressive ✅；Web ❌。
 
 ## 配置
 
-官方两种：
-
 | 配置 | 说明 |
 |---|---|
-| **Default** | 独立成形 |
-| **Contained** | 装在一个容器里（如按钮内、卡片内） |
+| **Default** | 独立成形，无容器 |
+| **Contained** | 带可选容器（见下） |
 
-官方还注明：**loading indicator 只有一套 token set**（不像当年 progress indicator 分环形/线性两套）。
+单一 token set（不按形态分套）。
 
-## 尺寸（官方原文）
+## 结构与规格
+
+结构：**Active indicator**（必选）+ **Container**（可选）。
 
 > To ensure sufficient margins, the size is **48dp** while the shape container is **38dp**.
 
-也就是：
-
-| 层级 | 尺寸 |
+| 属性 | 值 |
 |---|---|
+| 默认占位尺寸 | **48dp** |
 | 形状容器（可见部分） | **38dp** |
-| 占位尺寸（含必要留白） | **48dp** |
+| 尺寸范围 | **24dp ~ 240dp**（「Avoid exceeding the minimum and maximum sizes」） |
 
-这两者的差值是刻意留的**边距**。如果你把布局高度写成 38dp，形状在动画中放大时会溢出或挤压相邻元素——写 48dp 才是安全值。
+- Active indicator 是**由 7 个 Material 3 形状组成的循环 morph 序列**。
+- 缩放时容器与 active indicator 的比例保持不变；默认 48dp 适合移动端，大窗口可放大（上限 240dp），超大号留给桌面等大窗口。
+- 布局高度写 48dp 而不是 38dp——差值是官方预留的动画边距。
 
-## 颜色
+## 颜色角色（官方原值）
 
-单套 token，按上下文取色：
+| 配置 | 角色 |
+|---|---|
+| Default | active indicator = `primary` |
+| Contained | 容器 = `primary container`，active indicator = `on primary container` |
 
-- 独立使用时跟随 `primary`
-- 在按钮内（Contained）时跟随 `LocalContentColor`，与按钮内容色一致
+> When the container is visible, the active indicator should change color from primary to on-primary-container.
 
-**不要**自己指定颜色——它通常出现在别的组件内部，硬编码会与宿主冲突。
+容器使用场景（官方原文）：loading indicator **叠在其他内容上**时显示容器以增强对比；直接放在 surface 上则不需要；**pull-to-refresh 必须带容器**。容器是圆形。
+
+## 使用规则（Guidelines 翻译）
+
+1. **整页/整容器加载时居中**；在已有内容页追加内容时，放在新内容将出现的空白处，**不要遮挡现有内容**。
+2. **可嵌入按钮**等组件，表示动作进行中（如表单校验、检查更新）。
+3. **Pull-to-refresh 阈值**：必须拖过阈值才触发刷新；过阈值后回退手势会取消刷新。指示器保持可见直到刷新完成且新内容可见（或用户离开），**不要让它被滚出屏幕**——否则用户会以为刷新只关联某个卡片而非整屏。
+4. 等待很长时，考虑允许用户**离开页面**等后台完成。
 
 ## Compose 实现
 
 ```kotlin
-// Contained：放在按钮里
-Button(onClick = save, enabled = !loading) {
-    if (loading) {
-        LoadingIndicator(
-            modifier = Modifier.size(48.dp)    // 官方占位尺寸
-        )
-        Spacer(Modifier.width(8.dp))
-        Text("保存中")
-    } else {
-        Text("保存")
-    }
-}
+// M3 Expressive API（androidx.compose.material3）
+// ⚠️ @ExperimentalMaterial3ExpressiveApi，以当前版本 API reference 为准
+LoadingIndicator(
+    modifier = Modifier.size(48.dp)   // 官方默认占位尺寸
+)
+// 带容器版本使用 ContainedLoadingIndicator（同为实验性 API）
 ```
 
-**给不出完整代码的原因**：该组件的类名与参数在 1.5.0 线仍在演进（`LoadingIndicator` / `ContainedLoadingIndicator` 之类），且是否已从 experimental 转正需按版本核对。用前先查当前版本的 API reference。
-
-如果当前版本还没有它，退路是 `CircularProgressIndicator`（不确定进度）——功能等价，只是视觉朴素。
-
-## 什么时候用哪个
-
-| 场景 | 选择 |
-|---|---|
-| 文件上传有百分比 | Progress（determinate） |
-| 页面首次加载、时长未知 | Progress（indeterminate）或 Loading indicator |
-| 按钮内、几百毫秒的处理 | Loading indicator（Contained） |
-| 列表项内的局部刷新 | Loading indicator（小尺寸） |
-
-**不要在同一屏同时出现两种加载指示**——用户会以为出了两个问题。
+当前稳定 material3 没有"安全替身"——若项目尚未启用 Expressive，用 `CircularProgressIndicator()`（indeterminate）功能等价，但不符合 2025 Expressive 指南的推荐用法。
 
 ## 无障碍
 
-- 必须有可理解的上下文：`contentDescription = "正在保存"`，不能只转圈。
-- 超过 5 秒的等待要给文字说明，不能只靠动画。
-- 不要用颜色表达成功/失败（加载失败要切到明确的错误态）。
-- 动画本身对读屏无意义，状态要通过语义传递。
+- AT 用户应能：导航到 loading indicator、理解它在传达什么进度、**不依赖手势即可触发刷新**（pull-to-refresh 必须提供替代方式，如 app bar 中的刷新按钮）。
+- Active indicator 对其所在背景/宿主组件至少 **3:1 对比度**；容器本身不做对比度要求（「the container does not」）。
+- 使用 **progress bar 无障碍角色**，并写明加载对象：
+
+> Write a label describing the purpose of the loading indicator, such as "loading news article" or "refreshing page."
 
 ## 常见错误
 
-1. 把 loading indicator 当 progress 用（它没有进度概念）。
-2. 布局写 38dp 高，形状放大时被裁。
-3. 硬编码颜色，放进按钮后与内容色不一致。
-4. 一屏多个加载指示。
-5. 只有动画没有文案，超过几秒用户开始怀疑卡死。
-6. 在 M3（非 Expressive）项目里找它。
-7. 加载完成后不消失，或直接跳走没有完成反馈。
-
-## 待核验
-
-- [ ] 当前 material3 版本的确切类名与参数
-- [ ] `@ExperimentalMaterial3ExpressiveApi` 是否已移除
-- [ ] 形状动画的周期与各阶段时长
+1. 用它表达有进度的过程（应改用 determinate progress indicator）。
+2. 从 loading indicator 切到 determinate progress indicator（官方禁止；应在 progress 内部切换）。
+3. 布局写 38dp 高，形状放大被裁。
+4. Contained 场景仍用 `primary`（应切 `onPrimaryContainer`）。
+5. pull-to-refresh 没有非手势替代入口。
+6. 让指示器被滚出屏幕，或加载完成后不消失。
+7. 在 M3 非 Expressive / Web 项目中找官方实现（不存在）。
 
 ## 来源
 
+- https://m3.material.io/components/loading-indicator/overview
 - https://m3.material.io/components/loading-indicator/specs
-- `02-Components/progress-indicator.md`（有进度时用哪个）
-- `02-Components/expressive-components.md`（Expressive 组件总览）
+- https://m3.material.io/components/loading-indicator/guidelines
+- https://m3.material.io/components/loading-indicator/accessibility
+- 核验日期：2026-11-16
