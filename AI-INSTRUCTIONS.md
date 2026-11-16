@@ -40,3 +40,7 @@ For substantial UI work, provide screen structure, component mapping, color/type
 
 ## Knowledge-base discipline
 These Markdown files are curated notes, not a replacement for live official documentation. If a note conflicts with current official docs, flag and update it with checked date, source URL, API/library version and change summary.
+
+Coverage map: `00-Metadata/site-map.md` lists all 375 pages of m3.material.io and which knowledge-base file each one is folded into (crawled 2026-11-16). Use it to find the right file before answering, and to see what is not covered yet.
+
+Claims marked `⚠️ 推断` are inference, not official guidance — do not present them as Material requirements. Claims marked "官方未给 dp" mean the official page shows only annotated images; do not invent numbers.

@@ -1,102 +1,118 @@
 # Progress Indicator / 进度指示
 
 - 官方指南：https://m3.material.io/components/progress-indicators ｜ 规格页：https://m3.material.io/components/progress-indicators/specs
-- Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
-- 核验日期：2026-11-15 ｜ 核验方式：Chrome CDP 读官方配置表
-- 状态：**配置项与固定数值已核对**；变体尺寸主要为图片
+- Compose API：`LinearProgressIndicator` / `CircularProgressIndicator`（稳定）；`LinearWavyProgressIndicator` / `CircularWavyProgressIndicator`（Expressive 实验性）
+- 核验日期：2026-11-16 ｜ 核验方式：官方 Overview / Specs / Guidelines / Accessibility 页全文 dump
+- 状态：**配置、颜色与固定数值已核对**；变体厚度等仅图片示例，无官方数字（见文末说明）
 
-## 先选行为，再选形状
+## 行为、形状、厚度三选一
 
-三个维度要分开想：
-
-| 维度 | 取值 |
-|---|---|
-| **行为** | Determinate（可确定，有百分比）/ Indeterminate（不确定） |
-| **形状** | Linear（线性）/ Circular（环形） |
-| **厚度** | Fixed 4dp（默认）/ **Variable（Expressive）** |
-| **样式** | Flat（默认）/ **Wavy（Expressive）** |
-
-**最容易犯的错**：明明能算出进度却用 indeterminate。用户盯着无限转圈 30 秒，比看到"卡在 80%"更焦虑。
-
-判断：**能拿到总量就用 determinate**；确实不知道要多久（等一个外部回调）才用 indeterminate。
-
-## 配置的代际差异（官方原文）
-
-| 类别 | 配置 | M3 | M3 Expressive |
+| 维度 | 取值 | M3 | M3 Expressive |
 |---|---|---|---|
-| Behavior | Determinate（默认） | ✅ | ✅ |
-| Behavior | Indeterminate | ✅ | ✅ |
-| Track thickness | Fixed（4dp） | ✅ | ✅ |
-| Track thickness | **Configurable** | ❌ | ✅ |
-| Shape | Flat（默认） | ✅ | ✅ |
-| Shape | **Wavy** | ❌ | ✅ |
+| **行为** | Determinate（默认）/ Indeterminate | ✅ | ✅ |
+| **厚度** | Fixed（**4dp**） | ✅ | ✅ |
+| **厚度** | Configurable（可变） | ❌ | ✅ |
+| **形状** | Flat（默认）/ **Wavy** | ✅ / ❌ | ✅ / ✅ |
 
-所以：**可调厚度和波浪形状只有 Expressive 有**。
+变体：**Linear**（线性）与 **Circular**（环形），两代均有。
 
-## 数值
+**能拿到总量就用 determinate**——官方要求 determinate 必须准确反映真实进度；仅当进度与等待时长都未知时用 indeterminate。过程信息增多时，**应从 indeterminate 切到 determinate**（可以切换，这与 loading indicator 不同）。
+
+官方代际提示：
+
+> The circular and linear progress indicator had separate token sets. These are no longer recommended.
+
+（环形/线性旧的两套 token 已废弃，统一用 common token set。）
+
+## 结构
+
+**Active indicator**（已完成的进度）+ **Track**（轨道）+ **Stop indicator**（终点标记，仅线性 determinate）。
+
+- Linear 从 leading edge 向 trailing edge 填充；Circular 默认从顶部顺时针。
+- Indeterminate 时 active indicator 在固定轨道上反复伸缩移动。
+- 低百分比空间受限时，active indicator 显示为一个**圆点**，让人知道进度已开始。
+- **Wavy 形状**会让组件整体高度变大；很小尺寸下波浪不明显——小按钮里用 flat。
+
+## 数值（官方原值）
 
 | 属性 | 值 |
 |---|---|
 | 默认轨道厚度 | **4dp** |
-| 距屏幕边缘内缩 | **4dp** |
+| 线性指示器与屏幕边缘内缩 | **4dp** |
+| Stop indicator | **4dp 圆点** |
+| Circular 尺寸范围 | **24dp ~ 240dp**（不要超出） |
+| Linear 放置的最小元素宽度 | **40dp** |
+| Linear 两端 padding | **4dp 起**（可调整） |
 
-第二条容易被忽略：线性进度条**不是贴边**的，左右各内缩 4dp。
+> The stop indicator is a 4dp circle that marks the end of a linear determinate progress indicator to meet Material's accessibility standards.
 
-> 官网另有一条重要说明：**「The circular and linear progress indicator had separate token sets. These are no longer recommended.」** —— 环形和线性原本各有一套 token，现在已统一，不要再按旧文档分别配置。
+Stop indicator **只用于线性 determinate**；track 与容器/背景对比度 ≥ 3:1 时才可省略。Wavy 的 amplitude/wavelength 官方只给了定义（振幅从中线到波峰中线，波长为相邻波峰间距），具体数值仅图片示例。
 
-## 什么时候用哪个
+## 颜色角色（官方原值）
 
-| 场景 | 建议 |
+| 部位 | 角色 |
 |---|---|
-| 页面首次加载、内容区为空 | Circular indeterminate（居中） |
-| 下拉刷新 | Linear indeterminate（顶部） |
-| 文件上传 / 下载有百分比 | Linear determinate |
-| 表单提交按钮内 | 按钮内的小 Circular（16dp 左右） |
-| 长时间任务有阶段 | Determinate + 阶段文案，不要只给环形 |
+| Active indicator | `primary` |
+| Track | `secondary container` |
 
-**进度条不能替代加载文案。** 用户需要知道在等什么，尤其是超过 5 秒的操作。
+按钮内使用时（官方原文）：active indicator 改用**按钮图标/文字同色**并**去掉 track**，以保证 ≥ 3:1 对比度。
+
+## 使用规则（Guidelines 翻译）
+
+1. **多个条目一起加载时，只用一个指示器表达整组进度**；「Don't add progress indicators to every activity」。
+2. **同一过程在全产品中用同一变体**：刷新在 A 处用 circular，在 B 处也要用 circular。
+3. **Linear 贴容器边缘放**（容器变形时放在会动画的那条边）；页面顶部一条指示整页加载，附着卡片表示只加载卡片。
+4. **Circular 居中**于所加载的容器/页面；追加内容时放新内容出现的空白处。加载不长也可换 loading indicator。
+5. 按钮内：用 circular 表示动作进行中（< 5s 的 indeterminate 场景）；**不要给列表里每个按钮都挂进度指示**。
+6. **RTL**：linear 要水平镜像，circular 不需要镜像。
+7. 大屏：超大号（上限 240dp）留给桌面等大窗口；波形要随尺寸等比缩放。
+8. 等待很长时考虑允许用户离开页面。
+
+（等待时间对照表见 `02-Components/loading-indicator.md`：<200ms 不显示 / 200ms–5s loading indicator / >5s progress indicator。）
 
 ## Compose 实现
 
 ```kotlin
-// 确定进度
+// Determinate（progress 为 lambda，旧版直接传 Float）
 LinearProgressIndicator(progress = { downloaded / total })
 
-// 不确定进度
+// Indeterminate
 CircularProgressIndicator()
 
-// 按钮内的小号
-CircularProgressIndicator(
-    modifier = Modifier.size(16.dp),
-    strokeWidth = 2.dp,
-    color = LocalContentColor.current
-)
+// Expressive 波浪形 ⚠️ @ExperimentalMaterial3ExpressiveApi
+LinearWavyProgressIndicator(progress = { downloaded / total })
+CircularWavyProgressIndicator()
 ```
 
-注意 `progress` 参数在新版是 **lambda**（`progress = { value }`），旧版是直接传 Float，迁移时容易踩。
-
-Expressive 的波浪进度条是 `WavyProgressIndicator`，**使用前确认当前 material3 版本是否已转正**（见 `02-Components/expressive-components.md`）。
+按钮内加载态：按官方要求 active indicator 与按钮内容同色、去掉 track——Compose 里用 `trackColor = Color.Transparent`、`color = LocalContentColor.current`。⚠️ 具体尺寸 dump 未给数字（旧文档的 16dp 为推断，页面未明示）。
 
 ## 无障碍
 
-- determinate 会自动朗读百分比；indeterminate 要说明"正在加载"。
-- 给进度条一个可理解的上下文：`Modifier.semantics { contentDescription = "正在上传头像" }`。
-- 不要用颜色单独表达状态（成功/失败）——加图标或文案。
-- 长时间任务的进度更新要能被读屏感知，但不要每秒播报一次。
+- AT 用户应能：导航到指示器、理解它传达的进度。
+- Active indicator 与 stop indicator 对背景 ≥ **3:1** 对比度；嵌入其他组件时对宿主组件 ≥ 3:1。
+- Track 对比度 < 3:1 时**必须保留 stop indicator**；「the end of the track must be easy to identify」。
+- 使用 **progress bar 无障碍角色**，标签写明过程与对象（如 "Loading news article"、"Refreshing page"）。
+- 状态不只靠颜色：进度本身是形状变化，但成功/失败等结果要另加图标或文案。
 
 ## 常见错误
 
 1. 能算进度却用 indeterminate。
-2. 只有进度条没有说明文字，用户不知道在等什么。
-3. 线性进度条贴边（应内缩 4dp）。
-4. 按钮内的 loading 用默认尺寸的 Circular，撑爆按钮。
-5. 进度完成后不消失，或直接跳走没有完成反馈。
-6. 多个进度条同时出现在一屏（用户不知道在等哪个）。
-7. 用颜色表示成功/失败，色盲用户无法分辨。
-8. 仍按"环形/线性各一套 token"的旧文档配置（已统一）。
+2. 每个活动各挂一个指示器（应一个代表整组）。
+3. 同一过程在不同页面混用 linear/circular。
+4. 去掉 stop indicator 但 track 对比度不足 3:1。
+5. 按钮内沿用默认 `primary` 色 + 默认 track，对比度不足。
+6. RTL 下 linear 未镜像。
+7. 在 < 40dp 宽的元素里塞 linear。
+8. 仍按环形/线性两套 token 旧文档配置（已废弃统一）。
+
+## 仅图片无数字的项
+
+Specs 页以下内容**只有图例，无文字数值**，无法引用 dp 值：linear/circular 各变体（加厚款）的示例尺寸、wavy 的 amplitude/wavelength 具体取值。旧文档如引用了这些数值即属推断。
 
 ## 来源
 
+- https://m3.material.io/components/progress-indicators/overview
 - https://m3.material.io/components/progress-indicators/specs
-- `02-Components/buttons.md`（按钮内加载态写法）
-- `02-Components/expressive-components.md`（WavyProgressIndicator 状态）
+- https://m3.material.io/components/progress-indicators/guidelines
+- https://m3.material.io/components/progress-indicators/accessibility
+- 核验日期：2026-11-16

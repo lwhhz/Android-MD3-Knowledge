@@ -2,131 +2,113 @@
 
 - 官方指南：https://m3.material.io/components/split-button ｜ 规格页：https://m3.material.io/components/split-button/specs
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
-- 核验日期：2026-11-15 ｜ 核验方式：Chrome CDP 读官方 Specs 页
-- 状态：**M3 无此组件，Expressive 新增**；完整尺寸 token 表存在配对歧义，仅收录可确认项
+- 核验日期：2026-11-16
+- 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页）+ 此前 CDP 读 token 面板
+- 状态：**M3 无此组件，Expressive 新增**；文字明示值与 token 面板值已交叉核对
 
 ## 代际归属
 
-官方变体表写得很明确：
-
 | 变体 | M3 | M3 Expressive |
 |---|---|---|
-| Split button | ❌ | ✅ |
+| Split button | ❌ | ✅（Jetpack Compose: Expressive 与 MDC-Android: Expressive 均已实现；Web: Expressive 不可用） |
 
-所以这**不是 M3 的老组件**，是新东西。在 M3 项目里想实现类似效果，只能用"按钮 + 紧邻的图标按钮"自己拼，但那样没有连体形状。
+M3 项目里只能用「按钮 + 紧邻图标按钮」自己拼，但没有连体形状与联动 morph。
 
 ## 它解决什么问题
 
-普通按钮只有"执行"一种能力。需要"执行默认动作"**和**"换一个动作"并排时，以前的方案是：
+一个主操作 + 一组相关变体（"发送" + "定时发送 / 存草稿"）。官方定位：**在主操作旁加一个动作菜单，隐藏额外选项以降低视觉复杂度**；可单独使用，也可与普通按钮、图标按钮、button group 同排。
 
-- 两个挨着的按钮（视觉上像两个东西，用户会犹豫点哪个）
-- 按钮 + 溢出菜单（多一次点击）
-
-Split button 把两者合成一条：**左边执行默认动作，右边展开可选动作**。
-
-## 结构（官方 Anatomy）
+## 结构
 
 ```
 ┌──────────────┬─────┐
 │ [icon] 标签   │  ▾  │
 └──────────────┴─────┘
-   Leading button  Trailing button
+ Leading button  Trailing button
 ```
 
-官方原文的规则：
+官方规则：**Leading button 可有图标、文字标签或两者**；**Trailing button 必须始终是展开/收起菜单图标**（选中时旋转），**不要改这个图标**。leading 标签保持 1-2 个词。RTL 语言整体镜像。
 
-> **Leading button 可以有图标、文字标签，或两者都有；Trailing button 必须始终是菜单图标。**
+## 规格
 
-也就是说右边那半永远只负责"展开菜单"，不能自定义成别的动作。这是它和"两个普通按钮拼在一起"的本质区别。
+### 配置
 
-## 尺寸（官方 token 表，五档全）
+- 尺寸：**XS / S（默认）/ M / L / XL**，与 buttons、icon buttons 完全同档。
+- 颜色：**elevated / filled / tonal / outlined**——与普通按钮同方案，但**没有 text 样式**。
 
-单位 dp。数据取自官网 token 面板的 `token-value-swatch` 结构（值与其标签在同一节点内），**不存在错位**。
+### 文字明示值（specs 页 Measurements）
 
 | 属性 | XS | S | M | L | XL |
 |---|---|---|---|---|---|
-| 容器高度 | **32** | **40** | **56** | **96** | **136** |
-| 两段之间的间隙 | 2 | 2 | 2 | 2 | 2 |
-| 内圆角 | 4 | 4 | 4 | 8 | 12 |
-| 外圆角 | 50% | — | — | — | — |
-| 前段 左内边距 | 12 | 16 | 24 | 48 | 64 |
-| 前段 右内边距 | 10 | 12 | 24 | 48 | 64 |
+| 菜单图标未选中偏移 | -1dp | -1dp | -2dp | -3dp | -6dp |
+| 内圆角（相邻侧） | 4dp | 4dp | 4dp | 8dp | 12dp |
+| 两段之间的间隙 | 2dp | 2dp | 2dp | 2dp | 2dp |
+
+- 间隙官方原文："The inner corner radius changes depending on button sizing. **The space should always be 2dp**."
+- 文字与图标在按钮不对称时做**光学居中**，对称时正常居中。
+
+### token 面板值（此前 CDP 直读，本次 dump 文本未见冲突）
+
+| 属性 | XS | S | M | L | XL |
+|---|---|---|---|---|---|
+| 容器高度 | 32 | 40 | 56 | 96 | 136 |
+| 前段 左/右内边距 | 12 / 10 | 16 / 12 | 24 / 24 | 48 / 48 | 64 / 64 |
 | 尾部图标尺寸 | 22 | 22 | 26 | 38 | 50 |
-| 后段 左内边距 | 13 | 13 | 15 | 29 | 43 |
-| 后段 右内边距 | 13 | 13 | 15 | 29 | 43 |
-| 内圆角（hover） | 8 | 12 | 12 | 20 | 20 |
-| 内圆角（pressed） | 8 | 12 | 12 | 20 | 20 |
-| 后段内圆角（selected） | 50% | 50% | 50% | 50% | 50% |
+| 后段 左/右内边距 | 13 / 13 | 13 / 13 | 15 / 15 | 29 / 29 | 43 / 43 |
+| 内圆角（hover/pressed） | 8 | 12 | 12 | 20 | 20 |
+| 后段选中态内圆角 | 50% | 50% | 50% | 50% | 50% |
 
-几点说明：
+（高度 32-136dp 与 icon buttons 官方阶梯一致，可互为佐证。）
 
-- **容器形状是形状 token，不是数值**（表里显示为空白 + 一个形状预览块），对应 `shape` 而非 `dp`。
-- **只有 XS 单独给了 `外圆角 = 50%`**，其余档位走容器形状 token。
-- **内圆角在 hover / pressed 时会变大**（如 XS 从 4 → 8dp），这是 Expressive 的形状 morph，不是笔误。
-- **后段选中态的内圆角是 50%**（完全圆角），这是"展开后被选中"的视觉反馈。
-- 高度跨度很大（32 → 136dp），XL 已经接近一个中等卡片的高度——选型时不要只看"大一点"，要按实际承载的内容量定。
+## 颜色与状态
 
-## 配置
+- 颜色、状态层**复用 buttons / icon buttons 的方案**（官方原文："Split buttons use the same color schemes as standard buttons"）。
+- 与 toggle 按钮的关键区别：**选中不改颜色，只叠加状态层**。
+- 内侧圆角在 hover / focused / pressed 时变化（形状 morph）；后段选中时图标**居中**并旋转。
 
-- 尺寸：XS / S / M / L / XL
-- 颜色：与普通按钮同一套（filled / tonal / elevated / outlined / text 的对应关系需按版本核对）
+## 使用规则（Guidelines 页）
+
+1. 大断点可放大 split button；小屏也可故意用大号制造 hero 时刻。
+2. 可与普通按钮、button group 同排；**允许与其它按钮不同尺寸**（split button 本身占位更大）。
+3. ✅ 后段默认展开**菜单**；❌ 不要魔改菜单（"Avoid modifying the menu in unusual ways"）；也可自定义为打开卡片等其它组件。
+4. **菜单对齐**：优先与 trailing button 对齐；放不下时对齐整条按钮的一侧；再不行贴按钮某条边——**始终与按钮某边缘对齐**。
+5. **菜单与 split button 间距 4dp**。
+6. 旋转动画：菜单按钮**向内旋转 180°**（开与关都是）；使用**标准 motion 方案**（不是 expressive motion）——官方唯一明说「用标准动效」的按钮族组件。
+7. ❌ 不要用超长标签或替换尾部图标。
+
+## 无障碍（Accessibility 页）
+
+- 读屏应能：**分别导航并操作两段**；到达后段打开的元素；理解当前选择状态。
+- **触控目标**：两段各自 ≥ 48×48dp；**XS/S 档高度不足 48dp，周围目标区必须补足到至少 48dp 高**（官方原文）。
+- **初始焦点**：先 leading，后 trailing（受系统设置影响）。
+- **键盘**：Tab 在两段间移动；Space / Enter 激活聚焦段。
+- **标签**：leading 段与普通按钮一致；**trailing 段要额外表达「有更多选项」及菜单展开状态**——例：主按钮 "Watch later"，trailing 段标签类似 "More watch options"。
+- 打开的菜单按 menu 无障碍指南标注。
 
 ## Compose 实现
 
-**不给代码**。原因和二：这套 API 在 1.5.0 线仍在演进（`SplitButtonLayout` / `SplitButtonDefaults` 之类的命名与签名跨版本有差异），照抄大概率编译不过。
+Expressive 新增组件（官方确认 Compose: Expressive 可用），对应 `androidx.compose.material3` 的 `SplitButtonLayout` / `SplitButtonDefaults` 一族 API。**需 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)`，名称与签名随版本变动**，接入前核对：
 
-接入前核对：
-
-1. 类是否存在（`SplitButtonLayout`、`SplitButtonDefaults` 一类）；
-2. 是否需 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)`；
-3. 前段/后段的内容是 slot 还是参数；
-4. 形状是否由 `itemShape` 一类的辅助函数生成（避免手写圆角）。
-
-## 使用判断
-
-**该用**：一个主操作 + 2-3 个变体（如"发送" + "定时发送 / 存草稿"）。
-
-**不该用**：
-- 只有主操作、没有变体 → 普通按钮。
-- 变体超过 5 个 → 用普通按钮 + 完整菜单。
-- 主操作是破坏性的 → 让最显眼的半边做删除，误触代价太高。
-
-## 无障碍
-
-- **前段和后段是两个独立控件**，各自要有语义。不要合并成一个"分裂按钮"。
-- 前段的 `contentDescription` 描述动作（"发送"），后段描述"更多发送选项"。
-- 触控目标各自 ≥ 48dp，XS 档尤其容易只做到 32dp 高——用 `minimumInteractiveComponentSize()` 补足。
-- 读屏顺序：前段 → 后段，代码顺序要与视觉一致。
-- 键盘 / 遥控要能分别聚焦两段。
+1. `SplitButtonLayout`（leading/trailing slot）是否存在；
+2. 形状是否由 `SplitButtonDefaults.itemShape` 一类的辅助函数生成（避免手写圆角出缝）；
+3. 间距 2dp / 菜单 4dp / 触控补足是否由组件默认处理。
 
 ## 常见错误
 
 1. 在 M3 项目里找这个组件。
-2. 把后段改成别的动作（官方规定它只能是菜单图标）。
-3. XS 档 32dp 高却没有补足 48dp 触控目标。
-4. 主操作是删除，误触直接生效。
-5. 两段视觉上没连在一起（手写圆角导致中间出现缝）。
-6. 变体太多，展开后是个 10 项长菜单。
-7. 读屏把两段读成一个整体，用户不知道右边还能展开。
-
-## 待核验
-
-- [x] 完整尺寸表 —— **五档全部取得**（见上表）
-- [ ] `container shape` 与 `外圆角` 对应的具体形状 token 名（面板只显示形状预览，不给文字值）
-- [ ] 当前 material3 版本的确切 API 名称与签名
-- [ ] `@ExperimentalMaterial3ExpressiveApi` 是否已移除
-
-## 怎么自己复查这张表
-
-1. 打开 https://m3.material.io/components/split-button/specs
-2. 页面下方 **Tokens & specs** 区块，左上角有一个下拉：`Split button - Size - Xsmall`
-3. 点开它，依次选 Small / Medium / Large / Xlarge
-4. 每组 12-13 行，**值在左侧的色块里，属性名在右侧**
-
-注意：**不要把整页文本复制出来读**。扁平化后"值"会跑到"属性名"前面一位，看起来像错位——这是 DOM 顺序问题，不是数据问题。要读就读单个 `token-value-swatch` 节点。
+2. 把后段改成别的动作（官方规定只能是菜单图标）。
+3. XS 档 32dp 高没补足 48dp 触控目标。
+4. 菜单飘在离按钮很远的地方（官方：4dp）。
+5. 选中态改了容器颜色（官方：split button 选中只加状态层）。
+6. 两段视觉上没连在一起（手写圆角导致中间出缝）。
+7. 读屏把两段读成一个整体，或 trailing 段没表达「更多选项」。
+8. 在 split button 里用 text 颜色样式（不存在）。
 
 ## 来源
 
-- https://m3.material.io/components/split-button/specs
-- `02-Components/buttons.md`（颜色与状态层通则）
-- `02-Components/button-group.md`（另一组 Expressive 按钮能力）
+- https://m3.material.io/components/split-button/overview（代际、配置、平台可用性）
+- https://m3.material.io/components/split-button/specs（文字明示值、颜色复用规则、状态）
+- https://m3.material.io/components/split-button/guidelines（菜单对齐、4dp 间距、180° 旋转）
+- https://m3.material.io/components/split-button/accessibility（48dp、焦点顺序、标签规范）
+- 核验日期：2026-11-16
+- 关联：`02-Components/buttons.md`（颜色与状态层）、`02-Components/icon-buttons.md`（尺寸阶梯）
