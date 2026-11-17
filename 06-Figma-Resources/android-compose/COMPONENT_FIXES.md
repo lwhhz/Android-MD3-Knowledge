@@ -22,9 +22,9 @@
 
 ## 4. App bar
 
-- `AppBarConfiguration` 新增 `MEDIUM_FLEXIBLE` / `LARGE_FLEXIBLE`，`from()` 同时接受 Old/New 字符串；高度仍 112/120。
-- 新增 `scrollBehavior: TopAppBarScrollBehavior?`，高度按 `state.heightOffset` 收缩（最低 64dp）。
-- 已用隔离 Dialog 验证：滚动列表后 app bar 从 112dp 收缩到 64dp（[appbar-scroll.png](<screenshots/appbar-scroll.png>)）；Bottom app bar 仍保留用于 baseline 对照。
+- 已改为官方 Material3 `TopAppBar` / `CenterAlignedTopAppBar` / `MediumFlexibleTopAppBar` / `LargeFlexibleTopAppBar`。
+- `MEDIUM_FLEXIBLE` / `LARGE_FLEXIBLE` 使用官方 flexible 语义，滚动收缩交给 `TopAppBarScrollBehavior`，不再手算 `heightOffset`。
+- 隔离 Dialog 验证：列表滚动后 flexible app bar 收缩、内容上移（[appbar-scroll.png](<screenshots/appbar-scroll.png>)）；Bottom app bar 仍保留用于 baseline 对照。
 
 ## 5. Toolbar
 

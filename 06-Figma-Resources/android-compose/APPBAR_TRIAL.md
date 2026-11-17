@@ -44,7 +44,7 @@ P0 统计相应从 173/315 更新到 **181/315**。
 
 ## 五、限制
 
-1. App bar 是手写实现，不是 Material3 `TopAppBar`；
+1. App bar 已改用官方 `TopAppBar` / flexible 变体；Search 配置的搜索框仍是自绘入口。
 2. 头像/leading image 仍是 `Painter` 槽，未做图片加载；
 3. 未做 RTL、pixel 基线、宽度断点测试；
 4. `components/M3Appbars.kt` 及其 `M3XRAppBar` 空壳已删除（XR 不推进）。
