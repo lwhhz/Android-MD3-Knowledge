@@ -1,5 +1,48 @@
 # Changelog
 
+## 2026-11-16 — v2.2 字阶/动效实证 + 跟进最新约定
+
+**用户约定**：Expressive 组件**不等 stable，直接跟进官方 Maven 最新版本**（写入 `00-Metadata/version-tracking.md`）。执行口径：读 `maven-metadata.xml` 定最新版本 → 下 `-sources.jar` 读注解 → 分层写结论（源码实证 ≠ GA）→ 每次升级重跑。2026-11-16 实测最新：material3 **1.5.0-rc01**（lastUpdated 20261104）、compose-bom-alpha **2026.11.00**，无更高版本。
+
+**#9 扩展字阶（已勾选）**：从 `material3-1.5.0-rc01-sources.jar` 的 `TypeScaleTokens.kt` 实证 15 个 `*Emphasized` 样式名与数值。核心结论：**emphasized 与 baseline 的字号/行高完全相同，只改字重**（Regular 400→500，Medium/Bold 档→700），与官网「不要为强调改字号」一致。写入 `05-Design-Tokens/typography.json` 新增 `compose_values` 字段；与通行值在 letterSpacing 上的细微差异（-0.2 vs -0.25、0.2 vs 0.25）两者并存、不互相覆盖。
+
+**#10 Expressive motion 差异（已勾选）**：`ExpressiveMotionTokens.kt` vs `StandardMotionTokens.kt` 源码实证——effects 完全相同（damping 1.0，stiffness 1600/3800/800）；差异全在 spatial（damping 0.9→0.8/0.6，stiffness 700→380/800）。无「推荐时长差异」，差异是弹簧参数。
+
+**#8 21 个 physics 组件明细（保持待核验）**：源码只有弹簧令牌定义，无「默认走 physics 的 21 个组件」清单；官网 How it works 页只给数量。属官方未列出，不臆造，保持待核验。
+
+**内部矛盾修复（同 v2.1 续）**：typography.md 语言高度 API 表述与勾选对齐；05-Design-Tokens/README.md 的「形状七档」改十档、「动效待核验」改为 spring 数值已获取；README「内容状态」的 `06-Figma-Resources/` 由「🚧 骨架 / 不含资源文件」改为「✅ 部分可用 / 19 张测量图已存档」，与 `asset-index.md` 对齐；删掉与 1/3 字节完全相同的 `date-pickers-2/4.png`（索引原本就注明「未存档重复文件」，文件残留属不一致）。
+
+## 2026-11-16 — v2.1 依赖实证回写（来源分层，不改设计规范数值）
+
+**来源分层**（遵循 `AI-INSTRUCTIONS.md` 与 `00-Metadata/version-tracking.md` 的「结论写法约定」）：
+- 一手来源（可直接写结论，注明版本与日期）：Google 官方 Maven（`dl.google.com`）下载的 **BOM POM** 与 **material3 sources jar**；
+- 实证来源（写「已实证」，不冒充官方规范）：本机 Gradle 编译、两轮真机联调（手机 Redmi / 平板 OPPO）；
+- 次级来源（周报/社区）仍只用于定位，不 upgrade 为结论。
+
+**版本追踪（`00-Metadata/version-tracking.md`）**
+- 新增 2026-11-16 核验行：官方 Maven 上 `compose-bom-alpha:2026.11.00` 的 POM 明确列出 `androidx.compose.material3:material3 = 1.5.0-rc01` 与 `...adaptive:adaptive = 1.4.0-alpha03`（一手来源，下载 POM 读取）。
+- **冲突保留**：官方 release notes 版本表快照（2026-11-14）仍是「1.4.0 stable / 1.5.0-alpha29、RC 列空」。本次只写「Maven 上存在 rc01 artifact」，**不把 rc01 写成 GA 或 stable**，GA 状态仍待人工确认。
+- 待核验清单勾掉 3 项：`1.5.0-rc01` 的真实发布状态（确认 artifact 存在，非 GA）、Expressive 组件 experimental 注解逐项清单、AGP 9 内建 Kotlin 与 compileSdk 要求。
+
+**Expressive 组件（`02-Components/expressive-components.md`）**
+- 按 1.5.0-rc01 sources jar 的注解实证逐项标注：Wave 进度 / FloatingToolbar / ToggleButton / ButtonGroup 等类**无** `@ExperimentalMaterial3ExpressiveApi`（已转正）；`LoadingIndicator` / `ContainedLoadingIndicator` 与 `MaterialShapes` 家族**仍标注**该注解。写清「以 1.5.0-rc01 sources 为准，升级需重查」。
+- 明确区分：注解状态来自源码（可写结论），真机编译通过只是「已实证」。
+
+**API 名称纠错（编译实证，来源：官方 sources jar + 两轮真机编译）**
+- `02-Components/menus.md`、`03-Android-Compose/components-api.md`：`menuAnchor()` 的参数类型在 1.5.0-rc01 是 **`ExposedDropdownMenuAnchorType.PrimaryNotEditable`**，不是 `MenuAnchorType`；原表「1.3 后需要 MenuAnchorType」更新为「1.5.0 起为 ExposedDropdownMenuAnchorType」。
+- `03-Android-Compose/adaptive-layout.md`：`WindowWidthSizeClass` 自 material3-adaptive 1.4.0-alpha03 起来自 **`androidx.window.core.layout`**（不再是 `androidx.compose.material3.adaptive`），枚举值为大写 `COMPACT / MEDIUM`；原代码段修正并注明「建议改用五档断点，见 `01-Foundations/layout.md`」。
+- `02-Components/button-group.md`、`02-Components/segmented-button.md`：源码中组形态用 `ButtonGroupDefaults.connectedLeading/Middle/TrailingButtonShapes()`；纠正文案中「ButtonGroup 需 @OptIn」为「按 1.5.0-rc01 sources 该类无实验注解」。
+
+**编码规则（`07-Development-Rules/compose-coding-rules.md`）**
+- V1 示例补 2026-11-16 实证：AGP 9.0 起内建 Kotlin，**不再应用 `org.jetbrains.kotlin.android` 插件**（编译实证 + kotl.in 官方说明）；Compose 1.13.0-rc01 要求 compileSdk ≥ 37.1（实测 37.2），需显式声明 JUnit 依赖（AGP 9 不再隐式提供）。
+- 不修改 V2 的「版本号只从官方来源取」原则；新增的 alpha BOM 只作为「Expressive 预发布线选项」注明，不作为稳定线推荐。
+
+**内部矛盾修复（2026-11-16）**
+- `01-Foundations/typography.md:137` 原写「Compose 语言高度 API 尚未确认」，与 `version-tracking.md` 已勾项冲突 → 改为「生效走 `lineHeight` 随配置适配，非独立 Local* API；30 档数值仍待核验」，两处一致。
+- `05-Design-Tokens/README.md` 原写「形状七档」「动效待核验」→ 按已核实数据改为「形状十档」「动效 spring 数值已获取（motion.json verified: true）」。属文档同步，未引入新结论。
+
+**设计规范数值不动**：`01-Foundations/layout.md` / `spacing.md` 等页面的 412/360dp、16/24dp、8dp 基线等为官方原值，本轮真机仅验证，未改动。
+
 ## 2026-11-16 — v2.0 全站抓取（375 页）后全面重构
 
 **抓取**

@@ -64,9 +64,21 @@ Toggle **不提供 text 样式**（官方原文："Toggle buttons don't use the 
 
 - 尺寸档：XS / Small（M3 唯一档、默认）/ M / L / XL，后四档仅 Expressive。
 - **Small 高度 40dp 为官方文字值**（Overview 页 M2/M3 对比：M2 36dp → M3 40dp）。
-- XS/M/L/XL 的具体高度：buttons specs 的 Measurements 区**只有图片，未给文字值**。同族 icon-buttons 官方给的高度阶梯为 32/40/56/96/136dp，按钮族各档高度大概率一致，但**⚠️ 推断，buttons 页面未明示**。
-- 图标：前后图标标准尺寸 **20dp**（M2→M3 官方原文："Standard size for leading and trailing icons is now 20dp"）。
+- XS/M/L/XL 的具体高度：官方 measurements 图标注为 **32 / 40 / 56 / 96 / 136dp**（2026-11-16 从 specs 页 "Diagram of measurements of all button sizes" 图逐档视觉读取，与 icon-buttons 文字阶梯一致，已升级为官方图示值）。
+- 图标：前后图标标准尺寸 **20dp**（M2→M3 官方原文："Standard size for leading and trailing icons is now 20dp"）。测量图中各档图标尺寸：XS **20** / S **20** / M **24** / L **32** / XL **40**（即随按钮档位放大，20dp 是小档的标准值）。
 - 小尺寸水平内边距：M3 为 24dp；Expressive 推荐 16dp（与新尺寸档统一）。
+
+### 测量图逐档数值（2026-11-16 视觉读取自官方 measurements 图）
+
+| 档 | 高度 | 纯文字左右内边距 | 带图标：前内边距 | 图标尺寸 | 图标→文字间距 |
+|---|---|---|---|---|---|
+| XS | 32 | 12 | 12 | 20 | 4 |
+| S | 40 | 16 | 16 | 20 | 8 |
+| M | 56 | 24 | 24 | 24 | 8 |
+| L | 96 | 48 | 48 | 32 | 12 |
+| XL | 136 | 64 | 64 | 40 | 16 |
+
+带图标按钮的**尾侧内边距与前侧相同**（图中左右标注对称）。L/XL 档图中文字与整档按同一比例放大，字号本身未在图中标注。
 
 ### 圆角（官方 Measurements 表原文）
 

@@ -102,7 +102,7 @@ State 对象基本都是 `remember` 出来的，**不要把它们放进 ViewMode
 
 ## 常见错误
 
-1. 从设计稿的旧版本文档里抄参数名，编译不过（如 `menuAnchor()` 缺 `MenuAnchorType`）。
+1. 从设计稿的旧版本文档里抄参数名，编译不过（如 `menuAnchor()` 的类型参数在 1.5.0-rc01 是 **`ExposedDropdownMenuAnchorType`**，不是旧文档写的 `MenuAnchorType`；2026-11-16 官方 sources jar + 编译实证，升级需重查）。
 2. 手写颜色而不用 `*Defaults`，官方调色后不同步。
 3. 在非 `RowScope` 里用 `Modifier.weight()`。
 4. 把 `SheetState` 放进 ViewModel，配置变更后行为异常。

@@ -1,8 +1,10 @@
 {
-  "_note": "Baseline 15 档数值为 M3 通行值，本次通过 headless 浏览器渲染官网仍未取到数值表（官网把令牌放在图片与折叠模块中），用于生产前请对照 token 模块或 Material Theme Builder 导出值确认。",
+  "_note": "Baseline 15 档数值为 M3 通行值，官网数值表未取到（图片/折叠模块）。2026-11-16 补充：从 Google Maven 的 material3-1.5.0-rc01-sources.jar 中 TypeScaleTokens.kt 取得 15 档 baseline 与 15 档 emphasized 的 Compose 实现值（一手来源，见 compose_values）；与下方通行值在 letterSpacing 上有细微差异（-0.2 vs -0.25、0.2 vs 0.25），两者并存不互相覆盖——官网通行值供设计对照，compose_values 供实现对照。",
   "source": "https://m3.material.io/styles/typography/type-scale-tokens",
+  "compose_source": "https://dl.google.com/dl/android/maven2/androidx/compose/material3/material3/1.5.0-rc01/material3-1.5.0-rc01-sources.jar（TypeScaleTokens.kt）",
   "checked_on": "2026-11-14",
-  "verified": "structure_only",
+  "updated_on": "2026-11-16",
+  "verified": "structure_and_compose_values",
   "unit": "sp",
   "scale_structure": {
     "baseline_styles": 15,
@@ -33,5 +35,44 @@
     "labelLarge": { "fontSize": 14, "lineHeight": 20, "fontWeight": 500, "letterSpacing": 0.1 },
     "labelMedium": { "fontSize": 12, "lineHeight": 16, "fontWeight": 500, "letterSpacing": 0.5 },
     "labelSmall": { "fontSize": 11, "lineHeight": 16, "fontWeight": 500, "letterSpacing": 0.5 }
+  },
+  "compose_values": {
+    "_note": "material3 1.5.0-rc01 sources jar 的 TypeScaleTokens.kt 实证（一手来源，2026-11-16）。15 档 emphasized 与 baseline 的字号、行高完全相同；差异只在字重：Regular→Medium，Medium/Bold 档→Bold。官网强调「不要为强调改字号」与源码一致。此为 Compose 实现值，不等于官网设计规范值。",
+    "source": "material3-1.5.0-rc01-sources.jar : commonMain/androidx/compose/material3/tokens/TypeScaleTokens.kt",
+    "baseline": {
+      "displayLarge": { "size": 57, "lineHeight": 64, "weight": 400, "tracking": -0.2 },
+      "displayMedium": { "size": 45, "lineHeight": 52, "weight": 400, "tracking": 0.0 },
+      "displaySmall": { "size": 36, "lineHeight": 44, "weight": 400, "tracking": 0.0 },
+      "headlineLarge": { "size": 32, "lineHeight": 40, "weight": 400, "tracking": 0.0 },
+      "headlineMedium": { "size": 28, "lineHeight": 36, "weight": 400, "tracking": 0.0 },
+      "headlineSmall": { "size": 24, "lineHeight": 32, "weight": 400, "tracking": 0.0 },
+      "titleLarge": { "size": 22, "lineHeight": 28, "weight": 400, "tracking": 0.0 },
+      "titleMedium": { "size": 16, "lineHeight": 24, "weight": 500, "tracking": 0.2 },
+      "titleSmall": { "size": 14, "lineHeight": 20, "weight": 500, "tracking": 0.1 },
+      "bodyLarge": { "size": 16, "lineHeight": 24, "weight": 400, "tracking": 0.5 },
+      "bodyMedium": { "size": 14, "lineHeight": 20, "weight": 400, "tracking": 0.2 },
+      "bodySmall": { "size": 12, "lineHeight": 16, "weight": 400, "tracking": 0.4 },
+      "labelLarge": { "size": 14, "lineHeight": 20, "weight": 500, "tracking": 0.1 },
+      "labelMedium": { "size": 12, "lineHeight": 16, "weight": 500, "tracking": 0.5 },
+      "labelSmall": { "size": 11, "lineHeight": 16, "weight": 500, "tracking": 0.5 }
+    },
+    "emphasized": {
+      "_note": "字号与行高与 baseline 完全相同，只字重变化：Regular(400) 档 → Medium(500)；Medium(500) 与 Bold 档 → Bold(700)。样式名 = baseline 名 + Emphasized 后缀（displayLargeEmphasized … labelSmallEmphasized，共 15 个）。",
+      "displayLarge": { "size": 57, "lineHeight": 64, "weight": 500 },
+      "displayMedium": { "size": 45, "lineHeight": 52, "weight": 500 },
+      "displaySmall": { "size": 36, "lineHeight": 44, "weight": 500 },
+      "headlineLarge": { "size": 32, "lineHeight": 40, "weight": 500 },
+      "headlineMedium": { "size": 28, "lineHeight": 36, "weight": 500 },
+      "headlineSmall": { "size": 24, "lineHeight": 32, "weight": 500 },
+      "titleLarge": { "size": 22, "lineHeight": 28, "weight": 500 },
+      "titleMedium": { "size": 16, "lineHeight": 24, "weight": 700 },
+      "titleSmall": { "size": 14, "lineHeight": 20, "weight": 700 },
+      "bodyLarge": { "size": 16, "lineHeight": 24, "weight": 500 },
+      "bodyMedium": { "size": 14, "lineHeight": 20, "weight": 500 },
+      "bodySmall": { "size": 12, "lineHeight": 16, "weight": 500 },
+      "labelLarge": { "size": 14, "lineHeight": 20, "weight": 700 },
+      "labelMedium": { "size": 12, "lineHeight": 16, "weight": 700 },
+      "labelSmall": { "size": 11, "lineHeight": 16, "weight": 700 }
+    }
   }
 }

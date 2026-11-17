@@ -134,7 +134,7 @@ Emphasized:  md.sys.typescale.emphasized.display-large
 - **固定高度的组件（如按钮、列表项）不会自动适配**，语言高度变大时会出现文字重叠——这正是官网点名的问题。
 - 需要在 token 模块里切换「language height context」查看不同语言下的行高值。
 
-Compose 侧的具体 API（是否有 `LocalLanguageHeight` 之类）**尚未确认**，见待核验清单。
+Compose 侧语言高度的落地不是新增 `LocalLanguageHeight` 之类的独立 API，而是由**排版样式自带的 `lineHeight` 随配置/语言适应**（带垂直 padding 的组件随之适配；固定高度组件不自动适配，见上文官方警告）。本库据此在 `01-Foundations/typography.md` 与 `05-Design-Tokens/typography.json` 记录结构与语言高度分类；**30 档逐档数值仍未取到**（⚠️ 待核验，官网以图片/令牌模块呈现）。与 `00-Metadata/version-tracking.md` 中「语言高度 Compose API 名称与生效方式已确认」的勾选保持一致（2026-11-16 校对）。
 
 ## 五个 role 的官方定义
 

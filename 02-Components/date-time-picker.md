@@ -4,7 +4,7 @@
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
 - 核验日期：2026-11-16
 - 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页 ×2）
-- 状态：**时间选择器全部尺寸为官方明示值；日期选择器 measurements 页只有图片、无数字**（官方原文仅给出 48dp 触控目标与"不随断点缩放"两条硬约束）
+- 状态：**时间选择器尺寸为官方文字明示值；日期选择器 measurements 为图片，2026-11-16 已视觉读取全部数值**（存档见 06-Figma-Resources）
 
 本篇把日期与时间合并，因为二者的选型逻辑、无障碍要求高度重合；两者的尺寸可得性差别很大，见下文标注。
 
@@ -66,7 +66,7 @@
 
 ## 日期选择器尺寸
 
-Specs 页的 docked / modal / modal input 三组 measurements **均为图片**，文字层只有标题（"Modal date picker padding and size measurements"），没有任何 dp 数值。可写入文档的官方明示值只有：
+specs 页 measurements 为图片；以下数值为 2026-11-16 从官方测量图逐个视觉读取（原始 PNG 存档见 `06-Figma-Resources/asset-index.md`）。官方明示的两条硬约束不变：
 
 | 项 | 值 | 出处 |
 |---|---|---|
@@ -74,9 +74,39 @@ Specs 页的 docked / modal / modal input 三组 measurements **均为图片**�
 | 尺寸是否随断点缩放 | **否** | guidelines 页 |
 
 > "The sizing of the docked and modal date picker components don't scale responsively to different breakpoints."
-> "Interactive targets for all elements meet Material's 48x48dp minimum touch target requirement. Increasing density would negatively impact accessibility by limiting tappable/clickable targets."
 
-⚠️ 推断，页面未明示：日历格子直径、对话框宽度/圆角等常见数值（如 40dp 选中圆、328dp 对话框宽）在本轮 dump 中查不到，本库不做估算补写；需要时以设计工具中的 Figma Design Kit 为准。
+**Docked date picker（日历形态，360 × 460dp）：**
+
+| 项 | 值 |
+|---|---|
+| 容器宽 × 高 | **360 × 460dp** |
+| 顶部 / 底部内边距 | **20 / 12dp** |
+| 左右内边距 | **12dp** |
+| 头部（月/年选择行）下间距 | **30dp**；星期表头行下间距 **16dp** |
+| 头部 trailing 图标容器 | **24dp**；星期单元格宽 **24dp** |
+| 日历格子 | **40dp**（选中圆同尺寸） |
+| 动作行上方间距 | **8dp**；OK 按钮（右侧）高 **36dp**（docked 配置图示 ⚠️ 视觉判读） |
+| Cancel ↔ OK 间距 | **16dp** |
+
+**Docked 月份/年份下拉菜单：** 顶部 **20** / 底部 **20**，左右 **16**；菜单项高 **48dp**（含 **24dp** 前导勾选区）；头部行下间距 **30dp**。
+
+**Modal date picker（对话框，360 × 524dp）：**
+
+| 项 | 值 |
+|---|---|
+| 容器宽 × 高 | **360 × 524dp** |
+| 头部：顶部内边距 **16**，辅助文字行（Select date）**36**，标题行 **40**（"Mon, Aug 17"），标题下间距 **12** |
+| 头部 trailing 编辑图标目标 | **48dp**（头部区右侧高度标注 44 ⚠️ 视觉判读） |
+| 日历区宽 | **268dp**（24 左边距 + 268 + 8 + 48 导航按钮 + 12 右边距 = 360） |
+| 月份选择行高 | **40dp**；前后导航按钮目标 **48dp**，间距 **4dp** |
+| 日历格子 | **40dp**；格子触控目标 **48dp**；选中圆 **40dp** |
+| 动作行 | 上方 **8dp**，行高 **40dp**，底部内边距 **12dp**，Cancel ↔ OK **8dp** |
+
+**年选择视图（modal 内）：** 年份项 **72 × 36dp**（选中态为 72×36 药丸）；年网格区高 **288dp**；月份行 **24dp**；网格左右内边距 **16dp**；其余间距 16/12/8、动作行 40 同上。
+
+**范围选择（全屏 modal）：** 关闭按钮目标 **48dp**（距边 **12dp**）；Save 按钮高 **40dp**；头部辅助文字与标题区 12/8/12 间距；月份标题区 16/12；日历格子 **40dp**（目标 48）；选中区间整行高亮带高 **40dp**；跨月间距 **20 / 8dp**；底部动作行 **40dp**、底边距 **12dp**。
+
+**Modal input picker（日期输入对话框菜单）：** 左右内边距 **24dp**；顶部 **16**，辅助文字行 **36**，标题行内图标目标 **24dp**；标题上下分隔间距 **10dp**；输入框区左右 **16**；动作行上方 **8**、行高 **40dp**、底部 **12dp**、右边距 **16dp**、Cancel↔OK **16dp**。
 
 ## 颜色角色
 

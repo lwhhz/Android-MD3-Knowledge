@@ -2,6 +2,8 @@
 
 - 官方指南：https://developer.android.com/develop/ui/compose/layouts/adaptive
 - 核验日期：2026-11-14 ｜ 版本相关：窗口尺寸类与 `ListDetailPaneScaffold` 来自 material3-adaptive 系列依赖，API 在演进中
+- **2026-11-16 更新提示（优先读）**：本页「三个断点」与「导航形态切换」代码段是 2026-11-14 的 baseline 记录，**设计规范已更新**——断点为**五档**（600/840/1200/1600，左闭右开），baseline 导航三件套（bar/rail/drawer）已不再推荐，改用 flexible nav bar + collapsed/expanded rail。权威来源见 `01-Foundations/layout.md` 与 `02-Components/{navigation-bar,navigation-rail}.md`（v2.0，2026-11-16 全站抓取实证）。下方的 API 名称纠错仍有效。
+- **API 位置实证（2026-11-16，material3-adaptive 1.4.0-alpha03 sources jar，一手来源）**：`WindowWidthSizeClass` 来自 **`androidx.window.core.layout`**（不是 `androidx.compose.material3.adaptive`），枚举值为大写 **`COMPACT / MEDIUM / EXPANDED`**（不是 `Compact / Medium`）；`currentWindowAdaptiveInfo()` 已 deprecated，用 `currentWindowAdaptiveInfoV2()` 支持 L/XL 宽度类。
 
 ## 判断依据是窗口宽度，不是设备型号
 
@@ -29,9 +31,10 @@ val useTwoPane = windowSizeClass.isWidthAtLeastBreakpoint(
 获取方式（依赖版本不同，入口可能不同）：
 
 ```kotlin
-// material3-adaptive
-val adaptiveInfo = currentWindowAdaptiveInfo()
-val widthClass = adaptiveInfo.windowSizeClass.windowWidthSizeClass
+// material3-adaptive 1.4.0-alpha03（2026-11-16 实证）
+// import androidx.window.core.layout.WindowWidthSizeClass  ← 注意包路径
+val adaptiveInfo = currentWindowAdaptiveInfoV2()   // V1 已 deprecated
+val widthClass = adaptiveInfo.windowSizeClass.windowWidthSizeClass  // COMPACT/MEDIUM/...（大写）
 
 // 旧路径：material3-window-size-class
 val windowSizeClass = calculateWindowSizeClass(this)

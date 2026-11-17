@@ -95,12 +95,14 @@
 
 ## Compose 实现
 
-Expressive 新增组件（官方确认 Jetpack Compose: Expressive 与 MDC-Android: Expressive 可用）。对应 `androidx.compose.material3` 的 `ButtonGroup` / `ConnectedButtonGroup` 一族 API，**需 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)`，名称与签名随版本变动**，接入前核对：
+Expressive 新增组件（官方确认 Jetpack Compose: Expressive 与 MDC-Android: Expressive 可用）。**2026-11-16 修正**：此前写「`ButtonGroup` 需 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)`」不准确——据官方 `material3-1.5.0-rc01-sources.jar` 一手实证，`ButtonGroup` 类**无**该实验注解（已转正）；connected 形态的组外观通过 `ButtonGroupDefaults.connectedLeadingButtonShapes()` / `connectedMiddleButtonShapes()` / `connectedTrailingButtonShapes()` 设置，组本身无颜色属性。名称与签名仍随版本变动，接入前核对：
 
 1. 组件类名与 slot 结构（单行布局约束）；
 2. 选择模式（single/multi/selection-required）由参数还是容器控制；
 3. 间距（18/12/8/8/8 与 2dp）与最小宽度 48dp 是否为组件默认值；
 4. toggle 语义（selected 状态）是否由组件播报。
+
+> ⚠️ 注解状态仅对 1.5.0-rc01 有效，升级按 V2 重查。设计规范数值（间距/圆角）为官方原值，未因本次实证改动。
 
 ## 常见错误
 

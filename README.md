@@ -24,7 +24,7 @@
 | `03-Android-Compose/` | ✅ 可用 | 9 篇实现指南 + 平台对照，代码为主 |
 | `04-Official-Samples/` | ✅ 索引 | 官方示例的 pinned commit + 结构索引（不镜像源码，上游约 106MB） |
 | `05-Design-Tokens/` | ✅ 可用 | 字阶、形状有值；颜色只存角色 |
-| `06-Figma-Resources/` | 🚧 骨架 | 入口索引，不含资源文件（需人工登记） |
+| `06-Figma-Resources/` | ✅ 部分可用 | 官方 specs 测量图已存档 **19 张 PNG**（nav bar / nav rail / app bars / date pickers / cards / buttons），见 `asset-index.md`；Figma Design Kit 仍待人工登记 |
 | `07-Development-Rules/` | ✅ 可用 | 决策规则、编码规则、评审清单 |
 | `08-Original-Sources/` | ✅ 可用 | 官方链接汇总 |
 
@@ -58,4 +58,4 @@ Material Design 官网是 Angular 应用，正文需 JS 渲染——直接 `curl
 
 本库中所有数值型结论都标注了核验日期与核验方式；**未能在官方页面目视确认的，都写明了「⚠️ 推断」或「待人工确认」**——请保持这个习惯，不要把次级来源的转述改写成「Material 规定」。
 
-尚未核实的部分集中在 `00-Metadata/version-tracking.md` 的「待核验清单」，优先处理项：material3 1.5.0 是否 GA、Expressive 各组件的实验性注解是否移除。
+尚未核实的部分集中在 `00-Metadata/version-tracking.md` 的「待核验清单」。**Expressive 组件按用户约定跟进官方 Maven 最新版本、不等 stable**（执行口径见 version-tracking.md 的 2026-11-16 追加节）。

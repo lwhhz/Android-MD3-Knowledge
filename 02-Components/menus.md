@@ -210,7 +210,8 @@ ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }
         readOnly = true,
         label = { Text("排序方式") },
         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
-        modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable)
+        // 1.5.0-rc01 实证：参数类型是 ExposedDropdownMenuAnchorType（不是 MenuAnchorType）
+        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
     )
     ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
         options.forEach { option ->
@@ -225,7 +226,7 @@ ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }
 | `DropdownMenu` / `DropdownMenuItem` | 稳定 |
 | `ExposedDropdownMenuBox` / `ExposedDropdownMenu` | 多个版本中为 `@ExperimentalMaterial3Api`，编译前确认 |
 | 子菜单 | 官方明确 Compose 暂不支持 |
-| `menuAnchor` | 1.3 后需要 `MenuAnchorType` 参数，旧的 `menuAnchor()` 已废弃 |
+| `menuAnchor` | 1.3 后需类型参数；**2026-11-16 实证**：1.5.0-rc01 为 `ExposedDropdownMenuAnchorType.PrimaryNotEditable` / `PrimaryEditable`，旧文档写的 `MenuAnchorType` 在该版本**不存在**（来源：官方 sources jar + 编译实证；升级需重查） |
 
 - 多选菜单要保持打开：不要在 `onClick` 里关 `expanded`，只在用户点外部/返回时关。
 
