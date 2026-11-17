@@ -47,4 +47,4 @@ P0 统计相应从 173/315 更新到 **181/315**。
 1. App bar 是手写实现，不是 Material3 `TopAppBar`；
 2. 头像/leading image 仍是 `Painter` 槽，未做图片加载；
 3. 未做 RTL、pixel 基线、宽度断点测试；
-4. `components/M3Appbars.kt` 仍保留 `M3XRAppBar` 空壳（XR 不推进）。
+4. `components/M3Appbars.kt` 及其 `M3XRAppBar` 空壳已删除（XR 不推进）。

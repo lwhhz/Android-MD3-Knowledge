@@ -11,7 +11,7 @@
 
 | 页面 | 组件集数 | 参数数 | 代码文件 |
 |---|---:|---:|---|
-| App bars | 9 | 33 | `components/M3Appbars.kt` |
+| App bars | 9 | 33 | `components/M3AppBar.kt` / `M3BottomAppBar.kt` |
 | Avatars | 1 | 2 | `components/M3Avatars.kt` |
 | Badges | 1 | 2 | `components/M3Badges.kt` |
 | Buttons | 38 | 242 | `components/M3Buttons.kt` |

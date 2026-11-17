@@ -128,7 +128,7 @@ android-compose/
 ## 历史转写代码的现状与接入计划
 
 - 97 个正式组件中，96 个有参数齐全的函数签名，但 **538 条规格参数只有 12 条（2.2%）真正影响渲染**；23 个完全空壳。
-- 0.4 已完成：接入 `sourceSets` 编译、修完 API 漂移错误、删除 `components/M3Appbars.kt` 与 `appbar/` 重复的 `M3AppBar` / `M3BottomAppBar` 空壳。
+- 0.4 已完成：接入 `sourceSets` 编译、修完 API 漂移错误；`M3AppBar` / `M3BottomAppBar` 已从 `appbar/` 迁入 `components/`，XR 空壳已删除。
 - 0.4 剩余（0.4b）：按组件域拆分 `M3Enums.kt` 的 53 个混装枚举（需要按 `COMPONENTS_SPEC.md` 逐组件的选项集重新生成，属机械但量大的改动）。
 - Search 系列暂时用 `TextField` 占位：1.5.0-rc01 里 `SearchBarState` 的公开构造不可用（internal），需先确认官方推荐入口，留到阶段 3。
 - 逐组件补齐可参考 [KB_COMPONENT_MAP.md](<KB_COMPONENT_MAP.md>) 的映射表（88 个组件有知识库专篇）。

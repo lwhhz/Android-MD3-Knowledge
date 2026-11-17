@@ -140,21 +140,38 @@ fun M3LoadingIndicator(
     modifier: Modifier = Modifier,
     step: Int = 0,
     showContainer: Boolean = false,
+    animated: Boolean = true,
 ) {
     val frame = ((step % 7) / 6f)
     if (showContainer) {
-        ContainedLoadingIndicator(
-            modifier = modifier.size(M3ProgressMetrics.loadingPlaceholder),
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            indicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            containerShape = CircleShape,
-            progress = { frame },
-        )
+        if (animated) {
+            ContainedLoadingIndicator(
+                modifier = modifier.size(M3ProgressMetrics.loadingPlaceholder),
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                indicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                containerShape = CircleShape,
+            )
+        } else {
+            ContainedLoadingIndicator(
+                modifier = modifier.size(M3ProgressMetrics.loadingPlaceholder),
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                indicatorColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                containerShape = CircleShape,
+                progress = { frame },
+            )
+        }
     } else {
-        LoadingIndicator(
-            modifier = modifier.size(M3ProgressMetrics.loadingPlaceholder),
-            color = MaterialTheme.colorScheme.primary,
-            progress = { frame },
-        )
+        if (animated) {
+            LoadingIndicator(
+                modifier = modifier.size(M3ProgressMetrics.loadingPlaceholder),
+                color = MaterialTheme.colorScheme.primary,
+            )
+        } else {
+            LoadingIndicator(
+                modifier = modifier.size(M3ProgressMetrics.loadingPlaceholder),
+                color = MaterialTheme.colorScheme.primary,
+                progress = { frame },
+            )
+        }
     }
 }

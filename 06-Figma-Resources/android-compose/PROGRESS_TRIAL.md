@@ -10,7 +10,7 @@
 | M3LinearIndeterminateProgressIndicator | Flat / Wavy |
 | M3CircularDeterminateProgressIndicator | Flat / Wavy；24dp 起、可关 track；strokeWidth 4/8dp |
 | M3CircularIndeterminateProgressIndicator | Flat / Wavy；可关 track |
-| M3LoadingIndicator | Expressive LoadingIndicator / ContainedLoadingIndicator；48dp；step 0–6 取 7 个形状帧 |
+| M3LoadingIndicator | Expressive LoadingIndicator / ContainedLoadingIndicator；默认动画；animated=false 时 step 0–6 取静态帧 |
 
 ## 二、官方尺寸
 
@@ -68,3 +68,8 @@
 ## 七、下一步
 
 P1 下一批建议：**Toolbar** → Bottom sheet → Segmented button → Carousel → Date pickers。
+
+## 回归补充（2026-11-18）
+
+- 修复：`M3LoadingIndicator()` 之前始终传 `progress`，导致默认渲染为静态实心圆；现默认调用无 `progress` 的动画重载，`animated=false` 才取静态帧。
+- 真机截图：[screenshots/progress-loading-animated.png](<screenshots/progress-loading-animated.png>)。

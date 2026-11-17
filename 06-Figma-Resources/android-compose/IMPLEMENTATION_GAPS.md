@@ -70,7 +70,7 @@
 |---|---|---:|---:|---:|---|---|:--:|:--:|
 | App bar | `M3AppBar` (components/M3AppBar.kt) | 6 | 6 | 0 | — | config/elevation/actions/avatar/search | P0 | S |
 | Bottom app bar | `M3BottomAppBar` (components/M3BottomAppBar.kt) | 2 | 2 | 0 | — | icons/fab | P0 | S |
-| XR/XR App Bar | `M3XRAppBar` ⚠ (M3Appbars.kt) | 7 | 0 | 7 | Elevation(3)·Configuration(2) | tLabel | P2 | M |
+| XR/XR App Bar | —（XR 空壳已删，不推进） | 7 | 0 | 7 | Elevation(3)·Configuration(2) | 无 | P2 | — |
 
 ### Avatars
 
@@ -359,7 +359,7 @@
 
 > 每个组件列出规格参数、已落地/未落地、缺失的状态轴（含全部选项）、当前函数体。其余组件形态相同，见第三节表格。
 
-### App bar · `M3AppBar`（⚠ 与 `appbar/` 同名函数重复）（`components/M3Appbars.kt`）
+### App bar · `M3AppBar`（`components/M3AppBar.kt`）
 
 - 规格参数 **6** 个，已落地 **0** 个；函数体：`// 布局骨架：完整规格见 COMPONENTS_SPEC.md Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) { Text(tLabel) }`
 - 缺失的变体轴：
@@ -368,7 +368,7 @@
 - 缺失的非变体参数：`Image`（实例替换）、`Show 1st trailing action`（布尔）、`Show 2nd trailing action`（布尔）、`Show 3rd trailing action`（布尔）
 - 补齐动作：把每个未落地的轴按档位拆成独立视觉分支（尺寸档改高度/内边距，状态档叠 M3 状态层与禁用色）；布尔参数作为显示开关接入布局；实例替换参数接到图标/图片槽（`Painter`），并补 Figma 默认图标。
 
-### Bottom app bar · `M3BottomAppBar`（⚠ 与 `appbar/` 同名函数重复）（`components/M3Appbars.kt`）
+### Bottom app bar · `M3BottomAppBar`（`components/M3BottomAppBar.kt`）
 
 - 规格参数 **2** 个，已落地 **0** 个；函数体：`// 布局骨架：完整规格见 COMPONENTS_SPEC.md Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) { Text(tLabel) }`
 - 缺失的变体轴：
@@ -557,7 +557,7 @@
 
 ### 5.2 重复定义：改错文件的风险
 
-`M3AppBar`、`M3BottomAppBar` 在 `appbar/`（手写、真实现）和 `components/`（生成、空壳）各有一份。包名不同所以能编过，但同名同签名，`import` 到哪份取决于路径。**补齐时以 `appbar/` 版为准**；`components/M3Appbars.kt` 里的两份空壳建议删除或改名。
+`M3AppBar`、`M3BottomAppBar` 已统一到 `components/`，`appbar/` 目录与 `M3Appbars.kt` 空壳已删除；XR 不推进。
 
 ### 5.3 实例替换参数：默认实例全丢
 
