@@ -9,7 +9,7 @@
 
 ## 〇、下载与构建
 
-- **安装包**：见仓库 Release `sample-md3clock-v1.0.0` 的 `MD3Clock-1.0.0-debug.apk`（debug 签名，仅供试装，不可上架）。
+- **安装包**：见 Release [`sample-md3clock-v1.0.0`](https://github.com/lwhhz/Android-MD3-Knowledge/releases/tag/sample-md3clock-v1.0.0) 的 `MD3Clock-1.0.0-debug.apk`（debug 签名，仅供试装，不可上架）；同页附 `MD3Clock-1.0.0-source.zip`。
 - **构建**：
 
 ```bash
