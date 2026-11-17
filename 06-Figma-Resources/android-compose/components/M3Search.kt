@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -135,6 +136,7 @@ fun M3SearchBar(
     }
 
     val inputField: @Composable () -> Unit = {
+        val expanded = state.targetValue != SearchBarValue.Collapsed
         SearchBarDefaults.InputField(
             textFieldState = textFieldState,
             searchBarState = state,
@@ -183,7 +185,7 @@ fun M3SearchBar(
     SearchBar(
         state = state,
         inputField = inputField,
-        modifier = modifier.widthIn(min = M3SearchMetrics.minWidth, max = M3SearchMetrics.maxWidth),
+        modifier = modifier.widthIn(min = M3SearchMetrics.minWidth, max = M3SearchMetrics.maxWidth).height(M3SearchMetrics.barHeight),
     )
     ExpandedFullScreenSearchBar(state = state, inputField = inputField) {
         suggestions.forEach { suggestion ->

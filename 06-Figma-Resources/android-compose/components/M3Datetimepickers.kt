@@ -1,12 +1,17 @@
 package com.example.m3appbar.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
@@ -25,6 +30,12 @@ import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import android.text.format.DateFormat
+import java.time.LocalDate
+import java.time.ZoneOffset
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -44,7 +55,39 @@ fun M3ModalDatePicker(
     type: Type = Type.DAY,
 ) {
     if (!show) return
-    if (type == Type.RANGE || type == Type.FULL_SCREEN_RANGE) {
+    if (type == Type.MONTH || type == Type.YEAR) {
+        M3MonthYearDialog(
+            type = type,
+            onDismissRequest = onDismissRequest,
+            onConfirm = onConfirm,
+        )
+        return
+    }
+    if (type == Type.FULL_SCREEN_RANGE) {
+        val rangeState = rememberDateRangePickerState()
+        Dialog(
+            onDismissRequest = onDismissRequest,
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+        ) {
+            Surface(modifier = Modifier.fillMaxSize()) {
+                Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        TextButton(onClick = onDismissRequest) { Text("Close") }
+                        TextButton(onClick = {
+                            onConfirm(rangeState.selectedStartDateMillis)
+                            onDismissRequest()
+                        }) { Text("Save") }
+                    }
+                    DateRangePicker(state = rangeState, modifier = Modifier.fillMaxSize())
+                }
+            }
+        }
+        return
+    }
+    if (type == Type.RANGE) {
         val rangeState = rememberDateRangePickerState()
         DatePickerDialog(
             onDismissRequest = onDismissRequest,
@@ -112,10 +155,11 @@ fun M3DialPicker(
     format: Format = Format.N12_HOUR,
     orientation: Orientation = Orientation.VERTICAL,
 ) {
+    val context = LocalContext.current
     val state = rememberTimePickerState(
         initialHour = 9,
         initialMinute = 30,
-        is24Hour = format == Format.N24_HOUR,
+        is24Hour = DateFormat.is24HourFormat(context),
     )
     val layout = if (orientation == Orientation.HORIZONTAL) {
         TimePickerLayoutType.Horizontal
@@ -141,10 +185,11 @@ fun M3KeyboardPicker(
     modifier: Modifier = Modifier,
     format: Format = Format.N12_HOUR,
 ) {
+    val context = LocalContext.current
     val state = rememberTimePickerState(
         initialHour = 9,
         initialMinute = 30,
-        is24Hour = format == Format.N24_HOUR,
+        is24Hour = DateFormat.is24HourFormat(context),
     )
     Surface(
         modifier = modifier,

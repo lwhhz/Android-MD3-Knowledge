@@ -190,3 +190,10 @@ HorizontalPager(
 - https://m3.material.io/components/carousel/accessibility
 - 核验日期：2026-11-16
 - 关联：`02-Components/cards.md`（卡片横排）、`01-Foundations/shape-system.md`（28dp 档位）
+
+
+## 示例实现限制（android-compose 归档，2026-11-18）
+
+- material3 1.5.0-rc01 中自定义 `Carousel` / `keylineListOf` / `KeylineListScope` 为 **internal**，应用层无法用官方 keyline 实现逐项宽高比。
+- 归档实现：MULTI_BROWSE / HERO / CENTER_ALIGNED_HERO / UNCONTAINED / FULL_SCREEN 用公开官方组件；**MULTI_ASPECT 降级为 LazyRow + snap + 固定宽度**。
+- 因此不能把该示例视为“六种布局全部官方实现”；动效/窄项缩放仍以官方组件为准。

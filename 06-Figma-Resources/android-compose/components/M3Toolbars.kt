@@ -93,10 +93,15 @@ fun M3Toolbar(
         FloatingToolbarDefaults.standardFloatingToolbarColors()
     }
 
+    val floatingModifier = modifier.padding(
+        horizontal = M3ToolbarMetrics.floatingMarginHorizontal,
+        vertical = M3ToolbarMetrics.floatingMarginVertical,
+    )
+
     if (effectiveOrientation == M3ToolbarOrientation.VERTICAL) {
         VerticalFloatingToolbar(
             expanded = true,
-            modifier = modifier,
+            modifier = floatingModifier,
             colors = colors,
             scrollBehavior = scrollBehavior,
             floatingActionButton = floatingActionButton ?: {},

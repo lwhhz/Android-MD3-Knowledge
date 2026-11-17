@@ -836,7 +836,7 @@ fun MetricsBoard(modifier: Modifier = Modifier) {
         M3AppBar(
             headline = "Medium",
             supportingText = "Supporting text",
-            configuration = AppBarConfiguration.MEDIUM,
+            configuration = AppBarConfiguration.MEDIUM_FLEXIBLE,
             elevation = AppBarElevation.ON_SCROLL,
             leadingIcon = appBarMenu,
             trailingActions = listOf(
@@ -994,11 +994,17 @@ fun MetricsBoard(modifier: Modifier = Modifier) {
         SectionTitle("M3Date/Time pickers · modal / input / dial / keyboard / docked")
         var showModalDate by remember { mutableStateOf(false) }
         var showInputDate by remember { mutableStateOf(false) }
+        var showMonthYear by remember { mutableStateOf(false) }
+        var showFullRange by remember { mutableStateOf(false) }
         var showDialPicker by remember { mutableStateOf(false) }
         var showKeyboardPicker by remember { mutableStateOf(false) }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = { showModalDate = true }) { Text("Open modal date") }
             Button(onClick = { showInputDate = true }) { Text("Open input date") }
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = { showMonthYear = true }) { Text("Open month/year") }
+            Button(onClick = { showFullRange = true }) { Text("Open full range") }
         }
         if (showModalDate) {
             M3ModalDatePicker(
@@ -1010,6 +1016,20 @@ fun MetricsBoard(modifier: Modifier = Modifier) {
             M3InputDatePicker(
                 show = true,
                 onDismissRequest = { showInputDate = false },
+            )
+        }
+        if (showMonthYear) {
+            M3ModalDatePicker(
+                show = true,
+                onDismissRequest = { showMonthYear = false },
+                type = Type.MONTH,
+            )
+        }
+        if (showFullRange) {
+            M3ModalDatePicker(
+                show = true,
+                onDismissRequest = { showFullRange = false },
+                type = Type.FULL_SCREEN_RANGE,
             )
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

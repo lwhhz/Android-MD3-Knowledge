@@ -22,6 +22,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,8 +46,8 @@ enum class AppBarConfiguration {
     SMALL_IMAGE,      // Configuration=Small-image
     SEARCH,           // Configuration=Search
     SMALL,            // Configuration=Small
-    MEDIUM,           // Configuration=Medium
-    LARGE;            // Configuration=Large
+    MEDIUM_FLEXIBLE,  // Configuration=Medium flexible（Expressive）
+    LARGE_FLEXIBLE;   // Configuration=Large flexible（Expressive）
 
     /** 从 Figma variant 选项字符串解析 */
     companion object {
@@ -55,8 +56,10 @@ enum class AppBarConfiguration {
             "Small-image" -> SMALL_IMAGE
             "Search" -> SEARCH
             "Small" -> SMALL
-            "Medium" -> MEDIUM
-            "Large" -> LARGE
+            "Medium" -> MEDIUM_FLEXIBLE
+            "Medium flexible" -> MEDIUM_FLEXIBLE
+            "Large" -> LARGE_FLEXIBLE
+            "Large flexible" -> LARGE_FLEXIBLE
             else -> SMALL_CENTERED
         }
     }
@@ -79,8 +82,8 @@ private fun AppBarConfiguration.height(): Dp = when (this) {
     AppBarConfiguration.SMALL_IMAGE,
     AppBarConfiguration.SEARCH,
     AppBarConfiguration.SMALL -> 64.dp
-    AppBarConfiguration.MEDIUM -> 112.dp
-    AppBarConfiguration.LARGE -> 120.dp
+    AppBarConfiguration.MEDIUM_FLEXIBLE -> 112.dp
+    AppBarConfiguration.LARGE_FLEXIBLE -> 120.dp
 }
 
 /**
@@ -117,8 +120,11 @@ fun M3AppBar(
     avatar: Painter? = null,
     onAvatarClick: (() -> Unit)? = null,
     onSearchClick: (() -> Unit)? = null,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
-    val h = configuration.height()
+    val baseHeight = configuration.height()
+    val offset = scrollBehavior?.state?.heightOffset ?: 0f
+    val h = (baseHeight + offset.dp).coerceAtLeast(64.dp)
     val containerColor = when (elevation) {
         AppBarElevation.FLAT -> Color.Transparent
         AppBarElevation.ON_SCROLL -> MaterialTheme.colorScheme.surfaceContainer
@@ -128,8 +134,8 @@ fun M3AppBar(
         AppBarElevation.ON_SCROLL -> 3.dp
     }
     val headlineStyle = when (configuration) {
-        AppBarConfiguration.MEDIUM -> M3Typography.headlineSmall
-        AppBarConfiguration.LARGE -> M3Typography.headlineMedium
+        AppBarConfiguration.MEDIUM_FLEXIBLE -> M3Typography.headlineSmall
+        AppBarConfiguration.LARGE_FLEXIBLE -> M3Typography.headlineMedium
         else -> M3Typography.titleLarge
     }
 
