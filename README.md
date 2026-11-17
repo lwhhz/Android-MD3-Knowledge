@@ -27,6 +27,7 @@
 | `06-Figma-Resources/` | ✅ 部分可用 | 官方 specs 测量图已存档 **19 张 PNG**（nav bar / nav rail / app bars / date pickers / cards / buttons），见 `asset-index.md`；Figma Design Kit 仍待人工登记 |
 | `07-Development-Rules/` | ✅ 可用 | 决策规则、编码规则、评审清单 |
 | `08-Original-Sources/` | ✅ 可用 | 官方链接汇总 |
+| `09-Sample-Apps/` | ✅ 可用 | **1 个**完整示例应用「时序」MD3Clock：5 页、Expressive 全量落点，源码可独立构建；安装包见 Release |
 
 ## 阅读路径
 
@@ -43,6 +44,7 @@
 | 处理 hover / 按下 / 禁用 | `01/interaction-states.md` |
 | 表盘 / XR 形态 | `01/watches.md` / `01/xr.md` |
 | 查版本号 / API 状态 | `00/version-tracking.md` → `00/sources.yaml` |
+| 想看规范落成代码长什么样 | `09-Sample-Apps/MD3Clock/README.md`（组件 → 章节映射表） |
 
 ## 资料原则
 
