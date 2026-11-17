@@ -24,12 +24,12 @@
 
 - `AppBarConfiguration` 新增 `MEDIUM_FLEXIBLE` / `LARGE_FLEXIBLE`，`from()` 同时接受 Old/New 字符串；高度仍 112/120。
 - 新增 `scrollBehavior: TopAppBarScrollBehavior?`，高度按 `state.heightOffset` 收缩（最低 64dp）。
-- 限制：demo 未接 `nestedScroll`，滚动收缩未做真机验证；Bottom app bar 仍保留用于 baseline 对照。
+- 已用隔离 Dialog 验证：滚动列表后 app bar 从 112dp 收缩到 64dp（[appbar-scroll.png](<screenshots/appbar-scroll.png>)）；Bottom app bar 仍保留用于 baseline 对照。
 
 ## 5. Toolbar
 
 - floating 横/纵边距 16/24dp 已真正加到 `floatingModifier`。
-- `scrollBehavior` 仍由调用方通过 `nestedScroll` 驱动；归档 demo 的滚动隐藏未稳定复现，未宣称已验收。
+- `scrollBehavior` 由调用方通过 `nestedScroll` 驱动；隔离 Dialog 验证列表滚动后 floating toolbar 隐藏（[toolbar-scroll-hide.png](<screenshots/toolbar-scroll-hide.png>)）。
 
 ## 验证
 
@@ -42,5 +42,5 @@
 ## 未完成
 
 1. Search 内部 24/12 padding（API 限制）。
-2. App bar / Toolbar 滚动隐藏真机验收。
+2. ~~App bar / Toolbar 滚动隐藏真机验收~~ 已完成。
 3. Date month/year 自绘 UI 的视觉验收与无障碍。

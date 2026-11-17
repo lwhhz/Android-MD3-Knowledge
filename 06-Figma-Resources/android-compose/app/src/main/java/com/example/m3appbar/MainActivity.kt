@@ -33,6 +33,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -157,6 +158,8 @@ import com.example.m3appbar.components.M3NavigationRail
 import com.example.m3appbar.ui.M3NavRailAlignment
 import kotlinx.coroutines.launch
 import com.example.m3appbar.components.M3AppBar
+import com.example.m3appbar.components.M3AppBarScrollDemo
+import com.example.m3appbar.components.M3ToolbarScrollDemo
 import com.example.m3appbar.components.M3BottomAppBar
 import com.example.m3appbar.components.AppBarConfiguration
 import com.example.m3appbar.components.AppBarElevation
@@ -855,6 +858,20 @@ fun MetricsBoard(modifier: Modifier = Modifier) {
             ),
             fab = appBarAdd,
         )
+
+
+        var showAppBarScroll by remember { mutableStateOf(false) }
+        var showToolbarScroll by remember { mutableStateOf(false) }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = { showAppBarScroll = true }) { Text("App bar scroll") }
+            Button(onClick = { showToolbarScroll = true }) { Text("Toolbar scroll") }
+        }
+        if (showAppBarScroll) {
+            M3AppBarScrollDemo(onDismissRequest = { showAppBarScroll = false })
+        }
+        if (showToolbarScroll) {
+            M3ToolbarScrollDemo(onDismissRequest = { showToolbarScroll = false })
+        }
 
         SectionTitle("M3BottomSheet · modal / standard")
         var sheetOpen by remember { mutableStateOf(false) }

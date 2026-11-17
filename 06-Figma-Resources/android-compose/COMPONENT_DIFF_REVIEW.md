@@ -91,3 +91,11 @@
 
 - KB `02-Components` 是规格文档 + 代码片段，不是可复用组件库；本报告比较的是“文档声称的行为/数值”与 archive 实现。
 - 本轮未修改任何代码或 KB 文档；确认后再按条目执行。
+
+## 六、本轮执行状态
+
+- Search：height/width/avatar 已接；24/12 内部 padding 受 API 限制，接受。
+- Date：MONTH/YEAR、全屏 Range、系统 24h 已加。
+- Carousel/Connected：KB 限制已写入。
+- App bar：flexible 命名 + 滚动收缩已真机验证。
+- Toolbar：floating 边距 + 滚动隐藏已真机验证。
