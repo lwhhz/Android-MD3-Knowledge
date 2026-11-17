@@ -1,0 +1,215 @@
+package com.example.m3appbar.components
+
+/** 由 Figma componentPropertyDefinitions 的 VARIANT 属性生成的枚举（含真实默认值与全部选项）。 */
+
+enum class Style {
+    CHECK, MONOGRAM, AVATAR, PORTRAIT, LANDSCAPE, FLOATING, OUTLINED, ELEVATED, FILLED, PRIMARY, SECONDARY
+}
+
+enum class WindowSizeClass {
+    N1_COMPACT_0MINUS_599DP, N2_MEDIUM_600MINUS_839DP, N3_EXPANDED_840MINUS_1199P, N4_LARGE_1200MINUS_1599DP, N5_EXTRA_LARGE_1600PLUS_DP
+}
+
+enum class LayoutRegions {
+    NONE, NAVIGATION_REGION, NAVIGATION_EXPANDED
+}
+
+enum class Shape {
+    N4_LEAF_CLOVER, N4_SIDED_COOKIE, N6_SIDED_COOKIE, N7_SIDED_COOKIE, N8_LEAF_CLOVER, N9_SIDED_COOKIE, N12_SIDED_COOKIE, ARCH, ARROW, BOOM, BUN, BURST, CIRCLE, DIAMOND, FAN, FLOWER, GEM, GHOST_ISH, HEART, HEXAGON, OVAL, PENTAGON, PILL, PIXEL_CIRCLE, PIXEL_TRIANGLE, PUFFY, PUFFY_DIAMOND, SEMICIRCLE, SLANTED, SOFT_BOOM, SOFT_BURST, SQUARE, SUNNY, TRIANGLE, VERY_SUNNY
+}
+
+enum class Configuration {
+    BASE_KEYBOARD, ALPHANUMERIC, KEYPAD, NUMERIC_ONLY, SMALL_CENTERED, SMALL_IMAGE, SEARCH, SMALL, MEDIUM, LARGE, CENTER_ALIGNED, LABEL_ONLY, LABEL_LEADING_ICON, LABEL_ICON, LABEL_FAVICON, LABEL_BRAND_ICON, LABEL_AVATAR, EMBEDDED_FAB, NO_FAB, ICON_LABEL, INPUT_TEXT, SUPPORTING_TEXT, TEXT_ONLY, TEXT_ACTION, TEXT_LONGER_ACTION, FIXED, SCROLLABLE, FLOATING, DOCKED
+}
+
+enum class Elevation {
+    FLAT, ON_SCROLL, SURFACE_CONTAINER, SURFACE_CONTAINER_HIGH, SURFACE_CONTAINER_HIGHEST, TERTIARY_CONTAINER
+}
+
+enum class Icons {
+    N1, N2, N3, N4
+}
+
+enum class Size {
+    LARGE, SMALL, XSMALL, MEDIUM, XLARGE, DEFAULT
+}
+
+enum class Segments {
+    N2, N3, N4, N5
+}
+
+enum class Density {
+    N0, MINUS_1, MINUS_2, MINUS_3, MINUS_4
+}
+
+enum class Type {
+    ROUND, SQUARE, SELECTED, UNSELECTED, INDETERMINATE, ERROR_UNSELECTED, ERROR_INDETERMINATE, ERROR_SELECTED, INPUT_CHIPS, ASSISTIVE_CHIPS, FILTER_CHIPS, SUGGESTION_CHIPS, DAY, MONTH, YEAR, SINGLE_INPUT, RANGE, FULL_SCREEN_RANGE, STANDARD, SEGMENTED_FILLED, EXPANDABLE, DRAGGABLE, SWIPABLE_STANDARD, SWIPABLE_SEGMENTED, ICON, INDENT, IMAGE, AVATAR, VIDEO, ICON_BUTTON, CHECKBOX, RADIO, SWITCH, SLOT, ACCORDION_BUTTON, TRAILING_TEXT_ONLY, TEXT, INITIATE_REVEAL, REVEALED, SWIPE_ACTION, EXPAND, COLLAPSE, FLAT, WAVE, DOCKED, FLOATING, MODAL, SINGLE_LINE, MULTI_LINE
+}
+
+enum class State {
+    ENABLED, HOVERED, FOCUSED, PRESSED, DISABLED, PRESSSED, DRAGGED, ACTIVE, ERROR
+}
+
+enum class Selected {
+    FALSE, TRUE
+}
+
+enum class Width {
+    NARROW, DEFAULT, WIDE
+}
+
+enum class Color {
+    FILLED, TONAL, ELEVATED, OUTLINED, PRIMARY_CONTAINER, SECONDARY_CONTAINER, TERTIARY_CONTAINER, PRIMARY, SECONDARY, TERTIARY, OUTLINE, VIBRANT, STANDARD
+}
+
+enum class LeadingState {
+    ENABLED, HOVERED, FOCUSED, PRESSED, DISABLED
+}
+
+enum class TrailingState {
+    ENABLED, FOCUSED, HOVERED, PRESSED, DISABLED, SELECTED
+}
+
+enum class ButtonType {
+    ICON, LABEL
+}
+
+enum class Layout {
+    SLOT, MEDIA_TEXT, FULL_SCREEN, HERO, CENTER_ALIGNED_HERO, MULTI_BROWSE, UNCONTAINED, MULTI_ASPECT_RATIO, SINGLE_ROW_SCROLLABLE, MULTIPLE_ROWS_OVERFLOW, ICON_ONLY, LABEL_ICON, LABEL_ONLY
+}
+
+enum class Context {
+    MOBILE, TABLET
+}
+
+enum class ShowIcon {
+    FALSE, TRUE
+}
+
+enum class ShowTrailingIcon {
+    FALSE, TRUE
+}
+
+enum class ShowClosingIcon {
+    FALSE, TRUE
+}
+
+enum class Format {
+    N12_HOUR, N24_HOUR
+}
+
+enum class Orientation {
+    VERTICAL, HORIZONTAL
+}
+
+enum class Icon {
+    TRUE, FALSE
+}
+
+enum class Condition {
+    N1_LINE, N2_LINE, N3_LINEPLUS
+}
+
+enum class Leading {
+    NONE, MONOGRAM, ICON, IMAGE, VIDEO, CHECK_BOX, RADIO_BUTTON, SWITCH
+}
+
+enum class Trailing {
+    NONE, CHECK_BOX, ICON, RADIO_BUTTON, SWITCH
+}
+
+enum class ShowOverline {
+    FALSE, TRUE
+}
+
+enum class ShowSupportingText {
+    FALSE, TRUE
+}
+
+enum class MultiLine {
+    FALSE, TRUE
+}
+
+enum class M3Alignment {
+    MIDDLE_ALIGNED, TOP_ALIGNED, TOP, MIDDLE
+}
+
+enum class Accordion {
+    COLLAPSED, EXPANDED
+}
+
+enum class SwipeState {
+    DEFAULT, INITIATE_REVEAL, SWIPE_ACTION, REVEALED
+}
+
+enum class Actions {
+    N1, N2, N3
+}
+
+enum class Thickness {
+    N4_DP, N8_DP
+}
+
+enum class Progress {
+    N0, N10, N20, N50, N80, N100, N30
+}
+
+enum class Step {
+    N0, N1, N2
+}
+
+enum class Steps {
+    N1, N2, N3, N4, N5, N6, N7
+}
+
+enum class ShowContainer {
+    FALSE, TRUE
+}
+
+enum class Theme {
+    STANDARD, VIBRANT
+}
+
+enum class Groups {
+    N1, N2, N3
+}
+
+enum class NavItems {
+    N3, N4, N5, N6
+}
+
+enum class ShowAvatar {
+    FALSE, TRUE
+}
+
+enum class ShowBack {
+    FALSE, TRUE
+}
+
+enum class Modal {
+    FALSE, TRUE
+}
+
+enum class Value {
+    N0, N50, N100, MINUS_50, PLUS_50
+}
+
+enum class Prop {
+    ONE_LINE, TWO_LINES
+}
+
+enum class ShowCloseAffordance {
+    FALSE, TRUE
+}
+
+enum class TextConfigurations {
+    INPUT_TEXT, LABEL_TEXT, PLACEHOLDER_TEXT
+}
+
+enum class LeadingIcon {
+    FALSE, TRUE
+}
+
+enum class TrailingIcon {
+    TRUE, FALSE
+}

@@ -1,0 +1,52 @@
+NOTICE — 来源、许可与修改声明
+================================
+
+设计来源
+--------
+Material 3 Design Kit
+© Google，依据 CC BY 4.0 许可发布。
+来源（Figma Community）：
+  https://www.figma.com/community/file/1035203688168086460/material-3-design-kit
+官方发布说明：
+  https://m3.material.io/blog/material-3-figma-design-kit
+  https://m3.material.io/blog/whats-new-design-kit
+许可全文：
+  https://creativecommons.org/licenses/by/4.0/
+
+版本基准：社区页 Changelog 05.19.26 V1.25（Figma Community 页面所示，核验日期 2026-11-17）。
+本地提取源：Figma 文件 key 42Mc2SlwS6zU3VXsHUSaYl —— 社区 Kit 的同源副本（用户确认仅查看、未编辑）。
+
+本仓库与 Google / Material Design 无隶属关系，也不代表其背书。
+
+本仓库是什么
+------------
+android-compose-m3：把上述设计稿转写为 Jetpack Compose（Material 3）的开源工程，
+包含参数规格、组件转写、缺口清单、知识库映射与构建脚手架。
+
+依据 CC BY 4.0 第 3(a)(1)(B) 条，说明对原作品的修改：
+----------------------------------------------------
+1. 组件参数从 Figma 的 componentPropertyDefinitions 程序化提取并生成 Kotlin 签名
+   （见 COMPONENTS_SPEC.md、IMPLEMENTATION_GAPS.md）。
+2. 状态层透明度改为现行官方规范值 hover 8% / focus 10% / press 10% / drag 16% /
+   disabled 38%，不使用设计稿中固化的 Pressed·Dragged 12%。
+3. 颜色不逐变体复制 hex：生产主题使用 Material 3 ColorScheme 语义角色 + 动态取色回退；
+   设计稿色值仅作为取样参考，不标为官方色。
+4. 新增构建脚手架（Gradle、AGP 9.4.1、Kotlin 2.3.21、compose-bom-alpha 2026.11.00）、
+   主题骨架、M3Metrics 官方数值常量、缺口清单与组件→知识库映射。
+5. 历史生成的组件仍在 appbar/、components/ 中，尚未接入编译；计划在 0.4 去重与拆枚举后接入。
+6. 除本文档引用的 Figma 社区页截图（evidence/）外，本仓库不再分发设计稿的图片、图标或字体资源。
+
+自有代码与文档许可
+------------------
+Copyright 2026 android-compose contributors
+
+除下方例外外，本仓库的源代码与文档采用 Apache License, Version 2.0
+（全文见 LICENSE）。
+
+例外（仍按 CC BY 4.0）：
+- Material 3 Design Kit 设计稿本身及其署名/修改说明（本 NOTICE 上半部分）；
+- evidence/ 下的 Figma 社区页截图；
+- 由设计稿直接衍生的视觉参数说明，在引用时保留本 NOTICE 的署名与修改声明。
+
+Apache-2.0 仅适用于本仓库作者有权许可的部分；上游设计稿仍归 Google 所有，
+其许可为 CC BY 4.0。

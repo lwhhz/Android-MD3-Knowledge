@@ -24,7 +24,7 @@
 | `03-Android-Compose/` | ✅ 可用 | 9 篇实现指南 + 平台对照，代码为主 |
 | `04-Official-Samples/` | ✅ 索引 | 官方示例的 pinned commit + 结构索引（不镜像源码，上游约 106MB） |
 | `05-Design-Tokens/` | ✅ 可用 | 字阶、形状有值；颜色只存角色 |
-| `06-Figma-Resources/` | ✅ 部分可用 | 官方 specs 测量图已存档 **19 张 PNG**（nav bar / nav rail / app bars / date pickers / cards / buttons），见 `asset-index.md`；Figma Design Kit 仍待人工登记 |
+| `06-Figma-Resources/` | ✅ 可用 | 官方 specs 测量图 19 张 + **android-compose 示例归档**（P0–P2、30 tests、APK），见 `android-compose/README.md` |
 | `07-Development-Rules/` | ✅ 可用 | 决策规则、编码规则、评审清单 |
 | `08-Original-Sources/` | ✅ 可用 | 官方链接汇总 |
 | `09-Sample-Apps/` | ✅ 可用 | **1 个**完整示例应用「时序」MD3Clock：5 页、Expressive 全量落点，源码可独立构建；安装包见 Release |
