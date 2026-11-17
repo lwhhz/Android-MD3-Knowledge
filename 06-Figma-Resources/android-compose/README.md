@@ -5,7 +5,7 @@
 > **当前状态（2026-11-17）**
 > - **0.1 完成**：Gradle 工程可构建，`:app:assembleDebug` 通过，产出 `app/build/outputs/apk/debug/app-debug.apk`。
 > - **0.2 完成**：新增 `ui/M3Metrics.kt`（官方状态层 8/10/10/16/38、按钮五档尺寸）。
-> - **0.4 部分完成**：`appbar/`、`components/` 已接入编译，修完 44 个 API 漂移错误；`components/M3Appbars.kt` 的重复空壳已删除。剩余“按域拆枚举”留到 **0.4b**。
+> - **0.4 部分完成**：`appbar/` 已迁入 `components/`，App bar / Bottom app bar 接入 demo；修完 44 个 API 漂移错误。剩余“按域拆枚举”留到 **0.4b**。
 > - **阶段 1 试点完成（Button 家族）**：Filled / Tonal / Elevated / Outlined / Text 五种样式全部实现，共 35 条规格参数落地（7/7 × 5）；单测 2/2；已在真机安装运行并截图，详见 [BUTTON_TRIAL.md](<BUTTON_TRIAL.md>)。
 > - **阶段 1 试点 2（IconButton + FAB）**：8 个 IconButton 变体 + FAB / Extended FAB 已实现并真机截图；公共状态层与颜色表已抽出。详见 [ICONBUTTON_FAB_TRIAL.md](<ICONBUTTON_FAB_TRIAL.md>)。
 > - **阶段 1 试点 3（ToggleButton）**：四个样式变体实现并真机截图，9 参数中 8 条落地。详见 [TOGGLE_TRIAL.md](<TOGGLE_TRIAL.md>)。
@@ -36,6 +36,7 @@
 > - **P2 收尾（2026-11-18）**：30 tests 全绿；P2 18/43（XR 25 条未做），合计 338/538。详见 [P2_REGRESSION.md](<P2_REGRESSION.md>)。
 > - **工程收尾（2026-11-18）**：P1/P2 pixel 基线自检 0%；RTL smoke 与 320/480dpi 通过；30 tests。详见 [ENGINEERING_WRAP.md](<ENGINEERING_WRAP.md>)。
 > - **项目收口（2026-11-18）**：接受人工 Pixel 基线；XR **明确不推进**；最终 30 tests、338/538。总览见 [PROJECT_STATUS.md](<PROJECT_STATUS.md>)。
+> - **App bar 迁移（2026-11-18）**：`appbar/` 迁入 `components/`，App bar / Bottom app bar 接入 demo；31 tests。详见 [APPBAR_TRIAL.md](<APPBAR_TRIAL.md>)。
 > - **0.5 完成**：`M3SuggestionChipPixel` 状态层改为官方 **Pressed 10% / Dragged 16%**，说明文档同步。
 > - 依赖口径 **material3 1.5.0-rc01**（预发布线），视觉口径**现行官方值**，依据见 [KB_COMPONENT_MAP.md](<KB_COMPONENT_MAP.md>)。
 
@@ -60,7 +61,6 @@ android-compose/
 │       └── ui/
 │           ├── M3Metrics.kt      ← 官方数值常量（状态层 / 按钮五档）
 │           └── theme/            ← Color / Shape / Type / Theme
-├── appbar/                       ← 第一轮：App bars 页（精细手写，已接入编译）
 ├── components/                   ← 第三轮：全组件生成结果（已接入编译，0.4 起）
 ├── examples/                     ← 不参与编译的用法示例（原 appbar/AppBarUsageExample.kt）
 ├── gradle/                       ← 版本目录与 wrapper
@@ -184,6 +184,7 @@ android-compose/
 | [P2_REGRESSION.md](<P2_REGRESSION.md>) | P2 回归记录（XR 除外） |
 | [ENGINEERING_WRAP.md](<ENGINEERING_WRAP.md>) | Pixel 基线 / RTL / 密度收尾 |
 | [PROJECT_STATUS.md](<PROJECT_STATUS.md>) | 项目最终状态与不做项 |
+| [APPBAR_TRIAL.md](<APPBAR_TRIAL.md>) | App bar / Bottom app bar 迁移记录 |
 
 ## 关于 Token / MCP 安全
 

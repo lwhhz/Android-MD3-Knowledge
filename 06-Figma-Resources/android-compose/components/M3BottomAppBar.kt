@@ -1,4 +1,6 @@
-package com.example.m3appbar
+package com.example.m3appbar.components
+
+import com.example.m3appbar.M3Typography
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -6,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -31,7 +34,7 @@ fun M3BottomAppBar(
     modifier: Modifier = Modifier,
     iconsCount: Int = 1,
     showFab: Boolean = true,
-    containerColor: Color = M3Colors.SurfaceContainerHigh,
+    containerColor: Color? = null,
     actions: List<TrailingAction> = emptyList(),
     fab: Painter? = null,
     onFabClick: (() -> Unit)? = null,
@@ -40,7 +43,7 @@ fun M3BottomAppBar(
         modifier = modifier
             .fillMaxWidth()
             .height(80.dp),
-        color = containerColor,
+        color = containerColor ?: MaterialTheme.colorScheme.surfaceContainerHigh,
     ) {
         Row(
             modifier = Modifier
@@ -52,15 +55,15 @@ fun M3BottomAppBar(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 actions.take(iconsCount.coerceIn(0, 4)).forEach { action ->
                     IconButton(onClick = action.onClick, modifier = Modifier.size(48.dp)) {
-                        Icon(action.icon, contentDescription = action.description, tint = M3Colors.OnSurface)
+                        Icon(action.icon, contentDescription = action.description, tint = MaterialTheme.colorScheme.onSurface)
                     }
                 }
             }
             if (showFab && fab != null) {
                 androidx.compose.material3.FloatingActionButton(
                     onClick = { onFabClick?.invoke() },
-                    containerColor = M3Colors.PrimaryContainer,
-                    contentColor = M3Colors.OnPrimaryContainer,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ) {
                     Icon(fab, contentDescription = "FAB")
                 }
@@ -112,9 +115,9 @@ fun M3XrAppBar(
     trailingActions: List<TrailingAction> = emptyList(),
 ) {
     val containerColor = when (elevation) {
-        XrElevation.SURFACE_CONTAINER -> M3Colors.SurfaceContainer
-        XrElevation.SURFACE_CONTAINER_HIGH -> M3Colors.SurfaceContainerHigh
-        XrElevation.SURFACE_CONTAINER_HIGHEST -> M3Colors.SurfaceContainerHighest
+        XrElevation.SURFACE_CONTAINER -> MaterialTheme.colorScheme.surfaceContainer
+        XrElevation.SURFACE_CONTAINER_HIGH -> MaterialTheme.colorScheme.surfaceContainerHigh
+        XrElevation.SURFACE_CONTAINER_HIGHEST -> MaterialTheme.colorScheme.surfaceContainerHighest
     }
     Surface(
         modifier = modifier.fillMaxWidth().height(72.dp),
@@ -128,13 +131,13 @@ fun M3XrAppBar(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (showLeadingIcon && leadingIcon != null) {
                     IconButton(onClick = {}, modifier = Modifier.size(48.dp)) {
-                        Icon(leadingIcon, contentDescription = null, tint = M3Colors.OnSurface)
+                        Icon(leadingIcon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
                     }
                 }
                 androidx.compose.material3.Text(
                     text = headline,
                     style = M3Typography.titleLarge,
-                    color = M3Colors.OnSurface,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(horizontal = 8.dp),
                 )
             }
@@ -143,7 +146,7 @@ fun M3XrAppBar(
                 trailingActions.take(3).forEachIndexed { index, action ->
                     if (flags.getOrNull(index) == true) {
                         IconButton(onClick = action.onClick, modifier = Modifier.size(48.dp)) {
-                            Icon(action.icon, contentDescription = action.description, tint = M3Colors.OnSurface)
+                            Icon(action.icon, contentDescription = action.description, tint = MaterialTheme.colorScheme.onSurface)
                         }
                     }
                 }

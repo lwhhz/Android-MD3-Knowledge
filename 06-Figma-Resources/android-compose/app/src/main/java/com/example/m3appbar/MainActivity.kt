@@ -156,6 +156,15 @@ import com.example.m3appbar.components.M3NavigationDrawer
 import com.example.m3appbar.components.M3NavigationRail
 import com.example.m3appbar.ui.M3NavRailAlignment
 import kotlinx.coroutines.launch
+import com.example.m3appbar.components.M3AppBar
+import com.example.m3appbar.components.M3BottomAppBar
+import com.example.m3appbar.components.AppBarConfiguration
+import com.example.m3appbar.components.AppBarElevation
+import com.example.m3appbar.components.TrailingAction
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Edit
 import com.example.m3appbar.components.M3Badges
 import com.example.m3appbar.ui.M3BadgeSize
 import com.example.m3appbar.components.M3BottomSheet
@@ -811,6 +820,41 @@ fun MetricsBoard(modifier: Modifier = Modifier) {
             }
         }
 
+
+
+        SectionTitle("M3AppBar / M3BottomAppBar · configurations")
+        val appBarMenu = rememberVectorPainter(Icons.Filled.Menu)
+        val appBarSearch = rememberVectorPainter(Icons.Filled.Search)
+        val appBarMore = rememberVectorPainter(Icons.Filled.MoreVert)
+        val appBarAdd = rememberVectorPainter(Icons.Filled.Add)
+        M3AppBar(
+            headline = "Centered",
+            configuration = AppBarConfiguration.SMALL_CENTERED,
+            leadingIcon = appBarMenu,
+            trailingActions = listOf(TrailingAction(appBarSearch, "Search", {})),
+        )
+        M3AppBar(
+            headline = "Medium",
+            supportingText = "Supporting text",
+            configuration = AppBarConfiguration.MEDIUM,
+            elevation = AppBarElevation.ON_SCROLL,
+            leadingIcon = appBarMenu,
+            trailingActions = listOf(
+                TrailingAction(appBarMore, "More", {}),
+                TrailingAction(appBarSearch, "Search", {}),
+            ),
+            showTrailingAction1 = true,
+            showTrailingAction2 = true,
+        )
+        M3BottomAppBar(
+            iconsCount = 2,
+            showFab = true,
+            actions = listOf(
+                TrailingAction(appBarSearch, "Search", {}),
+                TrailingAction(appBarMore, "More", {}),
+            ),
+            fab = appBarAdd,
+        )
 
         SectionTitle("M3BottomSheet · modal / standard")
         var sheetOpen by remember { mutableStateOf(false) }

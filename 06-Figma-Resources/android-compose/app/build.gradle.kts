@@ -46,7 +46,6 @@ android {
             // 0.4：历史转写代码接入编译。先暴露真实编译错误，再逐项修。
             java.srcDirs(
                 "src/main/java",
-                "${rootDir}/appbar",
                 "${rootDir}/components",
             )
             kotlin.srcDirs(

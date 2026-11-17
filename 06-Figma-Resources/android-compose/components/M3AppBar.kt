@@ -1,4 +1,6 @@
-package com.example.m3appbar
+package com.example.m3appbar.components
+
+import com.example.m3appbar.M3Typography
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -118,7 +121,7 @@ fun M3AppBar(
     val h = configuration.height()
     val containerColor = when (elevation) {
         AppBarElevation.FLAT -> Color.Transparent
-        AppBarElevation.ON_SCROLL -> M3Colors.SurfaceContainer
+        AppBarElevation.ON_SCROLL -> MaterialTheme.colorScheme.surfaceContainer
     }
     val shadowElevation = when (elevation) {
         AppBarElevation.FLAT -> 0.dp
@@ -217,7 +220,7 @@ private fun TextConfiguration(
             Text(
                 text = headline,
                 style = headlineStyle,
-                color = M3Colors.OnSurface,
+                color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -225,7 +228,7 @@ private fun TextConfiguration(
                 Text(
                     text = supportingText,
                     style = M3Typography.labelMedium,
-                    color = M3Colors.OnSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -256,7 +259,7 @@ private fun ImageConfiguration(
                 Modifier
                     .size(40.dp)
                     .clip(CircleShape)
-                    .background(M3Colors.SurfaceContainerHigh),
+                    .background(MaterialTheme.colorScheme.surfaceContainerHigh),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(image, contentDescription = null, modifier = Modifier.size(32.dp))
@@ -265,7 +268,7 @@ private fun ImageConfiguration(
         Text(
             text = headline,
             style = headlineStyle,
-            color = M3Colors.OnSurface,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 12.dp),
@@ -301,7 +304,7 @@ private fun SearchConfiguration(
                 .clip(CircleShape)
                 .clickable { onSearchClick?.invoke() },
             shape = CircleShape,
-            color = M3Colors.SurfaceContainerHigh,
+            color = MaterialTheme.colorScheme.surfaceContainerHigh,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (leadingIcon != null) {
@@ -310,7 +313,7 @@ private fun SearchConfiguration(
                 Text(
                     text = "Search",
                     style = M3Typography.bodyLarge,
-                    color = M3Colors.OnSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(start = 12.dp),
                 )
             }
@@ -323,7 +326,7 @@ private fun SearchConfiguration(
 private fun LeadingSlot(icon: Painter?, onClick: (() -> Unit)?) {
     if (icon != null) {
         IconButton(onClick = { onClick?.invoke() }, modifier = Modifier.size(48.dp)) {
-            Icon(icon, contentDescription = null, tint = M3Colors.OnSurface)
+            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
         }
     }
 }
@@ -340,7 +343,7 @@ private fun TrailingSlot(
         trailing.take(3).forEachIndexed { index, action ->
             if (flags.getOrNull(index) == true) {
                 IconButton(onClick = action.onClick, modifier = Modifier.size(48.dp)) {
-                    Icon(action.icon, contentDescription = action.description, tint = M3Colors.OnSurface)
+                    Icon(action.icon, contentDescription = action.description, tint = MaterialTheme.colorScheme.onSurface)
                 }
             }
         }

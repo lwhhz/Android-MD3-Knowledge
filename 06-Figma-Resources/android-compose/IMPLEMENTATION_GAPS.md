@@ -4,7 +4,7 @@
 > 生成方式：解析 `COMPONENTS_SPEC.md` 的组件参数 + 静态分析 32 个 Kotlin 文件的函数签名与函数体。判定基于源码文本；**0.4 已把源码接入编译并修完 44 个 API 错误**，但本清单的“落地率”未重新统计。
 > 生成时间：2026-11-17。
 > **阶段 1 试点（2026-11-17）**：Button 家族 5 个组件全部实现（35 条参数落地）；IconButton 八变体（含宽度档）、FAB/Extended FAB、FAB menu、ToggleButton 四变体（含 Icon selected）、Text field（10/10）、Checkbox/Radio/Switch（3/3、3/3、4/4）、Slider 三档（7/8、5/6、5/6，垂直方向未做）、Chip 五变体（7/8、8/9、8/8、6/7、2/2）、Tabs（4/4）、Navigation（Bar 1/1+1/1、Rail 4/5、Modal Drawer 额外实现）、Menu（7/7、6/7、6/7、2/2）、Dialog（5/5、3/4、3/4）、Snackbar（4/4）、Search（5/6、4/5、4/5、3/4、3/4）、Progress/Loading（3/3、2/3、3/3、3/4、2/2）、Toolbar（4/5）、Bottom sheet（3/3）、Segmented button（2/2）、Connected button group（5/5）、Carousel（7/9、Full screen 2/2）、Date/time pickers（4/6、3/5、3/3、1/2、2/2）均已实现。详见 [BUTTON_TRIAL.md](<BUTTON_TRIAL.md>)、[ICONBUTTON_FAB_TRIAL.md](<ICONBUTTON_FAB_TRIAL.md>)。下表其余行仍是旧统计。
-> **0.4 更新**：`App bar` / `Bottom app bar` 的 `components/` 空壳已删除，以 `appbar/` 手写版为准；Search 系列当前用 `TextField` 占位（`SearchBarState` 构造为 internal）。下表保留原始统计口径。
+> **0.4 更新**：`App bar` / `Bottom app bar` 已迁入 `components/` 并接入 demo；Search 系列当前用 `TextField` 占位（`SearchBarState` 构造为 internal）。下表保留原始统计口径。
 > 依赖与视觉口径决策、组件→KB 映射见 [KB_COMPONENT_MAP.md](<KB_COMPONENT_MAP.md>)。
 
 
@@ -12,10 +12,10 @@
 
 | 优先级 | 组件行 | 规格参数 | 已落地 | 未落地 | 落地率 |
 |---|---:|---:|---:|---:|---:|
-| P0 | 51 | 315 | 173 | 142 | 54.9% |
+| P0 | 51 | 315 | 181 | 134 | 57.5% |
 | P1 | 33 | 180 | 147 | 33 | 81.7% |
 | P2 | 13 | 43 | 18 | 25 | 41.9% |
-| **合计** | **97** | **538** | **338** | **200** | **62.8%** |
+| **合计** | **97** | **538** | **346** | **192** | **64.3%** |
 
 - 单测：**24 tests / 0 failures**；最新 APK 已真机安装。
 - P1 七个组件族：Progress/Loading、Toolbar、Bottom sheet、Segmented button、Connected button group、Carousel、Date/time pickers。
@@ -68,8 +68,8 @@
 
 | 组件 | 函数（文件） | 参数 | 已落地 | 未落地 | 缺失状态轴 | 现用参数 | 级别 | 体量 |
 |---|---|---:|---:|---:|---|---|:--:|:--:|
-| App bar | `M3AppBar` ⚠ (M3Appbars.kt) | 6 | 0 | 6 | Configuration(6)·Elevation(2) | tLabel | P0 | M |
-| Bottom app bar | `M3BottomAppBar` ⚠ (M3Appbars.kt) | 2 | 0 | 2 | Icons(4) | tLabel | P0 | S |
+| App bar | `M3AppBar` (components/M3AppBar.kt) | 6 | 6 | 0 | — | config/elevation/actions/avatar/search | P0 | S |
+| Bottom app bar | `M3BottomAppBar` (components/M3BottomAppBar.kt) | 2 | 2 | 0 | — | icons/fab | P0 | S |
 | XR/XR App Bar | `M3XRAppBar` ⚠ (M3Appbars.kt) | 7 | 0 | 7 | Elevation(3)·Configuration(2) | tLabel | P2 | M |
 
 ### Avatars

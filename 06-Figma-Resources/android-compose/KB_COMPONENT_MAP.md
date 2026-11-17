@@ -94,8 +94,8 @@
 
 | # | 组件 | 函数 | 文件 | KB 文档 | 覆盖 | 注意 |
 |---:|---|---|---|---|:--:|---|
-| 1 | App bar | `M3AppBar` | `M3Appbars.kt` | 02-Components/app-bars.md | ✅ | ⚠️ `components/` 版为空壳；`appbar/` 版已实现，修改时以 appbar 版为准 |
-| 2 | Bottom app bar | `M3BottomAppBar` | `M3Appbars.kt` | 02-Components/app-bars.md | ✅ | ⚠️ `components/` 版为空壳；`appbar/` 版已实现，修改时以 appbar 版为准 |
+| 1 | App bar | `M3AppBar` | `components/M3AppBar.kt` | 02-Components/app-bars.md | ✅ | 已迁入 components，接入 demo |
+| 2 | Bottom app bar | `M3BottomAppBar` | `components/M3BottomAppBar.kt` | 02-Components/app-bars.md | ✅ | 已迁入 components，接入 demo |
 | 3 | XR/XR App Bar | `M3XRAppBar` | `M3Appbars.kt` | 01-Foundations/xr.md | ◐ 部分 | XR 只有方向性结论（KB 自评：不足以做完整体验）；结构参考 app-bars.md |
 | 4 | Generic avatar | `M3GenericAvatar` | `M3Avatars.kt` | — | ✗ | KB 无 Avatar 文档 |
 | 5 | Badges | `M3Badges` | `M3Badges.kt` | 02-Components/badge.md | ✅ | — |

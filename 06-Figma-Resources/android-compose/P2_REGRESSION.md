@@ -37,7 +37,7 @@ smoke：PageDown 可达 Keyboard/Layout grid 分区，uiautomator 读到 `column
 | 范围 | 参数 | 已落地 | 未落地 | 落地率 |
 |---|---:|---:|---:|---:|
 | P2 | 43 | 18 | 25 | 41.9% |
-| 合计 | 538 | 338 | 200 | 62.8% |
+| 合计 | 538 | 346 | 192 | 64.3% |
 
 **P2 未落地的 25 条全部是 XR 家族**：App Bar 7、Dialog 8、Navigation Rail 3、Navigation bar 3、Toolbar 4。
 
