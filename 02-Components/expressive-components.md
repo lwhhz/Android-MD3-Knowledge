@@ -2,8 +2,9 @@
 
 - 设计指南：https://m3.material.io/ ｜ 官方说明：https://m3.material.io/blog
 - Compose 指南：https://developer.android.com/develop/ui/compose/designsystems/material3
-- 核验日期：2026-11-14
+- 核验日期：2026-11-14（原始）／2026-11-16（注解逐项实证）
 - 状态：**部分组件已在 material3 1.5.0 线转正，逐项状态必须查 API reference 的注解，不要整体当成 stable**
+- 2026-11-16 补充来源：**Google 官方 Maven 的 `material3-1.5.0-rc01-sources.jar`**（一手来源，读源码 `@ExperimentalMaterial3ExpressiveApi` 注解）；真机编译/运行通过属「已实证」，不冒充官方规范。仅对 1.5.0-rc01 有效，升级重查。
 
 ## 它是什么
 
@@ -33,20 +34,22 @@ MaterialExpressiveTheme(
 
 ## 组件清单与状态
 
-| 组件 | Compose 入口 | 状态 |
-|---|---|---|
-| 波浪进度条 | `WavyProgressIndicator` | 1.5.0 线逐步转正，需查注解 |
-| 加载指示器 | `LoadingIndicator` | 同上 |
-| 悬浮工具栏 | `FloatingToolbar` / `HorizontalFloatingToolbar` | 同上 |
-| 按钮组 | `ButtonGroup` | 同上 |
-| 分段列表 | 列表的 segmented 变体 | 较新，需核验 |
-| 形状 morph | 组件内部行为 | 随组件状态 |
-| 扩展字阶（emphasized） | `Typography` 扩展槽位 | 需核验具体样式名 |
+**注解状态逐项实证（2026-11-16，material3 1.5.0-rc01 sources jar，一手来源）**：
 
-> ⚠️ 本表是「有这个东西」的清单，**不是「可以直接用」的清单**。每一行都要在当前依赖版本里确认：
-> 1. 类是否存在；
-> 2. 是否标注 `@ExperimentalMaterial3ExpressiveApi`；
-> 3. 官方 API reference 中是否已标为稳定。
+| 组件 | Compose 入口 | 注解状态（1.5.0-rc01 源码实证） |
+|---|---|---|
+| 波浪进度条 | `LinearWavyProgressIndicator` / `CircularWavyProgressIndicator` | ✅ 无 `@ExperimentalMaterial3ExpressiveApi`（已转正） |
+| 加载指示器 | `LoadingIndicator` / `ContainedLoadingIndicator` | ⚠️ **仍标注** `@ExperimentalMaterial3ExpressiveApi`（需 `@OptIn`） |
+| 悬浮工具栏 | `HorizontalFloatingToolbar` / `VerticalFloatingToolbar` | ✅ 无实验注解；签名含必填 `expanded: Boolean` |
+| 切换按钮 | `ToggleButton` | ✅ 无实验注解；`content` 是 `RowScope` 槽位（无 `checkedIcon` 参数） |
+| 按钮组 | `ButtonGroup` | ✅ 无实验注解；connected 形态用 `ButtonGroupDefaults.connected*ButtonShapes()` |
+| 主题入口 | `MaterialExpressiveTheme` | ✅ 无实验注解；`colorScheme` 等参数可空（null → 继承当前主题） |
+| 形状 morph | `MaterialShapes` / `RoundedPolygon.toShape()` / `Morph.toPath` | ⚠️ **仍标注**实验注解 |
+| 扩展字阶（emphasized） | `displayLargeEmphasized` … `labelSmallEmphasized`（15 个） | ✅ 1.5.0-rc01 源码实证：字号/行高与 baseline **完全相同**，只字重变化（400→500，500/700 档→700）；数值见 `05-Design-Tokens/typography.json` 的 `compose_values` |
+
+> ⚠️ 上表**只对 1.5.0-rc01 有效**。`material3 1.5.0 是否 GA` 仍未确认（官方 release notes 版本表 RC 列空），本表不构成「可以整体当 stable 用」的背书。
+>
+> 每一行仍要在当前依赖版本里确认三件事：类是否存在、是否标注 `@ExperimentalMaterial3ExpressiveApi`、官方 API reference 是否已标稳定。升级版本后必须重查（规则 V2）。
 
 ## 使用判断
 
@@ -79,11 +82,11 @@ Expressive 的价值在于**表达状态的连续变化**（按下时形状收�
 
 ## 待核验清单
 
-- [ ] material3 1.5.0 是否 GA
-- [ ] 各 expressive 组件的 `@ExperimentalMaterial3ExpressiveApi` 注解是否已移除
-- [ ] 扩展字阶的确切样式名与数值
-- [ ] `FloatingToolbar` 的完整参数与锚点行为
-- [ ] Expressive motion 的推荐时长（与标准 motion 值的差异）
+- [ ] material3 1.5.0 是否 GA（官方无 GA 公告；Maven 存在 rc01 artifact 不等于 GA）
+- [x] 各 expressive 组件的 `@ExperimentalMaterial3ExpressiveApi` 注解是否已移除（2026-11-16：1.5.0-rc01 sources jar 逐项实证，见上表；仅对该版本有效）
+- [x] 扩展字阶的确切样式名与数值（2026-11-16：`material3-1.5.0-rc01-sources.jar` 的 `TypeScaleTokens.kt` 实证 15 个 `*Emphasized` 样式；字号/行高与 baseline 相同，只改字重；写入 `typography.json`）
+- [x] `HorizontalFloatingToolbar` 的完整参数（2026-11-16：签名 `HorizontalFloatingToolbar(expanded, floatingActionButton?, …, content: @Composable RowScope.() -> Unit)` 由 sources jar 实证）；锚点行为仍需 API reference 复核
+- [x] Expressive motion 与 standard 的差异（2026-11-16：`ExpressiveMotionTokens.kt` vs `StandardMotionTokens.kt` 源码实证——**effects 完全相同**（damping 1.0，stiffness 1600/3800/800）；差异全在 **spatial**：damping 0.9→0.8/0.6，stiffness 700→380/800。无「推荐时长差异」，差异是弹簧参数）
 
 记录到 `00-Metadata/version-tracking.md`。
 

@@ -4,7 +4,7 @@
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
 - 核验日期：2026-11-16
 - 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页）
-- 状态：**规格页 measurements 只有图片，无 dp 数值**；颜色角色与规则为官方明示
+- 状态：**规格页 measurements 为图片；2026-11-16 已对测量图做视觉读取，baseline 数值完整、flexible 部分数值待 Figma Kit 复核**；颜色角色与规则为官方明示
 
 ## 变体：baseline 已被 flexible 取代
 
@@ -37,15 +37,53 @@ Expressive 更新（2025-05）带来的具体差异：
 
 ## 尺寸
 
-Specs 页的 "Navigation bar padding and size measurements"、"width and margins"、"target size and margins"、"baseline measurements" **全部是图片**，文字层没有任何 dp 数字。因此本页能写死的尺寸只有：
+Specs 页的 measurements **全部是图片**。以下数值为 2026-11-16 从官方测量图逐个视觉读取（原始 PNG 存档见 `06-Figma-Resources/asset-index.md`）：
+
+### Baseline navigation bar（经典形态）
+
+| 项 | 值 | 图示依据 |
+|---|---|---|
+| 高度 | **80dp**（12 + 32 + 4 + 标签区 + 16 组成；图未直接印总数，但组成值如下） | padding/size 测量图 |
+| 上内边距 | **12dp** | 测量图顶部标注 |
+| 下内边距 | **16dp** | 测量图底部标注 |
+| 图标行与标签间距 | **4dp** | 测量图中部标注 |
+| 选中指示器 | **64 × 32dp**（宽 × 高） | 测量图横向/纵向标注 |
+| 图标 | **24dp**（未选中项图标容器） | 测量图标注 |
+| 徽标 | **16dp**；小圆点徽标 **6dp** | 测量图标注 |
+| 项内边距（水平） | 竖排项动态等分宽度（见上文引用） | — |
+
+### Flexible navigation bar（Expressive，推荐）
+
+图中有两种项布局的测量（数值锚点按原图描述，绑定关系为视觉判读）：
+
+**图标在上、标签在下（竖排项）：**
+
+| 值 | 图示所指 |
+|---|---|
+| 6 / 6 | 项区域上、下内边距 |
+| 32 | 图标区高度 |
+| 4 | 图标区与标签间距 |
+| 56 | 选中项指示器（虚线框） |
+| 16 | 顶部到图标的偏移（视觉判读 ⚠️） |
+
+**图标与标签并排（横排项，medium 窗口）：**
+
+| 值 | 图示所指 |
+|---|---|
+| 12 / 12 | 项区域上、下内边距 |
+| 40 | 选中项指示器高度（虚线框） |
+| 4 | 图标与标签间距 |
+| 20 | 指示器内左侧留白（视觉判读 ⚠️） |
+
+⚠️ flexible 形态的**整条高度**未在图中直接标注；"Navigation bar and item widths"、"target size and margins" 等图与「3 种配置」图无印刷数值（仅编号）。确切高度请以 Figma Design Kit 或 Compose 默认值为准。
+
+其余不依赖测量图的官方明示值：
 
 | 项 | 值 | 出处 |
 |---|---|---|
 | 容器宽度 | 窗口宽度的 **100%** | "The navigation bar container spans 100% of the window width." |
 | 容器位置 | 窗口底部 | "The container should always be placed at the bottom of the product and span the full length of the window." |
 | 状态层 | Hover **8%**、Focus **10%**、Press **10%** | specs 页 States 段 |
-
-⚠️ 推断，页面未明示：常见资料里的「80dp 高、指示器 32×64dp、图标 24dp」在本轮 dump 中**找不到出处**，本库不再作为官方值引用。需要精确值时以 Figma Design Kit 的组件测量为准。
 
 ## 颜色角色
 
@@ -143,7 +181,7 @@ NavigationBar {
 
 - 自适应切换（手机 bar / 平板 rail）可用 `NavigationSuiteScaffold`（`material3-adaptive-navigation-suite` artifact），它会按窗口尺寸类自动换组件；该 API 曾为 experimental，用前查注解。
 - Expressive 的 flexible/short 形态在较新 material3 版本中有对应 composable，但命名与包路径在 1.4–1.5 线仍在变动，**不要照抄旧教程里的类名**，以当前版本 API reference 为准（⚠️ 推断，未在本次 dump 中核验）。
-- 不要自己写 `height(80.dp)` 之类的固定高度：官方未给高度，组件按内容与 inset 自适应；系统手势区由 Scaffold 的 inset 处理。
+- 不要自己写 `height(80.dp)` 之类的固定高度：baseline 的 80dp 是测量图值，flexible 高度官方未标注，组件按内容与 inset 自适应；系统手势区由 Scaffold 的 inset 处理。
 
 ## 无障碍
 
@@ -169,7 +207,7 @@ NavigationBar {
 7. 目的地顺序随页面变化，或做成可滚动。
 8. 用横滑手势切目的地。
 9. 读屏开启时仍在滚动中隐藏导航栏。
-10. 直接把 80dp 当作官方高度写进设计规范（本页查不到该数值）。
+10. 给 baseline 写错数值（正确值：高 80dp、指示器 64×32dp、图标 24dp；flexible 整条高度官方未标注）。
 
 ## 来源
 

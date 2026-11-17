@@ -4,7 +4,7 @@
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
 - 核验日期：2026-11-16
 - 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页）
-- 状态：**规格页 measurements 只有图片，无 dp 数值**；颜色角色与规则为官方明示
+- 状态：**规格页 measurements 为图片；2026-11-16 已对测量图做视觉读取（baseline 完整、expanded 宽度 220–360 已确认）**；颜色角色与规则为官方明示
 
 ## 变体：两种宽度，各有替代对象
 
@@ -44,17 +44,43 @@ Expanded 又有两种模态：
 
 ## 尺寸
 
-Specs 页 "Navigation rail padding and size measurements" 与 baseline 的两张测量图**均为图片**，文字层没有 dp 数字。本页可确证的只有布局约束：
+Specs 页测量图为图片，以下数值为 2026-11-16 视觉读取（原始 PNG 存档见 `06-Figma-Resources/asset-index.md`）：
+
+### Baseline navigation rail
+
+| 项 | 值 | 图示依据 |
+|---|---|---|
+| Rail 宽度 | **80dp** | size 测量图底部横向标注 |
+| 选中指示器 | **56 × 32dp**（宽度 = 80 − 左右各 12 的边距；高度 32 图中直接标注） | padding/margin 测量图 |
+| 指示器左右边距 | **12dp / 12dp** | padding/margin 测量图 |
+| 指示器 → 标签间距 | **4dp** | padding/margin 测量图 |
+| 项与项间距 | **12dp** | padding/margin 测量图 |
+| 菜单图标 | **24dp** | size 测量图 |
+| 菜单图标到第一个项（或 FAB 位）的间距 | **56dp** | size 测量图 |
+| 项（图标+标签）目标高度 | **56dp** | size 测量图粉色区域标注 |
+| 徽标 | **24dp** | measurements 图虚线框标注 |
+
+### Flexible（collapsed / expanded，Expressive 推荐）
+
+| 项 | 值 | 图示依据 |
+|---|---|---|
+| Expanded 宽度 | **220–360dp** | 测量图顶部横向标注 |
+| Collapsed 宽度 | **96dp**（图底横跨 rail 的标注；⚠️ 视觉判读，建议用 Figma Kit 复核） | 测量图底部标注 |
+| 选中项指示器（含标签）高度 | **56dp** | 测量图虚线框标注 |
+| FAB → 首个导航项间距 | **36dp** | 测量图标注 |
+| 选中项 → 下一项间距 | **16dp** | 测量图标注 |
+| Section header 上 / 下间距 | **12dp / 8dp** | 测量图标注 |
+| 徽标 | **24dp** | 测量图虚线框标注 |
+| 收起态项内间距 | 4 / 8 / 6（图标-标签-下一项的纵向节奏，逐项绑定 ⚠️ 视觉判读） | 测量图左侧标注 |
+
+其余布局约束仍以下表为准：
 
 | 项 | 规则 | 出处 |
 |---|---|---|
-| 容器宽度 | 未给数值；collapsed 为窄条，expanded 更宽 | — |
 | 项的目标区域 | **始终横跨 rail 全宽**（即使项容器只包住内容） | "The navigation item's target area always spans the full width of the nav rail, even if the item container hugs its contents." |
 | Expanded 的指示器 | **包裹标签文字**，不铺满容器 | "The active indicator hugs the label text in the expanded nav rail." |
 | FAB 高度层级 | 嵌在 rail 内时 resting elevation = **level 0** | guidelines |
 | Rail 与横滑内容的分离 | 可加分隔线，或抬到 **level 1** | guidelines |
-
-⚠️ 推断，页面未明示：常见资料里的「rail 宽 80dp、指示器 32×56dp、图标 24dp」在本轮 dump 中无出处，本库不引用为官方值。要精确数值请查 Figma Design Kit。
 
 ## 颜色角色
 
@@ -167,7 +193,7 @@ NavigationRail(
 7. 标签两个词以上还硬塞，缩小字号或显示省略号。
 8. rail 放在 pane 里而不是窗口前缘，窗口一变宽就错位。
 9. 展开/收起没有内容重排，正文被遮挡。
-10. 引用「rail 宽 80dp」为官方值（本页查不到）。
+10. 引用错误数值（baseline rail 宽 **80dp**、指示器 **56×32dp** 为测量图值；flexible collapsed 宽 96dp 属视觉判读，未复核前别当官方值传播）。
 
 ## 来源
 

@@ -4,7 +4,7 @@
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
 - 核验日期：2026-11-16
 - 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页）
-- 状态：**Expressive 已改名为 app bar**；测量图为图，文本数字有限，见「规格」小节
+- 状态：**Expressive 已改名为 app bar**；测量图数值已于 2026-11-16 视觉读取（高度：search/small 64、medium flexible 112、large flexible 120），详见「规格」小节
 
 ## 它是什么
 
@@ -59,13 +59,49 @@
 
 > "Headline typography style for each app bar — Search: Body large / Small: Title large / Medium flexible: Headline medium / Large flexible: Display small"
 
-### 测量页的数字缺口
+### 测量图数值（2026-11-16 视觉读取官方 measurements 图）
 
-app bars 的测量章节（search / small / medium flexible / large flexible / baseline medium / baseline large）**全部是带标注的示意图**，正文只有图注 "…padding and size measurements"，没有可复制的数字表。
+原始 PNG 存档见 `06-Figma-Resources/asset-index.md`。旧文档「small 64 / medium 112 / large 152」中，**64 与 112 均已被测量图证实，152 仍无出处**。
 
-- 因此 **search / small / medium flexible / large flexible 的内边距、高度、图标尺寸在本轮 dump 中无法取得数值**。
-- 旧文档里的「small 64dp / medium 112dp / large 152dp」中，**只有 112dp 能在 dump 文本里找到**（且属于已不推荐的 baseline medium）；64dp 与 152dp 属 ⚠️ 推断，页面未明示，不要作为官方值传播。
-- 唯一可执行的高度规则来自 guidelines：**用默认高度，不要压矮**。
+**Search app bar：**
+
+| 项 | 值 |
+|---|---|
+| 高度 | **64dp** |
+| Leading/trailing 图标按钮触控目标 | **48dp** |
+| 容器边缘 → 图标目标 | **4dp**（左右两端） |
+| 图标目标 ↔ 搜索容器 / avatar | **8dp** |
+| 菜单图标 ↔ 搜索容器（部分配置） | **24dp** |
+| trailing 多图标之间 | **4dp** |
+| 搜索容器内文字起始内边距 | **24dp**（图示 ⚠️ 视觉判读） |
+
+**Small app bar：**
+
+| 项 | 值 |
+|---|---|
+| 图标按钮触控目标 | **48dp** |
+| 容器边缘 → 图标目标 | **4dp** |
+| 图标 ↔ 标题 / 图标之间 | **24dp** |
+| 菜单图标 | **24dp**；头像容器 **32dp**（居中布局配置） |
+
+**Medium flexible app bar：**
+
+| 项 | 值 |
+|---|---|
+| 高度 | **112dp** |
+| 图标按钮触控目标 | **48dp**；图标 **24dp** |
+| 图标目标距顶部 | **4dp**（leading）/ **8dp**（trailing） |
+| trailing 图标之间 | **4dp** |
+| 左右内边距 | **16dp** |
+| 底部内边距 | **12dp** |
+| 标题字体 | Headline medium（见上表） |
+
+**Large flexible app bar：** 与 medium flexible 同构，差异：高度 **120dp**、标题 Display Small。
+
+**Baseline medium app bar：** 上内边距 **20dp**、下内边距 **24dp**、左右内边距 **16dp**、动作图标 **24dp**、动作间距 **24dp**。
+**Baseline large app bar：** 同上，但下内边距 **28dp**（底部空间更大以容纳 Headline Medium）。
+
+⚠️ 以下仍未取得数值：flexible 变体的标题字号 pt 值、圆角（容器直角规则不变）、search app bar 搜索容器圆角。需要时以 Figma Design Kit 为准。
 
 > "Always use the default height of the app bar, and make it span the full width of the window."
 > "Don't make an app bar shorter than its default height"（Don't）

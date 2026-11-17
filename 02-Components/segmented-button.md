@@ -100,7 +100,7 @@ SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
 多选用 `MultiChoiceSegmentedButtonRow` + `SegmentedButton(checked = …, onCheckedChange = …)`。
 
 - `shape` 必须用 `SegmentedButtonDefaults.itemShape(index, count)`——它负责首尾段的**外侧圆角**与中间段**直角拼接**；手写 `RoundedCornerShape` 会变成三个独立按钮。
-- 新项目优先评估 connected button group（Expressive）；`ButtonGroup` / `ConnectedButtonGroup` 一族 API **需 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)`，签名随版本变动**。
+- 新项目优先评估 connected button group（Expressive）。**2026-11-16 修正**：此前写「需 `@OptIn(ExperimentalMaterial3ExpressiveApi::class)`」不准确——据官方 `material3-1.5.0-rc01-sources.jar` 实证 `ButtonGroup` 无实验注解（已转正），connected 形态用 `ButtonGroupDefaults.connected*ButtonShapes()`；签名随版本变动，升级按 V2 重查。
 
 ## 常见错误
 

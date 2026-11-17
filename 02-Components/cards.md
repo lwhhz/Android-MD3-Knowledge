@@ -56,6 +56,8 @@ cards specs 页的测量章节以图片为主，但附了一张只有四行的�
 | 卡片之间的间距 | **8dp（最大）** |
 | 标签文字对齐 | 起始边（start-aligned） |
 
+测量图补充（2026-11-16 视觉读取，原始 PNG 存档见 `06-Figma-Resources/asset-index.md`）：布局图显示**水平间距 8dp、纵向间距 12dp**——与属性表「间距最大 8dp」的横向一致，纵向 12 为图示排版值（⚠️ 视觉判读，网格纵向间距以 Figma Kit 为准）。
+
 补充说明：
 
 - 卡片**没有固定高度**：「Card containers hold all card elements. Their size is determined by the space those elements occupy.」尺寸由内容决定。
