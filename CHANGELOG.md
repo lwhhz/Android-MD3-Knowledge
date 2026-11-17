@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-11-17 — v2.3 新增示例应用「时序」MD3Clock
+
+**新增 `09-Sample-Apps/`**：知识库第一次带可运行代码。首个示例 `MD3Clock/` 是 5 页时间应用（闹钟 / 世界时钟 / 秒表 / 倒计时 / 日历），自包含 Gradle wrapper 与版本目录，可单独复制出去构建。
+
+**为什么放这个示例**：文档只能说明「规范怎么说」，无法证明「按规范写出来能跑」。示例把 v2.1–v2.2 实证过的 API（`MaterialExpressiveTheme`、`MotionScheme.expressive()`、wavy progress、SplitButton、FAB menu、connected ButtonGroup、`ContainedLoadingIndicator`）全部落到真实界面，并在 README 里做「组件 → 知识库章节」映射，可反向核对。
+
+**版本与来源**：material3 **1.5.0-rc01**（compose-bom-alpha 2026.11.00）、AGP 9.4.1（内建 Kotlin，不应用 `org.jetbrains.kotlin.android`）、Kotlin 2.3.21、compileSdk **37.2**、minSdk 26、JDK 17。版本目录 `gradle/libs.versions.toml` 每条都标注官方来源与查证日期，未凭空填版本。
+
+**验证范围（不夸大）**：`assembleDebug` 通过、`TimeLogicTest` **11/11** 通过（下次触发、星期匹配、一次性闹钟日期、停用、格式化边界、半小时时区偏移）。**真机未测**：构建会话 `adb devices` 为空，滚动 / 断点 / 200% 字号均未在设备上验证，README 已如实标注 ⏳。
+
+**发布**：Release `sample-md3clock-v1.0.0` 附 debug 签名 APK 与源码 zip。debug 签名仅供试装，不用于分发。
+
+**边界说明（写进 README，避免误解）**：闹钟只是应用前台提醒，未注册系统 `AlarmManager`、无精确闹钟权限、无开机恢复；「校准」是 1.2s 交互演示，未连网络时间源；持久化只覆盖闹钟/城市/日程。
+
 ## 2026-11-16 — v2.2 字阶/动效实证 + 跟进最新约定
 
 **用户约定**：Expressive 组件**不等 stable，直接跟进官方 Maven 最新版本**（写入 `00-Metadata/version-tracking.md`）。执行口径：读 `maven-metadata.xml` 定最新版本 → 下 `-sources.jar` 读注解 → 分层写结论（源码实证 ≠ GA）→ 每次升级重跑。2026-11-16 实测最新：material3 **1.5.0-rc01**（lastUpdated 20261104）、compose-bom-alpha **2026.11.00**，无更高版本。

@@ -1,0 +1,9 @@
+# 构建产物与本机配置不入库
+build/
+.gradle/
+local.properties
+*.apk
+*.aab
+*.iml
+.idea/
+.DS_Store
