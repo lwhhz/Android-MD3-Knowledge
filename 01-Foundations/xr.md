@@ -351,7 +351,7 @@ Overview 页对 icon button 的说法一致：`icon buttons should have a 56dp t
 - [ ] nav rail 只放 global，且不置于两面板之间
 - [ ] nav bar 只放底部，绝不置顶
 - [ ] orbiter 与面板：offset 20dp 或 inset 12dp，重叠不超 12dp，不越出面板宽高
-- [ ] dialog：basic 形态、最高静止层、scrim、手动实现颜色与高度（Compose 尚不支持）
+- [x] dialog：basic 形态、最高静止层、scrim；**2026-11-22 更正**：Compose 已提供 `SpatialDialog`（XR Compose 1.0.0-rc01），不再是「尚不支持」
 - [ ] 手势：捏合选中、射线选远处、支持单手指令集、不要求大幅挥臂
 - [ ] 视线悬停触发 hover 态
 - [ ] 动效：standard easing + long duration，稳定地平线，位移用瞬移/传送，位移中加 vignetting
@@ -375,3 +375,40 @@ Overview 页对 icon button 的说法一致：`icon buttons should have a 56dp t
 - Toolbars：https://m3.material.io/foundations/xr/components/toolbars
 
 核验日期：2026-11-16
+
+## 2026-11-22 更新：Compose 侧落地状态
+
+> 本节把「设计规范」与「Compose 实现」分层记录。设计层数值仍以 m3.material.io 为准；实现层以 Android Developers / Google Maven 为准。
+
+### 1. spatial dialog 已落地（推翻旧结论）
+
+旧版本本页写「dialog …（Compose 尚不支持）」。**2026-11-22 核验：已支持。**
+
+- `androidx.xr.compose.spatial.SpatialDialog` 在 **Jetpack XR Compose 1.0.0-rc01** 中存在（Maven lastUpdated 2026-11-18），官方有 [Spatial dialogs 指南](https://developer.android.com/develop/xr/jetpack-xr-sdk/compose/spatial-dialog) 与 API reference。
+- 同一批空间组件还有 `SpatialPanel`（`SubspaceModifier` 控制尺寸/位置）、`Orbiter`、`SpatialPopup`。
+- 写法：`SpatialDialog(onDismissRequest, properties, content)`；`SpatialPopup` / `SpatialDialog` 在非空间环境会退化成普通 2D 组件，便于同一套代码两处跑。
+
+### 2. XR 专用 Material3 库
+
+- 工件：`androidx.xr.compose.material3`，版本 **1.0.0-alpha18**（2026-11-18，仍 Alpha）。
+- 提供：`SpatialNavigationRail` / `SpatialWideNavigationRail`、`SpatialNavigationBar` / `SpatialShortNavigationBar`、`SpatialBasicAlertDialog`、floating toolbar、list-detail 布局、Home/Full space 切换按钮。
+- 全部 **experimental**，需 `@OptIn(ExperimentalMaterial3XrApi::class)`。
+- 分支写法：`if (LocalSpatialCapabilities.current.isSpatialUiEnabled) 用 Spatial* else 用标准 M3`。
+
+### 3. 尺寸口径（部分解决）
+
+- XR 质量指南给出可点目标：**最小 48×48dp，推荐 56×56dp 或更大**；本页原有「目标 ≥56dp、可视 ≥48dp」与之一致。
+- 设计侧另有 [Scale, sizes, and visual design](https://developer.android.com/design/ui/xr/guides/visual-design)。
+- **组件级完整 dp 规格表仍未公开**（面板 1024×720dp、1.75m、圆角 32dp 是本页已有的设计层数值）；该项维持「待核验」，不要用示意图像素反推。
+
+### 4. Jetpack Compose Glimmer（眼镜形态）
+
+- `androidx.xr.glimmer`：面向 **optical see-through（OST）显示**（有线 XR 眼镜 / Display Glasses）的设计系统与 UI 工具包，**不属于 M3 规范**。
+- 官方：[Build glanceable UI with Jetpack Compose Glimmer](https://developer.android.com/develop/xr/jetpack-xr-sdk/glimmer) ｜ [设计指南](https://developer.android.com/design/ui/xr/guides/glimmer) ｜ [release notes](https://developer.android.com/jetpack/androidx/releases/xr-glimmer)。
+- 与头显 XR 的区别：眼镜是**注视 + 轻交互**、信息卡片刻度优先，不要套用头显的空间面板布局。
+
+### 5. 结论写法（更新）
+
+- 设计规则：「官方 m3 页面显示 …」（截至 2026-11-22）。
+- 实现状态：「XR Compose 1.0.0-rc01 中已提供 SpatialDialog …」——**RC 不等于 GA**，生产接入需自行评估。
+- 跨版本依赖：`androidx.xr.compose.material3` 仍是 alpha18，升级需重查注解。

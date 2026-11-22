@@ -25,7 +25,7 @@ FAB 代表屏幕**唯一的首要动作**，悬浮于所有内容之上，滚动
 
 - **Medium 是 Expressive 新增**；M3 项目里没有。
 - 变体按**尺寸**区分，不按颜色。
-- 各档尺寸：specs 页 Measurements 区只有图片，**无文字值**。FAB menu 页写明「关闭按钮（即一个 FAB）should always be 56dp」，可佐证常规 FAB 为 56dp，但**⚠️ 推断，FAB 页面未明示**。
+- 各档尺寸：specs 页 Measurements 区只有图片，**无文字值**。FAB menu 页写明「关闭按钮（即一个 FAB）should always be 56dp」；**2026-11-22 源码佐证**：material3 1.5.0 的 `FabBaselineTokens` 为 56×56dp，常规 FAB 56dp 可去掉推断标记。
 
 ## 颜色（Expressive 命名变更）
 

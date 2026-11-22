@@ -60,6 +60,8 @@ Specs 页这一节只放了一张测量图，**没有任何数字**。能确定�
 | 中等/大屏文本行长 | 约 **40–60 字符** | "the ideal line length for text is typically between 40-60 characters" |
 | 最大宽度 | 未给 | 只要求"宽布局下横向扩展"，无数值 |
 
+> **Compose 实现差异（2026-11-22 源码核对）**：`SnackbarTokens.SingleLineContainerHeight = 48dp`（与设计一致）；但 `TwoLinesContainerHeight = **68dp**`，而官方 Guidelines 写的是 48 → **64dp**。设计值仍按 64dp 记录；截图/像素回归时按 Compose 实际 68dp 预期。
+
 > "In compact breakpoints, snackbars should expand vertically from 48dp to 64dp to accommodate one or two lines of text, while maintaining a fixed distance from the leading, trailing, and bottom edges of the screen."
 
 ## 颜色角色

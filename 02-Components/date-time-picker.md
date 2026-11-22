@@ -2,7 +2,7 @@
 
 - 官方指南：https://m3.material.io/components/date-pickers ｜ https://m3.material.io/components/time-pickers
 - Compose API：https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary
-- 核验日期：2026-11-16
+- 核验日期：2026-11-16（2026-11-22 复核：新增 Scroll time picker 变体）
 - 核验方式：官方全站文本 dump（overview / specs / guidelines / accessibility 四页 ×2）
 - 状态：**时间选择器尺寸为官方文字明示值；日期选择器 measurements 为图片，2026-11-16 已视觉读取全部数值**（存档见 06-Figma-Resources）
 
@@ -36,6 +36,13 @@
 |---|---|---|
 | Dial（表盘） | 圆形表盘，可点数字或拖动轨道 | 触摸设备快速选择 |
 | Input（输入） | 时/分独立输入框 | 精确输入、键盘与读屏用户 |
+| **Scroll（滚动）** | 滚轮式时/分选择，可内联嵌入页面、列表、sheet | **Expressive 新增**（2026-11-22 复核）：空间受限时内联用滚轮、模态里用表盘，两者都要能切到输入 |
+
+官方新增的选型口径（2026-11-22 复核 Guidelines 原文）：
+
+> "Use the time picker that best complements the available space and existing interaction patterns: Scroll time picker / Input time picker"
+
+滚动时间选择器内部就是 [Scroll fields](https://m3.material.io/components/scroll-fields/overview) 的时/分组合，并**内置键盘切换按钮**（见 `02-Components/scroll-fields.md`）。
 
 两条硬规则：
 

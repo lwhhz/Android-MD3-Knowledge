@@ -1,5 +1,57 @@
 # Changelog
 
+## 2026-11-22 — v2.4 版本口径更新（1.5.0 GA）+ 全站复核 + 新组件/桌面/A2UI
+
+**版本口径（一手来源：release notes 版本表 + 正文条目 + Google Maven）**
+
+- Compose Material3 **1.5.0 已 GA**（2026-11-18；1.6.0-alpha01 为下一轮 alpha），Compose 核心 **1.13.0 stable**（1.14.0-alpha01），`compose-bom:2026.11.01` 为稳定线。此前「RC artifact 存在 ≠ GA」「版本表滞后」的悬案由版本表 + 正文 + Maven 三方闭合。
+- 升级前提（官方博客）：**Kotlin 2.2+、compileSdk 37.1**。
+- 周边：Wear Compose M3 1.7.2、Jetpack XR Compose 1.0.0-rc01、`androidx.xr.compose.material3` 1.0.0-alpha18、`material3-a2ui` 1.0.0-alpha02。
+- 回写：`00-Metadata/version-tracking.md`（新快照 + 待核验清单 3 项勾选）、`02-Components/expressive-components.md`（GA 复核）、`07-Development-Rules/compose-coding-rules.md`（稳定线/预发布线分开）。
+
+**全站复核（375 → 385 页）**
+
+- 2026-11-22 重爬全部 385 页并与 11-16 抓取逐页比对：**356 页无实质变化、19 页有差异、10 页新增、0 页消失**；8 页为 404/空壳。
+- 高置信变化：Time pickers 四页新增 **Scroll time picker** 与 Expressive variants；`blog` / `develop` 新增 11-18 的 M3 1.5.0 stable 条目。
+- 低置信变化（token 表折叠导致，未改数值）：shape corner-radius / spacing tokens / motion specs / color baseline 等 11 页，列为「待目视复核」。
+- 新文件：`00-Metadata/site-changes-2026-11-22.md`；`site-map.md` 更新为 385 页、376 落点、8 空壳，并补 desktop / scroll-fields 行。
+
+**新增内容页**
+
+- `02-Components/scroll-fields.md`：官方四页核对（100/144/186dp 三档、48dp 目标、键盘映射、Compose `ScrollField`）。
+- `01-Foundations/desktop.md`：桌面形态四页（多窗格/限宽、rail、side sheet、右键菜单、拖放/缩放、指针与键盘）。
+- `03-Android-Compose/compose-1-13.md`：BOM 升级、state-based 文本字段迁移（含 before/after）、FlexBox/Grid 稳定与 Flow 退场、ConstraintLayout/MotionLayout 弃用、渐进模糊/多边形、M3 1.5.0 行为变更表。
+- `03-Android-Compose/a2ui.md`：A2UI 协议 + 渲染器、库拆解、surface/catalog 结构、接入骨架、风险（Alpha）。
+
+**修正与同步**
+
+- `02-Components/date-time-picker.md`：补 Scroll time picker 变体与官方选型口径。
+- `01-Foundations/xr.md`：删除「Compose 尚不支持 spatial dialog」的旧结论；补 XR Compose 1.0.0-rc01、XR 专用 M3 库、Glimmer、可点目标 48/56dp 口径。
+- 索引与计数：README（385 页、16/35/11 篇、37 组件）、`01-Foundations/README`、`02-Components/README`、`03-Android-Compose/README`、`00-Metadata/sources.yaml`。
+
+**示例与归档（最终状态）**
+
+- `09-Sample-Apps/` 由用户清空，根 README 的示例行已删除。
+- `06-Figma-Resources/android-compose/` 于 2026-11-22 移出仓库（240 个文件、27MB），归档位置与引用口径见 `06-Figma-Resources/README.md`。
+
+**2026-11-22 决策追加**
+
+- 删除根 README 的「09-Sample-Apps」表格行（示例工程已被用户清空）。
+- `03-Android-Compose/adaptive-layout.md` 示例改为**五档断点**（600/840/1200/1600，左闭右开）+ **FlexBox**（含 `FlowRow/FlowColumn` 迁移写法）；导航示例改为五分支、单一 `NavHost`。
+- 对 12 个「文本变短」页面做展开复核（点击 `expand_all` + 滚动 + innerText/textContent 双取样）：缺失行全部恢复，仅剩 `expand_all` / `Default, Light` 等控件标签。结论：**折叠渲染导致，未发现官方删除条目**；明细见 `00-Metadata/site-changes-2026-11-22.md` 第三节。
+
+**仍待核验**
+
+- XR / Watch 组件级 dp 规格表（XR 仅可点目标 48/56dp，Watch 仍无 dp 表）。
+- 1.6.0-alpha01 的逐项实验注解（升级时按规则 V4 重跑）。
+- token 表页面已复核（2026-11-22 展开取样，未发现官方删除；见 site-changes 第三节）。
+- 设计令牌逐格对照完成（`05-Design-Tokens/crosscheck-2026-11-22.md`）：以 material3 **1.5.0** sources jar 为基准，字阶 30/30、形状 10/10、动效 12/12 全一致；修正 `colors.json` 中不存在于 ColorScheme 的 `shadow` 角色；三个 tracking 设计值/实现值差异保留双记录。
+- 组件级抽样扩到 10 组：新增 Extended FAB（56/80/96）、Tabs、Chips、Menus；发现 **Tabs 设计 64dp vs Compose 渲染 72dp** 的实现差异，已写入 `02-Components/tabs.md`。
+- 删除根目录误生成的 `CON`（内容是 git 凭据提示，非项目文件）。
+- **归档移出仓库**：`06-Figma-Resources/android-compose/`（240 个文件、27MB，含 13MB APK 与试点/回归文档）移至 `D:\AI项目\安卓软件项目\android-compose-archive`；同步更新 README、`06-Figma-Resources/README.md`、`AI-INSTRUCTIONS.md` 与两处组件页引用。
+- **删除本地记忆目录**：`.workbuddy/`（4 个 memory 文件，gitignored）整体删除。
+
+
 ## 2026-11-17 — v2.3 新增示例应用「时序」MD3Clock
 
 **新增 `09-Sample-Apps/`**：知识库第一次带可运行代码。首个示例 `MD3Clock/` 是 5 页时间应用（闹钟 / 世界时钟 / 秒表 / 倒计时 / 日历），自包含 Gradle wrapper 与版本目录，可单独复制出去构建。

@@ -1,7 +1,7 @@
 # Components / 组件索引
 
-> 官方目录：https://m3.material.io/components（36 个组件 × 4 个子页，全站 146 页已逐页核对）
-> 核验日期：2026-11-16
+> 官方目录：https://m3.material.io/components（37 个组件，多数为 4 个子页；站点 sitemap 385 页，2026-11-22 复核）
+> 核验日期：2026-11-22（上一轮 2026-11-16 全量核对）
 
 ## 页面
 
@@ -37,6 +37,7 @@
 | `slider.md` | `Slider` / `RangeSlider`（五档尺寸） | ✅ 四页核对 |
 | `progress-indicator.md` | `LinearProgressIndicator` / `CircularProgressIndicator` + wavy | ✅ 四页核对 |
 | `loading-indicator.md` | `LoadingIndicator`（Expressive） | ✅ 四页核对 |
+| `scroll-fields.md` | `ScrollField`（Expressive 新增：滚动选值 / 单位，2026-11 上线） | ✅ 四页核对（2026-11-22） |
 | `navigation.md` | **选型指南**：三种导航怎么挑 | ✅ |
 | `navigation-bar.md` | `NavigationBar` + flexible navigation bar | ✅ 四页核对 |
 | `navigation-rail.md` | `NavigationRail` collapsed / expanded | ⚠️ 测量为图 |
@@ -59,7 +60,7 @@
 
 ## 覆盖情况
 
-官方 36 个组件已全部建页（`app-bars` 与 `toolbars` 是两个不同组件，已分篇）。索引口径：
+官方 **37 个组件**已全部建页（`app-bars` 与 `toolbars` 是两个不同组件，已分篇；2026-11-22 新增 `scroll-fields`）。索引口径：
 
 - **测量图**：官方 Specs 页的部分 measurements 只有标注图、没有文字数值。这类页面在文件里统一写「官方未给 dp，需从 Figma Design Kit 取」，不按截图估算。
 - **Segmented button**：Expressive 更新后官方标注不再推荐，新项目用 connected button group。

@@ -67,6 +67,8 @@ Secondary 的指示器更简单（2dp vs 3dp）、无图标槽位，但功能与
 | 文字与角标间距 | **4dp** |
 | 角标叠在堆叠图标上的重叠量 | **6dp** |
 
+> **Compose 实现差异（2026-11-22 源码核对）**：`PrimaryNavigationTabTokens` 里 `ContainerHeight = 48dp`、`IconAndLabelTextContainerHeight = 64dp`、`ActiveIndicatorHeight = 3dp`，与上表设计值一致；但 `Tab.kt` 的 `Tab` 组件在「图标 + 文字」时使用硬编码 `LargeTabHeight = 72dp`。也就是说**设计值 64dp、Compose 实际渲染 72dp**——写像素对照或截图回归时按 72dp 预期，不要把 64dp 当运行时高度。
+
 原话：
 
 > "Primary tab active indicators are inset 2dp on each side, have a fully rounded corner radius, and a minimum length of 24dp."

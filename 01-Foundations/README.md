@@ -20,6 +20,7 @@
 | `accessibility.md` | 辅助技术、包容性设计、对比度、焦点、触控目标 | `/foundations/building-for-all`、`/foundations/overview/assistive-technology` | 2026-11-16 |
 | `design-tokens.md` | 令牌三层（ref / sys / comp）、命名、使用边界 | `/foundations/design-tokens/*`（2 页） | 2026-11-16 |
 | `watches.md` | Wear OS：屏幕、纯黑背景、Tiles、圆屏 | `/foundations/watches/*`（5 页） | 2026-11-16 |
-| `xr.md` | XR：空间面板、深度、orbiter、组件空间化 | `/foundations/xr/*`（8 页） | 2026-11-16 |
+| `xr.md` | XR：空间面板、深度、orbiter、组件空间化 | `/foundations/xr/*`（8 页） | 2026-11-16（2026-11-22 追加 Compose 落地状态） |
+| `desktop.md` | 桌面形态：多窗格、rail、side sheet、拖放/缩放、指针与键盘 | `/foundations/desktop/*`（4 页，2026-11 新增） | 2026-11-22 |
 
-全站页面覆盖情况见 `00-Metadata/site-map.md`（375 个 URL 逐条映射）。
+全站页面覆盖情况见 `00-Metadata/site-map.md`（**385** 个 URL 逐条映射；2026-11-16 首抓 375 页，2026-11-22 复核新增 10 页）。
