@@ -31,6 +31,8 @@
 | 大屏边距 | **16dp → 24dp** | large/extra large 窗口增为 24dp |
 | Web 上 FAB 与菜单间距 | **推荐 4dp** | 可变，但 4dp 为官方推荐值 |
 
+> **Compose 令牌佐证（2026-11-22）**：`FabMenuBaselineTokens`：CloseButton 56×56、CloseButtonIconSize 20、ListItemContainerHeight 56、ListItemBetweenSpace 4、CloseButtonBetweenSpace 8、列表项图标 24。与表中 56dp / 4dp 一致；16/24dp 外边距在令牌中无对应常量，仍以官方文字为准。
+
 排布与动画：
 
 - 菜单从 FAB 的 **trailing 角**（优先顶部对齐角）展开；关闭按钮与 FAB **共享同一个 top trailing 角锚点**、出现在同一位置。

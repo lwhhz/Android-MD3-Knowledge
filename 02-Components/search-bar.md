@@ -75,6 +75,8 @@
 
 聚焦搜索态里 search bar 容器的左右内边距是 **16dp**（Specs 表），与 24/12 的边距不是同一个量；不要把 16dp 再叠加到 24/12 上。
 
+> **Compose 令牌佐证（2026-11-22）**：`SearchBarTokens.ContainerHeight = 56dp`；docked 容器的最小 360 / 240、最大 720 / 屏幕 2/3 均为设计值，Compose 侧没有对应的固定尺寸令牌（由布局约束实现）。
+
 ### 官网缺数字的部分
 
 - divided style 的 full-screen / docked 测量页只有图，**文本没有数值**；

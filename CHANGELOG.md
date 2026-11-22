@@ -53,6 +53,7 @@
 - 组件级核对扩到 34 组：新增 Split button（32/40/56/96/136）、Segmented（40/1/18）、FAB menu（关闭 56）、Bottom app bar（80，Compose 值）、Time picker（256/48/8/2/216×38）；发现 **Date picker modal 设计 524 vs Compose 568** 的差异，已写入 `date-time-picker.md`。
 - 新增 `03-Android-Compose/implementation-deltas.md`：汇总已知设计值 vs Compose 实现差异（Tabs 64/72、Snackbar 64/68、Tooltip 内边距、Date picker 524/568）+ 变体/默认值差异 + 升级重查方法。
 - 补「能力/口径缺口」：Side sheet 官方标 Compose Unavailable（无组件可核）、Carousel 用 keyline 比例无 dp 令牌、Docked date picker 无独立尺寸令牌；crosscheck 边界同步更新。
+- 补最后三项佐证：Bottom app bar（Compose 80dp，注明仅实现值）、FAB menu（Close 56、item 56、间距 4/8、icon 20/24）、Search bar（56dp；docked 尺寸为设计值、无 Compose 常量）。
 - 删除根目录误生成的 `CON`（内容是 git 凭据提示，非项目文件）。
 - **归档移出仓库**：`06-Figma-Resources/android-compose/`（240 个文件、27MB，含 13MB APK 与试点/回归文档）移至 `D:\AI项目\安卓软件项目\android-compose-archive`；同步更新 README、`06-Figma-Resources/README.md`、`AI-INSTRUCTIONS.md` 与两处组件页引用。
 - **删除本地记忆目录**：`.workbuddy/`（4 个 memory 文件，gitignored）整体删除。

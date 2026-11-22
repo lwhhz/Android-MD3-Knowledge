@@ -118,6 +118,12 @@
 
 > "The search container of the search app bar should fill 100% of the space between leading and trailing app bar elements until it reaches 312dp. Then, it should only grow further to fill 50% of that space."
 
+### Bottom app bar（底栏）
+
+- 本库未单列 bottom app bar 页面（m3 组件目录未提供独立页面）。
+- Compose 实现：`BottomAppBarTokens.ContainerHeight = **80dp**`（material3 1.5.0）。
+- 该数值**只有实现来源**；设计侧引用时需按官方 app bars 页/设计图复核，不要写成「官方 80dp」。
+
 ## 颜色角色
 
 | 部位 | 颜色角色 |
