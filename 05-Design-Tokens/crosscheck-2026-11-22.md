@@ -90,7 +90,13 @@
 | App bars | small 64 / medium 112 / large flexible 120dp | `AppBarSmall=64`、`AppBarMedium=112`、`AppBarLarge=152`（baseline） | ✅ 64/112；**152 为 Compose baseline 值**，KB 原「152 无出处」已补来源 |
 | Cards | 圆角 12dp | `CardTokens.ContainerShape = CornerMedium`（12dp） | ✅ 一致 |
 
-**边界**：共核 23 组（按钮、对话框、导航栏/栏、FAB、Extended FAB、Tabs、Chips、Menus、Badge、Snackbar、Search bar、Divider、Icon button、Loading、Progress、Switch、Checkbox、Radio、Tooltip、Bottom sheet、Toolbar、App bar、Card）；其余组件未核；组件令牌的颜色部分未比对。
+| Text fields | 容器 56dp；图标 24dp（原推断）；圆角 4dp（Compose 实现值） | `OutlinedTextFieldTokens.ContainerHeight=56dp`、`Leading/TrailingIconSize=24dp`、描边 1/2dp；filled 指示线 1/2dp | ✅ 56/图标一致；4dp 仍为 Compose 默认值（官网未给） |
+| Slider | XS：轨道 16 / handle 44×4dp | `SliderTokens.ActiveTrackHeight=16`、`HandleHeight=44`、`HandleWidth=4` | ✅ XS 一致；S–XL 仍为设计图像值 |
+| Navigation drawer | 宽 360；指示器 56×336 | `ContainerWidth=360`、`ActiveIndicatorHeight=56`、`ActiveIndicatorWidth=336`、`IconSize=24` | ✅ 一致 |
+| Lists | 单行 56 / 双行 72 / 三行 88dp | `ListTokens.ItemOneLine/TwoLine/ThreeLineContainerHeight = 56/72/88` | ✅ 一致 |
+| Dialog | 最小宽 280 / 最大宽 560 | `AlertDialog.DialogMinWidth=280`、`DialogMaxWidth=560`；`ContainerShape=CornerExtraLarge(28)` | ✅ 一致 |
+
+**边界**：共核 28 组（… 上述 5 组 + 之前 23 组）；Side sheet 未找到对应令牌/常量，未核；其余组件未核；组件令牌的颜色部分未比对。
 
 ## 四、边界
 

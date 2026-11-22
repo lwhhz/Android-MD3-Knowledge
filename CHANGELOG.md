@@ -49,6 +49,7 @@
 - 组件级抽样扩到 10 组：新增 Extended FAB（56/80/96）、Tabs、Chips、Menus；发现 **Tabs 设计 64dp vs Compose 渲染 72dp** 的实现差异，已写入 `02-Components/tabs.md`。
 - 组件级核对继续扩到 18 组：新增 Divider（1dp）、Icon button（32/40/56/96/136）、Loading（48/38）、Progress（轨道 4dp、圆形默认 40）、Switch/Checkbox/Radio（32×52、18、20）；全部与 1.5.0 令牌一致；Snackbar 双行 64 vs 68 的实现差异已记录。
 - 组件级核对接续扩到 23 组：新增 Tooltip（高 24 一致，内边距设计 8 vs 实现垂直 4/水平 8）、Bottom sheet（圆角 28、手柄 32×4）、Toolbar（64/16）、App bar（64/112；152 为 Compose baseline 值）、Card（12dp）；实现差异已写入对应组件页。
+- 组件级核对扩到 28 组：新增 Text fields（56、图标 24 获源码证实）、Slider（XS 16/44×4）、Navigation drawer（360/56×336）、Lists（56/72/88）、Dialog（280/560）；Side sheet 未找到令牌，未核。
 - 删除根目录误生成的 `CON`（内容是 git 凭据提示，非项目文件）。
 - **归档移出仓库**：`06-Figma-Resources/android-compose/`（240 个文件、27MB，含 13MB APK 与试点/回归文档）移至 `D:\AI项目\安卓软件项目\android-compose-archive`；同步更新 README、`06-Figma-Resources/README.md`、`AI-INSTRUCTIONS.md` 与两处组件页引用。
 - **删除本地记忆目录**：`.workbuddy/`（4 个 memory 文件，gitignored）整体删除。

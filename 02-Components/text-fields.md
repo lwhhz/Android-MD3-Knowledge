@@ -45,7 +45,7 @@
 
 补充：
 
-- **图标尺寸**：specs 页未给图标 dp；guidelines 只规定**图片高度 24dp**——"Images that are 24dp in height can be placed inside of text fields. This image height allows for optimal top and bottom padding within the field and is consistent with icon size recommendations." ⚠️ 推断，页面未明示：图标同为 24dp 是由这句话反推的。
+- **图标尺寸**：specs 页未给图标 dp；guidelines 只规定**图片高度 24dp**。**2026-11-22 源码核对**：`OutlinedTextFieldTokens.Leading/TrailingIconSize = 24dp`（filled 同），推断已被实现值证实。
 - **圆角半径**：官方只写 "The container of an outlined text field has rounded corners, while the container of a filled text field has rounded top corners and square bottom corners." **没有给 dp 数值**。Compose 默认 4dp，属于实现值而非本页规格。
 - 触控目标 56dp 是**组件本身**；密度模式下另见下文（不得低于 48×48）。
 
