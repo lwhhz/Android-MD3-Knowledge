@@ -125,7 +125,7 @@ Expressive 新增组件（官方确认 Jetpack Compose: Expressive 与 MDC-Andro
 - 关联：`02-Components/segmented-button.md`（connected 的前身）、`02-Components/buttons.md`、`02-Components/icon-buttons.md`
 
 
-## 示例实现限制（android-compose 归档，2026-11-18）
+## 示例实现限制（android-compose 归档，2026-11-18；归档已于 2026-11-22 移出仓库）
 
 - 归档的 `M3ConnectedButtonGroup` 用 **Row + ToggleButton + connected*ButtonShapes**，不是官方 `ButtonGroup` 容器。
 - 原因：1.5.0-rc01 的 `ButtonGroupScope.toggleableItem` 不暴露 `buttonSize`，无法同时满足 XS–XL。

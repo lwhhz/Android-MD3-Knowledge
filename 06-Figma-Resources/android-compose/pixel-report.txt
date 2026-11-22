@@ -1,7 +1,0 @@
-PASS  dialog.png  diff=0/2451600  ratio=0.0000%
-PASS  menu.png  diff=0/2451600  ratio=0.0000%
-PASS  navigation.png  diff=0/2451600  ratio=0.0000%
-PASS  search.png  diff=0/2451600  ratio=0.0000%
-PASS  snackbar.png  diff=0/2451600  ratio=0.0000%
-PASS  tabs.png  diff=0/2451600  ratio=0.0000%
-threshold=1.00%  tolerance=8/channel  failed=0

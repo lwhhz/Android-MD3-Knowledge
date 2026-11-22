@@ -1,1 +1,0 @@
--keepattributes RuntimeVisibleAnnotations,AnnotationDefault

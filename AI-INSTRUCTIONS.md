@@ -41,6 +41,8 @@ For substantial UI work, provide screen structure, component mapping, color/type
 ## Knowledge-base discipline
 These Markdown files are curated notes, not a replacement for live official documentation. If a note conflicts with current official docs, flag and update it with checked date, source URL, API/library version and change summary.
 
-Coverage map: `00-Metadata/site-map.md` lists all 375 pages of m3.material.io and which knowledge-base file each one is folded into (crawled 2026-11-16). Use it to find the right file before answering, and to see what is not covered yet.
+Coverage map: `00-Metadata/site-map.md` lists all **385** pages of m3.material.io and which knowledge-base file each one is folded into (first crawled 2026-11-16; re-checked 2026-11-22). Use it to find the right file before answering, and to see what is not covered yet.
+
+Search scope: the sample-project archive formerly at `06-Figma-Resources/android-compose/` was **moved out of the repository on 2026-11-22** (`D:\AI项目\安卓软件项目\android-compose-archive`). If it is ever re-added, exclude it from knowledge-base searches: its trial notes and regression reports are historical evidence, not current Material guidance. Conclusions must come from `01`–`07` and the official sources.
 
 Claims marked `⚠️ 推断` are inference, not official guidance — do not present them as Material requirements. Claims marked "官方未给 dp" mean the official page shows only annotated images; do not invent numbers.

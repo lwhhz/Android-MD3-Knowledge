@@ -18,17 +18,16 @@
 
 | 目录 | 状态 | 说明 |
 |---|---|---|
-| `00-Metadata/` | ✅ 可用 | 来源索引、版本快照、术语表、**站点覆盖映射（375 页）**、博客索引 |
-| `01-Foundations/` | ✅ 可用 | **15 篇**基础系统：色彩 / 字体 / 形状 / 层级 / 动效 / 间距 / 图标 / 布局 / 交互状态 / 内容设计 / 无障碍 / 令牌 / 原则 / 手表 / XR |
-| `02-Components/` | ✅ 可用 | **34 篇**；官方 36 个组件全覆盖（含 Expressive 新增：Split Button / FAB Menu / Loading Indicator / Button Group） |
-| `03-Android-Compose/` | ✅ 可用 | 9 篇实现指南 + 平台对照，代码为主 |
+| `00-Metadata/` | ✅ 可用 | 来源索引、版本快照、术语表、**站点覆盖映射（385 页，2026-11-22 复核）**、站点变更清单、博客索引 |
+| `01-Foundations/` | ✅ 可用 | **16 篇**基础系统：色彩 / 字体 / 形状 / 层级 / 动效 / 间距 / 图标 / 布局 / 交互状态 / 内容设计 / 无障碍 / 令牌 / 原则 / 手表 / XR / **桌面（2026-11 新增）** |
+| `02-Components/` | ✅ 可用 | **35 篇**；官方 37 个组件全覆盖（含 Expressive 新增：Split Button / FAB Menu / Loading Indicator / Button Group / **Scroll Fields**） |
+| `03-Android-Compose/` | ✅ 可用 | **11 篇**实现指南 + 平台对照，代码为主（新增 **Compose 1.13 迁移**、**A2UI**） |
 | `04-Official-Samples/` | ✅ 索引 | 官方示例的 pinned commit + 结构索引（不镜像源码，上游约 106MB） |
 | `05-Design-Tokens/` | ✅ 可用 | 字阶、形状有值；颜色只存角色 |
 
-| `06-Figma-Resources/` | ✅ 可用 | 官方 specs 测量图 19 张 + **android-compose 示例归档**（P0–P2、31 tests、APK），见 `android-compose/README.md` |
+| `06-Figma-Resources/` | ✅ 可用 | 官方 specs 测量图 19 张（android-compose 归档已于 2026-11-22 移出仓库） |
 | `07-Development-Rules/` | ✅ 可用 | 决策规则、编码规则、评审清单 |
 | `08-Original-Sources/` | ✅ 可用 | 官方链接汇总 |
-| `09-Sample-Apps/` | ✅ 可用 | **1 个**完整示例应用「时序」MD3Clock：5 页、Expressive 全量落点，源码可独立构建；安装包见 Release |
 
 ## 阅读路径
 
@@ -45,7 +44,7 @@
 | 处理 hover / 按下 / 禁用 | `01/interaction-states.md` |
 | 表盘 / XR 形态 | `01/watches.md` / `01/xr.md` |
 | 查版本号 / API 状态 | `00/version-tracking.md` → `00/sources.yaml` |
-| 想看规范落成代码长什么样 | `09-Sample-Apps/MD3Clock/README.md`（组件 → 章节映射表） |
+| 想看官方示例索引 | `04-Official-Samples/README.md`（示例归档已移出仓库） |
 
 ## 资料原则
 
@@ -59,6 +58,8 @@
 
 Material Design 官网是 Angular 应用，正文需 JS 渲染——直接 `curl` 只能拿到标题。本库 2026-11-16 用 headless Chrome + CDP 把 sitemap 里**全部 375 个页面**渲染后取正文（约 219 万字符），逐页对照写入，覆盖映射见 `00-Metadata/site-map.md`。
 
+2026-11-22 复核：sitemap 增至 **385 页**（新增 Scroll fields 4 页、Desktop 4 页、2 篇博客），已重爬全站并与 11-16 抓取做逐页文本比对，变更清单见 `00-Metadata/site-changes-2026-11-22.md`。
+
 本库中所有数值型结论都标注了核验日期与核验方式；**未能在官方页面目视确认的，都写明了「⚠️ 推断」或「待人工确认」**——请保持这个习惯，不要把次级来源的转述改写成「Material 规定」。
 
-尚未核实的部分集中在 `00-Metadata/version-tracking.md` 的「待核验清单」。**Expressive 组件按用户约定跟进官方 Maven 最新版本、不等 stable**（执行口径见 version-tracking.md 的 2026-11-16 追加节）。
+尚未核实的部分集中在 `00-Metadata/version-tracking.md` 的「待核验清单」。**Expressive 组件按用户约定跟进官方 Maven 最新版本**（执行口径见 version-tracking.md 的 2026-11-16 追加节）。2026-11-18 Material3 1.5.0 与 Compose 1.13 转 stable 后，最新线已回到稳定版（BOM 2026.11.01）。

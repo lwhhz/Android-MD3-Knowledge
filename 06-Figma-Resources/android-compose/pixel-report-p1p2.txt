@@ -1,7 +1,0 @@
-PASS  carousel.png  diff=0/2451600  ratio=0.0000%
-PASS  connected-button-group.png  diff=0/2451600  ratio=0.0000%
-PASS  date-picker-modal.png  diff=0/2451600  ratio=0.0000%
-PASS  p2-keyboard-grid.png  diff=0/2451600  ratio=0.0000%
-PASS  p2-primitives.png  diff=0/2451600  ratio=0.0000%
-PASS  rtl-smoke.png  diff=0/2451600  ratio=0.0000%
-threshold=1.00%  tolerance=8/channel  failed=0
