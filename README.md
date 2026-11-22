@@ -45,6 +45,7 @@
 | 表盘 / XR 形态 | `01/watches.md` / `01/xr.md` |
 | 查版本号 / API 状态 | `00/version-tracking.md` → `00/sources.yaml` |
 | 想看官方示例索引 | `04-Official-Samples/README.md`（示例归档已移出仓库） |
+| 核对设计值与 Compose 实现值 | `03-Android-Compose/implementation-deltas.md` |
 
 ## 资料原则
 

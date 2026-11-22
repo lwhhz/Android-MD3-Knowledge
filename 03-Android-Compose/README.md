@@ -21,3 +21,4 @@ Release notes：https://developer.android.com/jetpack/androidx/releases/compose-
 | `platforms.md` | 平台差异 |
 | `compose-1-13.md` | **Compose 1.13 / Material3 1.5.0 迁移**（2026-11-22 新增） |
 | `a2ui.md` | **A2UI：Agent-to-UI 渲染**（2026-11-22 新增，Alpha） |
+| `implementation-deltas.md` | **设计值 vs Compose 实现差异清单**（2026-11-22 新增） |

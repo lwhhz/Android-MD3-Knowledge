@@ -56,7 +56,7 @@
 
 ## 四、组件级抽样（2026-11-22）
 
-下表把已核对组件页数值与 `material3 1.5.0` 源码逐项对照（组件令牌 + 必要处的组件代码常量）：
+下表把已核对组件页数值与 `material3 1.5.0` 源码逐项对照（组件令牌 + 必要处的组件代码常量）。**差异汇总另见 [`03-Android-Compose/implementation-deltas.md`](../03-Android-Compose/implementation-deltas.md)**。
 
 | 组件 | 知识库设计值 | Compose 1.5.0 令牌/默认 | 结论 |
 |---|---|---|---|
