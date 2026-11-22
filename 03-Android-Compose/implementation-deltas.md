@@ -28,11 +28,19 @@
 | Bottom app bar | Compose 令牌 `ContainerHeight = 80dp`；设计页未在已抓文本中单列数值 |
 | Tooltip（rich） | 设计页未给圆角/宽度；Compose 有实现默认值（水平 16dp、按钮最小高 36dp），不能当官方规范值引用 |
 
-## 三、已确认一致（34 组抽样）
+## 三、能力/口径缺口（无法逐值对照）
+
+| 项 | 情况 |
+|---|---|
+| **Side sheet** | m3 官方把 Jetpack Compose 标为 **Unavailable**（material3 1.5.0 无 `SideSheet` / `ModalSideSheet` 组件）；只能看 Views 实现或用替代布局，**不存在 Compose 数值可对照** |
+| **Carousel** | Compose 用 keyline 比例（`KeylineList`）而不是固定 dp 令牌；项圆角 28dp 属设计值，Compose 侧无同口径的 `ContainerHeight/Width` 常量 |
+| **Docked date picker** | 令牌只有 `DatePickerModalTokens`；docked 形态没有独立的尺寸令牌/常量可核（设计值 360×460 仍以官方图为准） |
+
+## 四、已确认一致（34 组抽样）
 
 按钮、对话框、导航栏/栏、FAB、Extended FAB、Chips、Menus、Badge、Search bar、Divider、Icon button、Loading、Progress（轨道）、Switch/Checkbox/Radio、Bottom sheet、Toolbar、Cards、Text fields、Slider（XS）、Navigation drawer、Lists、Split button、Segmented、FAB menu、Time picker 等，逐项结果见 crosscheck 报告第四节。
 
-## 四、升级时怎么重查
+## 五、升级时怎么重查
 
 ```bash
 # 1) 下载对应版本 sources jar
@@ -50,7 +58,7 @@ tar -xf /tmp/material3.jar -C /tmp/m3src \
 
 每次 BOM/artifact 升级按规则 V4 重跑；差异消失或新增时更新本页与 CHANGELOG，并同步对应组件页。
 
-## 五、来源
+## 六、来源
 
 - [Crosscheck 2026-11-22](../05-Design-Tokens/crosscheck-2026-11-22.md)（34 组逐项结果）
 - [Compose Material3 1.5.0 release notes](https://developer.android.com/jetpack/androidx/releases/compose-material3)

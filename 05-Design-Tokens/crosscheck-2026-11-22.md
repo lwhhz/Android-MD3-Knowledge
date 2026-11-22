@@ -95,7 +95,7 @@
 | Date picker（modal） | 360 × 524dp | `DatePickerModalTokens` **360 × 568dp** | ⚠️ 高度 524 vs 568（已写入 date-time-picker.md） |
 | Time picker | 表盘 256、手柄 48、中心 8、轨道 2、上下午 216×38 | `TimePickerTokens` 同值 | ✅ |
 
-**边界**：共 34 组（含 Date picker 的高亮差异）；Side sheet 未找到令牌/常量，未核；其余组件未核；组件令牌的颜色部分未比对。
+**边界**：共 34 组（含 Date picker 的差异）；**Side sheet 官方标注 Compose Unavailable，无实现可核**；**Carousel 用 keyline 比例、无 dp 令牌；Docked date picker 无独立尺寸令牌**——这三项属「能力/口径缺口」，见 [`implementation-deltas.md`](../03-Android-Compose/implementation-deltas.md) 第三节。其余组件未核；组件令牌的颜色部分未比对。
 
 ## 五、边界
 
