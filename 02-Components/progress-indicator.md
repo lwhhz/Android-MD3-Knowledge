@@ -44,6 +44,8 @@
 | Linear 放置的最小元素宽度 | **40dp** |
 | Linear 两端 padding | **4dp 起**（可调整） |
 
+> **Compose 实现值（2026-11-22 源码核对）**：线性 `LinearProgressIndicatorTokens`：`Height = ActiveThickness = StopSize = 4dp`、`TrackActiveSpace = 4dp`；圆形 `CircularProgressIndicatorTokens`：`Size = 40dp`、`TrackThickness = ActiveThickness = 4dp`、`WaveSize = 48dp`、波幅 1.6dp / 波长 15dp。设计页只给范围 24–240dp，40dp 是 Compose 默认尺寸。
+
 > The stop indicator is a 4dp circle that marks the end of a linear determinate progress indicator to meet Material's accessibility standards.
 
 Stop indicator **只用于线性 determinate**；track 与容器/背景对比度 ≥ 3:1 时才可省略。Wavy 的 amplitude/wavelength 官方只给了定义（振幅从中线到波峰中线，波长为相邻波峰间距），具体数值仅图片示例。

@@ -46,6 +46,8 @@ M2 时代这类组件叫 "toggle buttons"，M3 起统一为 icon buttons 的两�
 
 宽度三档（narrow / default / wide）与 icon 尺寸的 dp 值在 specs 页图片中，未给文字值。
 
+> **Compose 实现佐证（2026-11-22 源码核对）**：`XSmall/Small/Medium/Large/XLargeIconButtonTokens.ContainerHeight` = 32 / 40 / 56 / 96 / 136dp，与上表官方文字值完全一致；容器宽度 = `IconSize + 左右 space`（narrow/default/wide 三档），宽度仍以官方图片为准。
+
 ### 圆角（官方 Measurements 表）
 
 | | XS | S | M | L | XL |

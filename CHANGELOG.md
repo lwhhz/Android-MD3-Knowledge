@@ -47,6 +47,7 @@
 - token 表页面已复核（2026-11-22 展开取样，未发现官方删除；见 site-changes 第三节）。
 - 设计令牌逐格对照完成（`05-Design-Tokens/crosscheck-2026-11-22.md`）：以 material3 **1.5.0** sources jar 为基准，字阶 30/30、形状 10/10、动效 12/12 全一致；修正 `colors.json` 中不存在于 ColorScheme 的 `shadow` 角色；三个 tracking 设计值/实现值差异保留双记录。
 - 组件级抽样扩到 10 组：新增 Extended FAB（56/80/96）、Tabs、Chips、Menus；发现 **Tabs 设计 64dp vs Compose 渲染 72dp** 的实现差异，已写入 `02-Components/tabs.md`。
+- 组件级核对继续扩到 18 组：新增 Divider（1dp）、Icon button（32/40/56/96/136）、Loading（48/38）、Progress（轨道 4dp、圆形默认 40）、Switch/Checkbox/Radio（32×52、18、20）；全部与 1.5.0 令牌一致；Snackbar 双行 64 vs 68 的实现差异已记录。
 - 删除根目录误生成的 `CON`（内容是 git 凭据提示，非项目文件）。
 - **归档移出仓库**：`06-Figma-Resources/android-compose/`（240 个文件、27MB，含 13MB APK 与试点/回归文档）移至 `D:\AI项目\安卓软件项目\android-compose-archive`；同步更新 README、`06-Figma-Resources/README.md`、`AI-INSTRUCTIONS.md` 与两处组件页引用。
 - **删除本地记忆目录**：`.workbuddy/`（4 个 memory 文件，gitignored）整体删除。

@@ -78,7 +78,13 @@
 | Search bar | 容器高 56dp | `SearchBarTokens.ContainerHeight=56dp`；Avatar 30dp（KB 未列） | ✅ 一致 |
 | Progress indicator | 轨道高度（KB 4dp 等） | 令牌文件只有形状（CornerFull），尺寸在组件代码常量中，本次未解析 | 未核 |
 
-**边界**：共核 13 组（按钮、对话框、导航栏/栏、FAB、Extended FAB、Tabs、Chips、Menus、Badge、Snackbar、Search bar；Progress 未核）；其余组件未核；组件令牌的颜色部分未比对。
+| Divider | 1dp | `DividerTokens.Thickness = 1dp` | ✅ 一致 |
+| Icon button | 32 / 40 / 56 / 96 / 136dp | `XSmall…XLargeIconButtonTokens.ContainerHeight` = 32/40/56/96/136 | ✅ 一致 |
+| Loading indicator | 占位 48dp / 形状容器 38dp | `LoadingIndicatorTokens.ContainerHeight/Width = 48dp`、`ActiveSize = 38dp` | ✅ 一致 |
+| Progress indicator | 轨道 4dp；圆形范围 24–240dp | 线性 `Height = ActiveThickness = StopSize = 4dp`；圆形 `Size = 40dp`、`TrackThickness = 4dp`、`WaveSize = 48dp` | ✅ 设计值一致；40dp 为 Compose 默认 |
+| Selection controls | Switch 32×52、handle 16/24；Checkbox 18；Radio 20 | `SwitchTokens.TrackHeight/Width=32/52`、handle 16/24、pressed 28、icon 16；`CheckboxTokens.ContainerSize=18`；`RadioButtonTokens.IconSize=20` | ✅ 一致（Compose 另有 pressed 28dp） |
+
+**边界**：共核 18 组（按钮、对话框、导航栏/栏、FAB、Extended FAB、Tabs、Chips、Menus、Badge、Snackbar、Search bar、Divider、Icon button、Loading、Progress、Switch、Checkbox、Radio）；其余组件（tooltip、bottom sheet、toolbar 等）未核；组件令牌的颜色部分未比对。
 
 ## 四、边界
 
