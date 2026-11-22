@@ -84,7 +84,13 @@
 | Progress indicator | 轨道 4dp；圆形范围 24–240dp | 线性 `Height = ActiveThickness = StopSize = 4dp`；圆形 `Size = 40dp`、`TrackThickness = 4dp`、`WaveSize = 48dp` | ✅ 设计值一致；40dp 为 Compose 默认 |
 | Selection controls | Switch 32×52、handle 16/24；Checkbox 18；Radio 20 | `SwitchTokens.TrackHeight/Width=32/52`、handle 16/24、pressed 28、icon 16；`CheckboxTokens.ContainerSize=18`；`RadioButtonTokens.IconSize=20` | ✅ 一致（Compose 另有 pressed 28dp） |
 
-**边界**：共核 18 组（按钮、对话框、导航栏/栏、FAB、Extended FAB、Tabs、Chips、Menus、Badge、Snackbar、Search bar、Divider、Icon button、Loading、Progress、Switch、Checkbox、Radio）；其余组件（tooltip、bottom sheet、toolbar 等）未核；组件令牌的颜色部分未比对。
+| Tooltip (plain) | 高 24dp；内边距 8dp | `TooltipMinHeight = 24dp`；`PlainTooltip` 垂直 4dp / 水平 8dp，间距 4dp；Rich 水平 16dp、按钮最小高 36dp | ⚠️ 高度一致；**内边距设计 8 vs 实现 4/8**，已写入 `tooltip.md` |
+| Bottom sheet | 顶部圆角 28dp；拖拽手柄 32×4dp | `SheetBottomTokens.CornerExtraLargeTop`（顶部 28dp）、`DockedDragHandle 32×4dp` | ✅ 一致 |
+| Toolbars | 64dp；外部最小边距 16dp | `DockedToolbarTokens`：高 64、leading/trailing 16；`FloatingToolbarTokens`：高 64、external 16、leading/trailing 8、间距 4 | ✅ 一致 |
+| App bars | small 64 / medium 112 / large flexible 120dp | `AppBarSmall=64`、`AppBarMedium=112`、`AppBarLarge=152`（baseline） | ✅ 64/112；**152 为 Compose baseline 值**，KB 原「152 无出处」已补来源 |
+| Cards | 圆角 12dp | `CardTokens.ContainerShape = CornerMedium`（12dp） | ✅ 一致 |
+
+**边界**：共核 23 组（按钮、对话框、导航栏/栏、FAB、Extended FAB、Tabs、Chips、Menus、Badge、Snackbar、Search bar、Divider、Icon button、Loading、Progress、Switch、Checkbox、Radio、Tooltip、Bottom sheet、Toolbar、App bar、Card）；其余组件未核；组件令牌的颜色部分未比对。
 
 ## 四、边界
 

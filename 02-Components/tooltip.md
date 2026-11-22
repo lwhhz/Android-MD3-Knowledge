@@ -51,6 +51,8 @@
 | 左右内边距 | **16dp** |
 | 按钮数量上限 | **2 个** |
 
+> **Compose 实现差异（2026-11-22 源码核对）**：`TooltipMinHeight = 24dp`、`SpacingBetweenTooltipAndAnchor = 4dp`；`PlainTooltip` 内边距为**垂直 4dp / 水平 8dp**（上表 8dp 是设计值），Rich tooltip 水平 16dp。也就是说 plain tooltip 的高度与设计一致，但垂直内边距实现比设计值小。
+
 > "Rich tooltips can have a headline, body, and up to two buttons. The headline and number of buttons can be configured."
 
 配置组合（Specs 页列出五种）：副标题 + 正文 + 两个按钮、副标题 + 正文 + 一个按钮、副标题 + 正文、正文 + 一个按钮、正文 + 两个按钮。

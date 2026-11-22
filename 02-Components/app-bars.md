@@ -61,7 +61,7 @@
 
 ### 测量图数值（2026-11-16 视觉读取官方 measurements 图）
 
-原始 PNG 存档见 `06-Figma-Resources/asset-index.md`。旧文档「small 64 / medium 112 / large 152」中，**64 与 112 均已被测量图证实，152 仍无出处**。
+原始 PNG 存档见 `06-Figma-Resources/asset-index.md`。旧文档「small 64 / medium 112 / large 152」中，**64 与 112 均已被测量图证实**；**2026-11-22 源码核对**：Compose baseline `AppBarLargeTokens.ContainerHeight = 152dp`——152 的出处是 **Compose baseline 实现值**，不是设计页测量值；设计侧 large **flexible** 仍按 120dp。
 
 **Search app bar：**
 
