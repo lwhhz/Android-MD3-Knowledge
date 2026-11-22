@@ -23,9 +23,10 @@ debugImplementation("androidx.compose.ui:ui-tooling")
 | 项 | 实证结果 | 说明 |
 |---|---|---|
 | AGP 9.0+ | **内建 Kotlin 支持**，不再应用 `org.jetbrains.kotlin.android` 插件（否则编译报错，官方提示见 kotl.in/gradle/agp-built-in-kotlin） | 仍应用 `org.jetbrains.kotlin.plugin.compose` / `.serialization`（与 Kotlin 同版本） |
-| Compose 1.13.0-rc01 | compileSdk **≥ 37.1**（实测 37.2；AGP DSL 为 `compileSdk = 37` + `compileSdkMinor = 2`） | 官方 Maven 的 compose-bom-alpha 2026.11.00 映射 |
+| Compose 1.13.0（stable，2026-11-18） | compileSdk **≥ 37.1**、Kotlin **2.2+**（实测环境 compileSdk 37.2 / Kotlin 2.3.21） | 官方博客对 BOM 2026.11.01 的要求 |
 | AGP 9 | JUnit 不再隐式提供，需显式 `testImplementation("junit:junit:4.13.2")` | 编译实证 |
-| Expressive 预发布线 | 需 `compose-bom-alpha:2026.11.00`（→ material3 1.5.0-rc01，官方 Maven POM 实证） | **仅作预发布选项注明，不替代稳定线 BOM**；是否采用属工程决策 |
+| 稳定线（**推荐**） | `compose-bom:2026.11.01` → material3 **1.5.0** + Compose **1.13.0**（官方 Maven POM 实证） | 生产默认走这条；升级仍是独立变更（V4） |
+| 预发布线 | `compose-bom-alpha:2026.11.01` → material3 **1.6.0-alpha01** | **仅作预发布选项注明，不替代稳定线 BOM**；是否采用属工程决策 |
 
 > ⚠️ 上表是构建环境实证，遵循 V2「版本号只从官方来源取」：AGP/Gradle/compileSdk 要求以官方 release notes 为准，本机版本仅作参考；BOM 升级仍是独立变更（V4）。
 

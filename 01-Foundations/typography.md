@@ -255,4 +255,4 @@ val AppTypography = Typography(
 | Applying type | https://m3.material.io/styles/typography/applying-type |
 | Editorial treatments | https://m3.material.io/styles/typography/editorial-treatments |
 
-核验日期：2026-11-16（浏览器渲染取正文，覆盖全站 375 页抓取批次）。
+核验日期：2026-11-16（浏览器渲染取正文，覆盖全站 375 页抓取批次；2026-11-22 复核批次为 385 页）。

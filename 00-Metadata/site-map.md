@@ -1,13 +1,14 @@
 # m3.material.io 页面覆盖映射
 
-> 自动生成。数据来源：`https://m3.material.io/sitemap.xml`（抓取于 2026-11-16），页面正文经 headless Chrome 渲染后提取。
+> 自动生成。数据来源：`https://m3.material.io/sitemap.xml`（**2026-11-16 首抓 375 页；2026-11-22 复核重抓 385 页**），页面正文经 headless Chrome 渲染后提取（innerText，窗口 1440×900）。
+> 表中「正文字符」为各页 innerText 长度；2026-11-22 新增页用重抓值，老页面保留 11-16 值。内容差异清单见 `site-changes-2026-11-22.md`。
 
 
-- sitemap 收录页面：**375**
+- sitemap 收录页面：**385**（2026-11-22 复核）
 
-- 有对应知识库落点：**368**（98%）
+- 有对应知识库落点：**376**（98%）
 
-- 抓取时返回 404 的失效页：**6**
+- 抓取时返回 404 / 空壳（仅 800 字符）的页面：**8**
 
 
 ## 分区统计
@@ -16,14 +17,16 @@
 |---|---|---|---|
 | 首页 | 1 | 3,828 | README.md |
 | styles | 38 | 217,017 | 多个 |
-| foundations | 68 | 323,513 | 多个 |
-| components | 146 | 690,949 | 多个 |
+| foundations | 72 | 339,127 | 多个（含 2026-11 新增 desktop 4 页） |
+| components | 150 | 696,161 | 多个（含 2026-11 新增 scroll-fields 4 页） |
 | develop | 5 | 12,505 | 03-Android-Compose |
-| blog | 113 | 883,200 | 00-Metadata |
+| blog | 113 | 883,677 | 00-Metadata |
 | building-with-m3-expressive | 1 | 800 | — |
 | m3-expressive-motion-theming | 1 | 800 | — |
 | material-is-compose-first | 1 | 800 | — |
 | whats-new-at-io26 | 1 | 800 | — |
+| compose-material-3-is-stable | 1 | 800 ⚠️ 空壳 | 实际内容在 `/blog/compose-material-3-is-stable` |
+| enhance-your-component-designs-with-parametric-prototyping | 1 | 800 ⚠️ 空壳 | 实际内容在 `/blog/enhance-your-component-designs-with-parametric-prototyping` |
 
 ## 首页（1 页）
 
@@ -101,6 +104,10 @@
 | `foundations/interaction/gestures` | 3,184 | `01-Foundations/interaction-states.md` |
 | `foundations/interaction/inputs` | 9,118 | `01-Foundations/interaction-states.md` |
 | `foundations/interaction/selection` | 3,652 | `01-Foundations/interaction-states.md` |
+| `foundations/desktop/overview` | 3,887 | `01-Foundations/desktop.md` |
+| `foundations/desktop/layout` | 2,666 | `01-Foundations/desktop.md` |
+| `foundations/desktop/components` | 4,036 | `01-Foundations/desktop.md` |
+| `foundations/desktop/interaction` | 5,237 | `01-Foundations/desktop.md` |
 | `foundations/interaction/states/applying-states` | 8,360 | `01-Foundations/interaction-states.md` |
 | `foundations/interaction/states/overview` | 1,860 | `01-Foundations/interaction-states.md` |
 | `foundations/interaction/states/state-layers` | 3,135 | `01-Foundations/interaction-states.md` |
@@ -249,6 +256,10 @@
 | `components/radio-button/guidelines` | 3,633 | `02-Components/selection-controls.md` |
 | `components/radio-button/overview` | 1,702 | `02-Components/selection-controls.md` |
 | `components/radio-button/specs` | 2,540 | `02-Components/selection-controls.md` |
+| `components/scroll-fields/overview` | 1,834 | `02-Components/scroll-fields.md` |
+| `components/scroll-fields/specs` | 2,633 | `02-Components/scroll-fields.md` |
+| `components/scroll-fields/guidelines` | 5,610 | `02-Components/scroll-fields.md` |
+| `components/scroll-fields/accessibility` | 2,145 | `02-Components/scroll-fields.md` |
 | `components/search/accessibility` | 2,955 | `02-Components/search-bar.md` |
 | `components/search/guidelines` | 9,177 | `02-Components/search-bar.md` |
 | `components/search/overview` | 2,974 | `02-Components/search-bar.md` |
@@ -450,6 +461,15 @@
 |---|---:|---|
 | `whats-new-at-io26` | 800 ⚠️ 404/空 | — |
 
+## 2026-11-22 新增的空壳 slug（2 页）
+
+| 页面 | 正文字符 | 收录位置 |
+|---|---:|---|
+| `compose-material-3-is-stable` | 800 ⚠️ 空壳 | — |
+| `enhance-your-component-designs-with-parametric-prototyping` | 800 ⚠️ 空壳 | — |
+
+> 这两条是 sitemap 漏写 `/blog` 前缀的空壳；实体页在 `/blog/compose-material-3-is-stable` 与 `/blog/enhance-your-component-designs-with-parametric-prototyping`。
+
 ## 抓取时已失效的页面
 
 sitemap 里仍在，但实际返回「This page cannot be found」。引用前需确认。
@@ -462,3 +482,5 @@ sitemap 里仍在，但实际返回「This page cannot be found」。引用前�
 | `m3-expressive-motion-theming` |
 | `material-is-compose-first` |
 | `whats-new-at-io26` |
+| `compose-material-3-is-stable` |
+| `enhance-your-component-designs-with-parametric-prototyping` |

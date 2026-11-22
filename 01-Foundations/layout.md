@@ -2,7 +2,7 @@
 
 > 官方指南：https://m3.material.io/foundations/layout/layout-overview/overview
 > 核验日期：2026-11-16
-> 核验方式：浏览器渲染 m3.material.io 后提取纯文本（全站 375 页 dump），逐页核对
+> 核验方式：浏览器渲染 m3.material.io 后提取纯文本（2026-11-16 全站 375 页；2026-11-22 复核 385 页），逐页核对
 > 状态：断点区间、margin、spacer、固定窗格宽度、窗格数为**官方原文**；网格列数官方 dump 只有定性描述，**未给出的数字一律不编**
 > 命名更新：官网原文「**Window size classes renamed to breakpoints**」「**Responsive layout renamed to adaptive design**」——旧文档里的 window size class 就是今天的 breakpoint
 

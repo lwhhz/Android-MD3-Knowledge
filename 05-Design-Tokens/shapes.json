@@ -2,6 +2,7 @@
   "_note": "M3 十档形状（官网 2026-11-15 原文：ten styles）。Compose 的 Shapes 只有五档，缺 none / 20 / 32 / 48 / full，需就地写 RoundedCornerShape。full 不是固定数值，按容器短边的一半计算。",
   "source": "https://m3.material.io/styles/shape/corner-radius-scale",
   "checked_on": "2026-11-15",
+  "compose_verified_on": "2026-11-22（material3 1.5.0 ShapeTokens.kt：十档 dp 逐值一致）",
   "verified": true,
   "unit": "dp",
   "scale_note": "M2 是 3 档（按容器尺寸）；M3 是 10 档（按圆角圆润程度）。对称与非对称形状共用同一套十档。",

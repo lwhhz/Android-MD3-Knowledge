@@ -91,6 +91,7 @@ secondary_sources:
     use: "当官网正文无法抓取时，用于定位某周的版本号与变更点，再回官方 release notes 复核。"
 
 tracking:
-  checked_on: "2026-11-14"
+  checked_on: "2026-11-22"
   rule: "只记录官方明确提供的版本号和状态，不猜测。次级来源必须标注为 secondary。"
   version_snapshot: "见 00-Metadata/version-tracking.md"
+  site_crawl: "2026-11-16 首抓 375 页；2026-11-22 复核 385 页，变更见 site-changes-2026-11-22.md"

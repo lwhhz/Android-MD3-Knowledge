@@ -1,9 +1,10 @@
 {
   "_note": "Baseline 15 档数值为 M3 通行值，官网数值表未取到（图片/折叠模块）。2026-11-16 补充：从 Google Maven 的 material3-1.5.0-rc01-sources.jar 中 TypeScaleTokens.kt 取得 15 档 baseline 与 15 档 emphasized 的 Compose 实现值（一手来源，见 compose_values）；与下方通行值在 letterSpacing 上有细微差异（-0.2 vs -0.25、0.2 vs 0.25），两者并存不互相覆盖——官网通行值供设计对照，compose_values 供实现对照。",
   "source": "https://m3.material.io/styles/typography/type-scale-tokens",
-  "compose_source": "https://dl.google.com/dl/android/maven2/androidx/compose/material3/material3/1.5.0-rc01/material3-1.5.0-rc01-sources.jar（TypeScaleTokens.kt）",
+  "compose_source": "https://dl.google.com/dl/android/maven2/androidx/compose/material3/material3/1.5.0/material3-1.5.0-sources.jar（TypeScaleTokens.kt）",
+  "compose_verified_on": "2026-11-22（material3 1.5.0 sources jar 逐档核对：30 档全部一致）",
   "checked_on": "2026-11-14",
-  "updated_on": "2026-11-16",
+  "updated_on": "2026-11-22",
   "verified": "structure_and_compose_values",
   "unit": "sp",
   "scale_structure": {
@@ -37,8 +38,8 @@
     "labelSmall": { "fontSize": 11, "lineHeight": 16, "fontWeight": 500, "letterSpacing": 0.5 }
   },
   "compose_values": {
-    "_note": "material3 1.5.0-rc01 sources jar 的 TypeScaleTokens.kt 实证（一手来源，2026-11-16）。15 档 emphasized 与 baseline 的字号、行高完全相同；差异只在字重：Regular→Medium，Medium/Bold 档→Bold。官网强调「不要为强调改字号」与源码一致。此为 Compose 实现值，不等于官网设计规范值。",
-    "source": "material3-1.5.0-rc01-sources.jar : commonMain/androidx/compose/material3/tokens/TypeScaleTokens.kt",
+    "_note": "material3 1.5.0 sources jar 的 TypeScaleTokens.kt 实证（一手来源，2026-11-22 逐档复核）。15 档 emphasized 与 baseline 的字号、行高完全相同；差异只在字重：Regular→Medium，Medium/Bold 档→Bold。官网强调「不要为强调改字号」与源码一致。此为 Compose 实现值，不等于官网设计规范值。",
+    "source": "material3-1.5.0-sources.jar : commonMain/androidx/compose/material3/tokens/TypeScaleTokens.kt",
     "baseline": {
       "displayLarge": { "size": 57, "lineHeight": 64, "weight": 400, "tracking": -0.2 },
       "displayMedium": { "size": 45, "lineHeight": 52, "weight": 400, "tracking": 0.0 },

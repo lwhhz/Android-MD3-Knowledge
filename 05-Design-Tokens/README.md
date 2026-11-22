@@ -11,7 +11,7 @@ M3 的颜色是语义角色，Dynamic color 开启后同一角色在不同设备
 | 令牌类 | 是否存值 | 原因 |
 |---|---|---|
 | 颜色 | ❌ 只存角色名 | 受 dynamic color 影响，值不稳定 |
-| 字阶 | ⚠️ 结构已存、数值待补 | 30 档 = 15 baseline + 15 emphasized 的结构已核；**逐档字号/行高数值仍未取到**（官网以图片/令牌模块呈现） |
+| 字阶 | ✅ 结构 + 数值 | 30 档 = 15 baseline + 15 emphasized；**Compose 实现值已逐档核对**（material3 1.5.0 sources jar，2026-11-22，30/30 一致）；官网设计值仍只在图片/令牌模块 |
 | 形状 | ✅ 存值 | **十档圆角**（0/4/8/12/16/20/28/32/48/full），2026-11-16 已确认；Compose 原生 `Shapes` 仍只有五槽 |
 | 动效 | ✅ 存族 + 值，标注代际 | **spring 数值已获取**（12 组 damping/stiffness，见 `motion.json`，`verified: true`）；easing + duration 标为 legacy，仍用于平台转场 |
 

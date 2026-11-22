@@ -8,6 +8,31 @@
 | 2026-11-16 | `https://dl.google.com/dl/android/maven2/androidx/compose/compose-bom-alpha/2026.11.00/compose-bom-alpha-2026.11.00.pom`（下载 POM 读取，一手来源） | compose-bom-alpha → material3 / adaptive | 2026.11.00 → 1.5.0-rc01 / 1.4.0-alpha03 | RC / Alpha（artifact 存在，**非 GA**） | POM 明确列出两个依赖版本 | 已更新（见下方「2026-11-16 补充」） |
 | 2026-11-16 | `https://dl.google.com/dl/android/maven2/androidx/compose/material3/material3/1.5.0-rc01/material3-1.5.0-rc01-sources.jar`（下载源码读取注解，一手来源） | Expressive 组件注解状态 | 1.5.0-rc01 | 见下方逐项表 | Wavy / FloatingToolbar / ToggleButton / ButtonGroup 无实验注解；LoadingIndicator / ContainedLoadingIndicator / MaterialShapes 仍标注 | 已更新 expressive-components.md |
 | 2026-11-16 | Google Maven sources jar：navigation-common 2.10.2 / lifecycle-viewmodel-savedstate 2.11.0 / adaptive 1.4.0-alpha03（一手来源） | hasRoute / createSavedStateHandle / WindowWidthSizeClass | 对应版本 | 稳定/实验混合 | 位置与命名纠错（见 CHANGELOG v2.1） | 已更新对应页面 |
+| 2026-11-22 | `https://developer.android.com/jetpack/androidx/releases/compose-material3`（页面顶部版本表 + 正文条目，一手来源） | Compose Material3 稳定版 | **1.5.0**（Stable）/ 1.6.0-alpha01（Alpha），RC/Beta 列为空 | Stable | 2026-11-18 发布，正文条目 "Version 1.5.0 … is released" | 已更新本页与 CHANGELOG |
+| 2026-11-22 | Google Maven：`material3/maven-metadata.xml`（lastUpdated 20261119）+ `compose-bom:2026.11.01` POM（一手来源） | material3 / compose-bom | material3 1.5.0；BOM 2026.11.01 → ui/foundation/runtime/animation 1.13.0 + material3 1.5.0 | Stable | 稳定线 BOM 已指向 1.13.0 / 1.5.0 | 已更新本页 |
+| 2026-11-22 | `https://developer.android.com/blog/posts/jetpack-compose-november-2026-release`（官方博客） | Compose 1.13 升级前提 | Kotlin 2.2+、compileSdk 37.1 | — | 与 11-16 实测（37.2）兼容 | 已写入本页与 `07-Development-Rules/compose-coding-rules.md` |
+
+## 当前快照（2026-11-22）
+
+**官方 release notes 版本表 + 正文条目**（2026-11-22 渲染 `.../releases/compose-material3`）：Stable **1.5.0** / Alpha 1.6.0-alpha01（日期 2026-11-18），RC/Beta 列为空；正文明确 "androidx.compose.material3:material3-*:1.5.0 is released"。
+
+**官方 Maven 交叉验证**：`material3:maven-metadata.xml` 含 1.5.0 且 `lastUpdated=20261119153336`；`compose-bom:2026.11.01` 的 POM 中 material3=1.5.0、ui / foundation / runtime / animation=1.13.0。
+
+| 对象 | 版本 | 状态 | 来源 |
+|---|---|---|---|
+| `androidx.compose.material3` | **1.5.0** / 1.6.0-alpha01 | Stable / Alpha | release notes 版本表（2026-11-18） |
+| Compose 核心（ui/foundation/runtime/animation） | **1.13.0** / 1.14.0-alpha01 | Stable / Alpha | [compose-ui release notes](https://developer.android.com/jetpack/androidx/releases/compose-ui) 版本表（2026-11-18） |
+| `compose-bom` | **2026.11.01** | Stable 线 | BOM POM |
+| Wear Compose M3 | 1.7.2 / 1.8.0-alpha04 | Stable / Alpha | Google Maven |
+| Jetpack XR Compose | 1.0.0-rc01 | RC | Google Maven（lastUpdated 20261118） |
+| `androidx.xr.compose.material3` | 1.0.0-alpha18 | Alpha | [XR Compose M3 release notes](https://developer.android.com/jetpack/androidx/releases/xr-compose-material3)（2026-11-18） |
+| `material3-a2ui` | 1.0.0-alpha02 | Alpha | Google Maven |
+
+**构建要求**：升级到 BOM 2026.11.01 需 Kotlin 2.2+、compileSdk 37.1（官方博客）。
+
+**结论**：1.5.0 已 GA。此前「版本表滞后 / 社区周报冲突」的悬案由 **官方版本表 + 正文条目 + Maven** 三方闭合，可直接写「官方版本表显示 1.5.0 stable（2026-11-18）」。1.6.0-alpha01 属下一轮预发布线，不等于可用于生产。
+
+## 历史快照（2026-11-14）
 
 ## 当前快照（2026-11-14）
 
@@ -83,6 +108,8 @@ headless 命令模板（本机 Chrome 路径，2026-11-16 实测）：
 3. 每页：`Target.createTarget` → `attachToTarget(flatten)` → `Page.navigate` → 轮询 `Runtime.evaluate('document.body.innerText')` 直到「readyState complete 且长度连续两次不变」→ 取文本 → `closeTarget`。
 4. 并发 4 路，375 页约 10 分钟，成功率 100%。**不要**用固定 `sleep` 等页面：后台标签会被节流，固定等待会拿回空内容。
 
+> 2026-11-22 复跑：sitemap 已增至 385 页。本次改用 `chrome --headless=new --dump-dom --virtual-time-budget=20000` + 4 个独立 `--user-data-dir` 并行（Node `execFile` 调度），结果落 `<TEMP>/m3dump2/`，再与 2026-11-16 的 `<TEMP>/m3dump/` 做 5-gram Jaccard 文本相似度对比；变更清单见 `00-Metadata/site-changes-2026-11-22.md`。此路径比 CDP 简单，个别重型页需 35s 预算重试。
+
 注意事项：
 - 正文开头 20-30 行是导航噪音（`Skip to main content` / `On this page` …），写文档时要剥掉。
 - sitemap 不是真相：375 条里有 6 条实际返回 404，见 `site-map.md` 末节。
@@ -103,7 +130,7 @@ headless 命令模板（本机 Chrome 路径，2026-11-16 实测）：
 
 - [x] M3 是否新增了 emphasized 字阶 —— **已确认**：官网 typography 页写明 15 baseline + 15 emphasized，共 30 档；详见 `01-Foundations/typography.md`
 - [x] 30 档字阶的**具体字号/行高数值**（2026-11-16 部分解决）：CDP 抓 `type-scale-tokens` 页正文，**确认官网正文无数值表**（只有单位换算说明，数值在图片/令牌模块）——原判断正确；同日从 `material3-1.5.0-rc01-sources.jar` 的 `TypeScaleTokens.kt` 取得 **15 baseline + 15 emphasized 的 Compose 实现值**（一手来源），写入 `typography.json` 的 `compose_values`。**官网设计规范页的数值仍未取到**，Compose 实现值 ≠ 官网规范值，两者分层记录、不互相覆盖。
-- [ ] material3 1.5.0 是否 GA（**仍未勾**：官方无 GA 公告，版本表仅到 alpha29；Maven 存在 rc01 artifact 不等于 GA）
+- [x] material3 1.5.0 是否 GA —— **已确认 GA**（2026-11-22）：release notes 版本表 Stable 列为 1.5.0、正文有 2026-11-18 发布条目、Maven 有 1.5.0 artifact，三方一致；旧的「artifact 存在 ≠ GA」判断对本版本作废
 - [x] `1.5.0-rc01` 的真实发布状态（2026-11-16：官方 Maven POM 实证 artifact 存在且 alpha BOM 2026.11.00 映射到它；**非 GA**，与版本表冲突保留）
 - [x] M3 Expressive 各组件从 experimental 转正的**逐项**清单（2026-11-16：1.5.0-rc01 sources jar 注解实证，见 `02-Components/expressive-components.md`；仅对该版本有效，升级需重查）
 - [x] motion duration / easing 令牌的确切数值 —— **已获取官方令牌表原文**，见 `05-Design-Tokens/motion.json` 与 `01-Foundations/motion.md`
@@ -112,10 +139,10 @@ headless 命令模板（本机 Chrome 路径，2026-11-16 实测）：
 - [x] 形状档位的 dp 值 —— **已确认是十档**（0/4/8/12/16/20/28/32/48 + full），见 `01-Foundations/shape-system.md`
 - [x] 按钮各尺寸档（XS/M/L/XL）的容器高度文字值 —— **已完全确认**：2026-11-16 视觉读取 buttons measurements 图，32/40/56/96/136dp 与 icon-buttons 阶梯一致；内边距与图标尺寸也一并取得，见 `02-Components/buttons.md`
 - [x] 语言高度（language height）在 Compose 中的 API 名称与生效方式 —— 已写入 `01-Foundations/typography.md`
-- [ ] Compose 1.13 稳定后 Grid / Flexbox / 新 BasicTextField 的迁移方式
+- [x] Compose 1.13 稳定后 Grid / Flexbox / 新 BasicTextField 的迁移方式 —— **已确认**（2026-11-22）：FlexBox / Grid 自 1.13 起稳定，官方建议用 FlexBox 取代 `FlowRow`/`FlowColumn`；value-based `BasicTextField`、Material 2 `TextField`、`VisualTransformation` 自 1.13 起弃用，迁移走 `TextFieldState` + `InputTransformation`/`OutputTransformation`（官方迁移指南有成对 before/after）；`ConstraintLayout` / `MotionLayout`（Compose）同时被官方弃用
 - [x] 官方 Specs 页中「只有标注图、没有文字数值」的测量值 —— **已大部分解决**（2026-11-16）：视觉读取 specs 测量图，覆盖 nav bar、nav rail、app bars、date pickers、cards、buttons，图片 PNG 已存档至 `06-Figma-Resources/assets/specs-redlines/`。剩余：**flexible nav bar 整条高度、app bar 标题字号、字形与圆角细节，仍需 Figma Design Kit 复核**——2026-11-16 CDP 重抓 `navigation-bar/specs` 正文确认「flexible 更矮、medium 横排项」为文字结论，但**整条高度无文字值**，维持待 Figma Kit，不臆造。
-- [ ] XR / Watch 的组件级尺寸 —— 官网两套文档只有示意，缺可实现的 dp 值，需查 Jetpack XR SDK 与 Wear Compose
-- [ ] `spatial dialog` 等 XR 能力在 Compose 中的落地时间（官方 Note 明说尚未提供）
+- [ ] XR / Watch 的组件级尺寸 —— **2026-11-22 部分解决**：XR 已有官方尺寸口径（质量指南：最小 48×48dp、推荐 56×56dp 可点目标；设计侧有「Scale, sizes, and visual design」），并出现 XR 专用 M3 组件库 `androidx.xr.compose.material3`（1.0.0-alpha18，`@ExperimentalMaterial3XrApi`）；但**组件级完整 dp 规格表未取到**。Watch 侧仍只有 `foundations/watches/*` 设计说明，未见 dp 规格表。维持待核验
+- [x] `spatial dialog` 等 XR 能力在 Compose 中的落地时间 —— **已落地**（2026-11-22）：`androidx.xr.compose.spatial.SpatialDialog` / `SpatialPanel` / `Orbiter` 已在 Jetpack XR Compose 1.0.0-rc01 中，官方有 Spatial dialogs 指南；XR 专用 M3 组件（`SpatialNavigationRail`、`SpatialBasicAlertDialog` 等）在 `androidx.xr.compose.material3`，仍 experimental，需 `@OptIn(ExperimentalMaterial3XrApi::class)`
 
 ### 2026-11-16 追加：Expressive 组件「跟进最新」而非「等 stable」
 
@@ -125,6 +152,7 @@ headless 命令模板（本机 Chrome 路径，2026-11-16 实测）：
 2. **逐项注解状态**：下载该版本的 `-sources.jar`，读类文件上的 `@ExperimentalMaterial3ExpressiveApi` 注解（一手来源），更新 `02-Components/expressive-components.md` 的逐项表；写明「仅对该版本有效」。
 3. **写法分层**：组件在最新预发布版无实验注解 → 写「X 版本源码实证无注解」（可写结论）；**仍不能写「已 GA / 稳定」**——除非官方 release notes 版本表把稳定列更新。artifact 存在、注解移除、GA 是三件不同的事。
 4. **升级节奏**：每次 BOM/artifact 升级都重跑第 1–2 步（规则 V4：BOM 升级是独立变更），并在 CHANGELOG 记录版本与注解变化。
+5. **2026-11-22 状态**：material3 最新为 **1.5.0 stable**（2026-11-18），alpha 线 1.6.0-alpha01；compose-bom 稳定线 2026.11.01。用户「跟进最新」的约定现在指向稳定线，预发布线不再是唯一选择；仍锁 `compose-bom-alpha 2026.11.00` 的示例/文档需按此口径升级。
 
 ## 更新规则
 

@@ -2,8 +2,8 @@
 
 - 设计指南：https://m3.material.io/ ｜ 官方说明：https://m3.material.io/blog
 - Compose 指南：https://developer.android.com/develop/ui/compose/designsystems/material3
-- 核验日期：2026-11-14（原始）／2026-11-16（注解逐项实证）
-- 状态：**部分组件已在 material3 1.5.0 线转正，逐项状态必须查 API reference 的注解，不要整体当成 stable**
+- 核验日期：2026-11-14（原始）／2026-11-16（注解逐项实证）／2026-11-22（1.5.0 GA 复核）
+- 状态：**material3 1.5.0 已于 2026-11-18 转 stable**；但 LoadingIndicator / ContainedLoadingIndicator / MaterialShapes 仍 experimental，逐项以 API reference 注解为准
 - 2026-11-16 补充来源：**Google 官方 Maven 的 `material3-1.5.0-rc01-sources.jar`**（一手来源，读源码 `@ExperimentalMaterial3ExpressiveApi` 注解）；真机编译/运行通过属「已实证」，不冒充官方规范。仅对 1.5.0-rc01 有效，升级重查。
 
 ## 它是什么
@@ -47,7 +47,7 @@ MaterialExpressiveTheme(
 | 形状 morph | `MaterialShapes` / `RoundedPolygon.toShape()` / `Morph.toPath` | ⚠️ **仍标注**实验注解 |
 | 扩展字阶（emphasized） | `displayLargeEmphasized` … `labelSmallEmphasized`（15 个） | ✅ 1.5.0-rc01 源码实证：字号/行高与 baseline **完全相同**，只字重变化（400→500，500/700 档→700）；数值见 `05-Design-Tokens/typography.json` 的 `compose_values` |
 
-> ⚠️ 上表**只对 1.5.0-rc01 有效**。`material3 1.5.0 是否 GA` 仍未确认（官方 release notes 版本表 RC 列空），本表不构成「可以整体当 stable 用」的背书。
+> ✅ **2026-11-22 复核：material3 1.5.0 已 GA**（2026-11-18；官方版本表 + 正文条目 + Maven 三方一致），1.6.0-alpha01 是下一轮 alpha。1.5.0 release notes 的「Remaining experimental APIs」明确仍包含 Loading indicators 与 MaterialShapes，与上表的 ✅/⚠️ 划分一致——上表可作为 1.5.0 的逐项依据。
 >
 > 每一行仍要在当前依赖版本里确认三件事：类是否存在、是否标注 `@ExperimentalMaterial3ExpressiveApi`、官方 API reference 是否已标稳定。升级版本后必须重查（规则 V2）。
 

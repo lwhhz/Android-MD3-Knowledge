@@ -48,8 +48,8 @@
     "inverse": ["inverseSurface", "inverseOnSurface", "inversePrimary"]
   },
   "functional_colors": {
-    "_note": "Compose 中有，但不属于 26 个标准角色或 add-on 分组。",
-    "items": ["scrim", "shadow"]
+    "_note": "scrim 是 Compose ColorScheme 的属性；shadow 经 2026-11-22 核对：官方角色页无此角色，androidx.compose.material3 1.5.0 的 ColorScheme 也没有 shadow 属性——不要把 shadow 写成颜色角色。",
+    "items": ["scrim"]
   },
   "color_space": {
     "name": "HCT",
