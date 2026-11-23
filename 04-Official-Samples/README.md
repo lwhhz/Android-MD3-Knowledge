@@ -21,9 +21,9 @@
 | 项 | 值 |
 |---|---|
 | 仓库 | `android/compose-samples` |
-| Commit | `25631e8f544a9a1e3f01e296eaf1b4c28428196c` |
-| 提交日期 | 2026-10-23 |
-| 提交说明 | Hide markdown markers in the Jetchat message input (#1736) |
+| Commit | `09aae2013b3e5897f9679e2b7539f505f4f6f7f6` |
+| 提交日期 | 2026-11-16 |
+| 提交说明 | Bump peter-evans/create-pull-request from 8.1.1 to 8.1.3 (#1741) |
 | 文件总数 | 1017（Kotlin 文件 364） |
 | 体积 | 约 106MB（以图片资源为主） |
 

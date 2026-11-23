@@ -2,11 +2,11 @@
   "_note": "官方示例仓库索引，不镜像源码。由 .github/workflows/sync-samples.yml 每周更新 commit 与统计。",
   "repository": "android/compose-samples",
   "url": "https://github.com/android/compose-samples",
-  "checked_on": "2026-10-23",
+  "checked_on": "2026-11-16",
   "commit": {
-    "sha": "25631e8f544a9a1e3f01e296eaf1b4c28428196c",
-    "date": "2026-10-23T07:30:43Z",
-    "message": "Hide markdown markers in the Jetchat message input (#1736)"
+    "sha": "09aae2013b3e5897f9679e2b7539f505f4f6f7f6",
+    "date": "2026-11-16T11:05:13Z",
+    "message": "Bump peter-evans/create-pull-request from 8.1.1 to 8.1.3 (#1741)"
   },
   "totals": {
     "files": 1017,
